@@ -1,5 +1,5 @@
 # stmInsights
-A web application based on Shiny to analyze Structural Topic Models. An example can be found [here](http://pathways.polsys.uni-bamberg.de:443/stmInsight).
+A web application based on Shiny to analyze Structural Topic Models. An example can be found [here](http://pathways.polsys.uni-bamberg.de:443/stmInsights).
 
 ### Setup
 
