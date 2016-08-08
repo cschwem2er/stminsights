@@ -1,5 +1,5 @@
 # stmInsights
-A web application based on Shiny to analyze Structural Topic Models. An example can be found [here](http://pathways.polsys.uni-bamberg.de:443/stmInsights).
+A web application based on Shiny to analyze Structural Topic Models. An online demo is available [here](http://pathways.polsys.uni-bamberg.de:443/stmInsights).
 
 ### Setup
 
@@ -14,4 +14,5 @@ Afterwards you can upload all files to any shiny server, install the required pa
 
 ### Restrictions
 
-At the moment this app only works for models without content covariates.
+- At the moment this app only works for models without content covariates.
+- In order to display labels for all graphs correctly, the ``Topics`` has to be clicked first. This is due to text fields being generated dynamically depending on the number of topics of the given model.
