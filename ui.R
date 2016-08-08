@@ -10,7 +10,7 @@ body <- dashboardBody(fluidRow(column(
     
     
     
-    tabPanel('Info & Labels',
+    tabPanel('Info & Proportions',
              h1("stmInsights"),
              p("This app enables interactive exploration of",
                a("Structural Topic Models.", 
@@ -20,22 +20,23 @@ body <- dashboardBody(fluidRow(column(
                  the model in the corresponding ",
                a("package vignette.", 
                  href="https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf")),
-             p("The model for this example was fitted on a sample corpus of
+             p("The model for this demo was fitted on a sample corpus of
                100.000 parliamentary written questions for the UK legislative term 2010-2015.
                Topic prevalence is estimated with covariates for date, party and an
                identifier for Citizens of Immigrant Origin."),
               p("You should inspect the", strong('Topics'), "tab first to make 
-                sense about what the topics actually stand for. You can navigate back to 
-                this tab afterwards and enter topic labels.
-               Outputs in other tabs will then adjust labels accordingly."),
+                sense about what the topics actually stand for and to label them accordingly.
+               Outputs in other tabs will adjust automatically."),
            
-            
              
-             h3("Topic Labels"),
-             p("Use the boxes to enter labels for your topics. It is suggested 
-        to keep the labels short, such that plot outputs will not be flooded
-        with text."),
-             uiOutput("textInputs"), value=6 ),
+             h3('Topics Proportions'),
+             p('This plot shows the topic proportions over all documents.'),
+             plotlyOutput('topicprops',
+                          height = paste(as.character((ncol(props) * 20), 'px')), 
+                          width="80%"), 
+
+
+             value=6 ),
     
     tabPanel('Topics',
 
@@ -43,16 +44,20 @@ body <- dashboardBody(fluidRow(column(
              dataTableOutput('tterms'),
              h3('Topic Documents'),
              dataTableOutput('tlabel'),
+          #   uiOutput("singleInputs"),
     
+  
+          h3("Topic Labels"),
+          p("Use the boxes to enter labels for your topics. It is suggested 
+            to keep the labels short, such that plot outputs will not be flooded
+            with text."),
+          uiOutput("textInputs"), 
 
-             
-             h3('All Topics - Proportions'),
-             plotlyOutput('topicprops',
-                        height = paste(as.character((ncol(props) * 20), 'px')), 
-                        width="80%"), value = 1),
+          value = 1),
  
 
     
+  
   
     
     tabPanel('Plots',
@@ -76,6 +81,7 @@ body <- dashboardBody(fluidRow(column(
       plotOutput('graphplot',
                  height = "600px",
                  width = "80%"),
+    # downloadButton('downloadNetwork'),
       value = 4),
     
     
@@ -86,6 +92,10 @@ body <- dashboardBody(fluidRow(column(
              h2('Model Info'),
              p("Parameters for model and effect estimation are listed below."),
              dataTableOutput('modelinfo'),
+             h2('Topic Labels'),
+             p("If you assigned labels to your topics you can download a corresponding table here."),
+             dataTableOutput('labelframe'),
+             downloadButton('downloadLabels', 'Download topic labels'),
              value = 2)
   )
 )))
@@ -115,7 +125,8 @@ dashboardPage(
         choices = as.numeric(colnames(props)),
         selected = 1
       ),
-      bsTooltip('topic', "The topic for which you want to display documents and labels."),
+      bsTooltip('topic', "The topic for which you want to display documents and labels.",
+                placement="right"),
       
       h4("Terms"),
       checkboxGroupInput("labtypes", "Label types",
@@ -124,7 +135,8 @@ dashboardPage(
                            "Lift" = 3,
                            "Score" = 4),
                          selected=c(1,2)),
-      bsTooltip('labtypes', "Check which labeltypes you want to use."),
+      bsTooltip('labtypes', "Check which labeltypes you want to use.",
+                placement="right"),
       
       sliderInput(
         'nrwords',
@@ -134,7 +146,8 @@ dashboardPage(
         value = 10
         #animate=T
       ),
-      bsTooltip('nrwords', "The number of terms to be displayed"),
+      bsTooltip('nrwords', "The number of terms to be displayed",
+                placement="right"),
       
       
       h4("Documents"),
@@ -144,7 +157,8 @@ dashboardPage(
         label = "Document column",
         choices = columns
       ),
-      bsTooltip('doccol', "Select the column of your meta dataframe which includes the documents."),
+      bsTooltip('doccol', "Select the column of your meta dataframe which includes the documents.",
+                placement="right"),
       
 
       sliderInput(
@@ -154,7 +168,8 @@ dashboardPage(
         max = 50,
         value = 5
       ),
-      bsTooltip('nrthoughts', "The number of documents to be retrieved for the selected topic.")
+      bsTooltip('nrthoughts', "The number of documents to be retrieved for the selected topic.",
+                placement="right")
     ),
     
     
@@ -168,20 +183,23 @@ dashboardPage(
         selected = "All columns",
         multiple = T
       ),
-      bsTooltip('columns', "Select metadata columns to be displayed."),
+      bsTooltip('columns', "Select metadata columns to be displayed.",
+                placement="right"),
       selectInput(
         "fcol",
         label = h4("Filter column:"),
         choices = c('None', columns),
         selected = "None"
       ),
-      bsTooltip('fcol', "Select a column to filter textual meta data."),
+      bsTooltip('fcol', "Select a column to filter textual meta data.",
+                placement="right"),
       textInput(
         "filter",
         label = h4("Filter Terms:"),
         value = ""
       ),
-      bsTooltip('filter', "Enter a list of filter terms. Example: migration, black, asian"),
+      bsTooltip('filter', "Enter a list of filter terms. Example: migration, black, asian",
+                placement="right"),
       # regex filter
       textInput(
         "regfilter",
@@ -190,14 +208,16 @@ dashboardPage(
       ),
       bsTooltip(
         'regfilter',
-        "Advanced users can optionally filter by regular expressions."),
+        "Advanced users can optionally filter by regular expressions.",
+        placement="right"),
       # exclusion filter
       textInput(
         "exfilter",
         label = h4("Exclusion Terms:"),
         value = ""
       ),
-      bsTooltip('exfilter', "You can also remove rows containing exclusion terms.")
+      bsTooltip('exfilter', "You can also remove rows containing exclusion terms.",
+                placement="right")
     ),
     
     
@@ -210,7 +230,8 @@ dashboardPage(
         choices= c("continuous", "pointestimate", "wordcloud", "perspectives"),
         selected="continuous"),
   
-      bsTooltip('plotType', "Choose the plot type to be displayed.")
+      bsTooltip('plotType', "Choose the plot type to be displayed.",
+                placement="right")
    
 
     
@@ -225,7 +246,8 @@ dashboardPage(
       label = "Topic",
       choices = as.numeric(colnames(props)),
       selected = 1),
-    bsTooltip('effectTopic', "Select the topic for the plot creation.")
+    bsTooltip('effectTopic', "Select the topic for the plot creation.",
+              placement="right")
     ),
     
     
@@ -239,7 +261,8 @@ dashboardPage(
         label = "Plot variable",
         choices = prep$varlist,
         selected=prep$varlist[3]),
-      bsTooltip('plotVar', "Select the variable for the plot."),
+      bsTooltip('plotVar', "Select the variable for the plot.",
+                placement="right"),
     
     sliderInput(
       'effectci',
@@ -248,7 +271,8 @@ dashboardPage(
       max = 0.99,
       value = 0.95
     ),
-    bsTooltip('effectci', "Width of confidence intervalls can be adjusted here.")
+    bsTooltip('effectci', "Width of confidence intervalls can be adjusted here.",
+              placement="right")
     
 
   
@@ -259,7 +283,8 @@ dashboardPage(
       condition = "input.tabvals == 7 && input.plotType == 'continuous'",
       checkboxInput('moderator',
                     label= "Interaction Effect"),
-      bsTooltip('moderator', "Check this box if you want to display an interaction effect.")
+      bsTooltip('moderator', "Check this box if you want to display an interaction effect.",
+                placement="right")
     ),
       
 
@@ -275,7 +300,8 @@ dashboardPage(
         max = 150,
         value = 50
       ),
-      bsTooltip('cloud_words', "The maximum number of words to be included in the cloud."),
+      bsTooltip('cloud_words', "The maximum number of words to be included in the cloud.",
+                placement="right"),
       
       sliderInput(
         'scalemax',
@@ -284,7 +310,8 @@ dashboardPage(
         max = 10,
         value = 5
       ),
-      bsTooltip('scalemax', "Adjust the maximum word size."),
+      bsTooltip('scalemax', "Adjust the maximum word size.",
+                placement="right"),
       
       sliderInput(
         'scalemin',
@@ -293,7 +320,8 @@ dashboardPage(
         max = 2,
         value = .8
       ),
-      bsTooltip('scalemin', "Adjust the minimum word size.")
+      bsTooltip('scalemin', "Adjust the minimum word size.",
+                placement="right")
     ),
       
       
@@ -309,14 +337,16 @@ dashboardPage(
         label = "Perspectives - Topic 1",
         choices = as.numeric(colnames(props)),
         selected = 1),
-      bsTooltip('perspTopic1', "Choose the first topic for the perspective plot."),
+      bsTooltip('perspTopic1', "Choose the first topic for the perspective plot.",
+                placement="right"),
       
       selectInput(
         "perspTopic2",
         label = "Perspectives - Topic 2",
         choices = as.numeric(colnames(props)),
         selected = 2),
-      bsTooltip('perspTopic2', "Choose the second topic for the perspective plot."),
+      bsTooltip('perspTopic2', "Choose the second topic for the perspective plot.",
+                placement="right"),
       
       sliderInput(
         'persp_words',
@@ -325,7 +355,19 @@ dashboardPage(
         max = 50,
         value = 25
       ),
-      bsTooltip('persp_words', "Number of words to be displayed in the perspective plot.")
+      bsTooltip('persp_words', "Number of words to be displayed in the perspective plot.",
+                placement="right"),
+      
+      sliderInput(
+        'persp_cex',
+        'Text Scaling',
+        min = 0.1,
+        max = 2,
+        value = 1
+      ),
+      bsTooltip('persp_cex', "Controls the scaling constant on text size.",
+                placement="right")
+
     ),
     
 
@@ -338,7 +380,8 @@ dashboardPage(
         label = "Interaction variable",
         choices = prep$varlist,
         selected=prep$varlist[1]),
-      bsTooltip('modvar', "Select the moderator variable."),
+      bsTooltip('modvar', "Select the moderator variable.",
+                placement="right"),
       
       selectInput(
         "modval1",
@@ -357,7 +400,8 @@ dashboardPage(
         value = 0.10,
         step=0.01
       ),
-      bsTooltip('ylim', "For interaction plots it is advisable to adjust the y-axis manually.")
+      bsTooltip('ylim', "For interaction plots it is advisable to adjust the y-axis manually.",
+                placement="right")
        ),
       
     # difference plots are not implented at the moment
@@ -382,14 +426,16 @@ dashboardPage(
         selected = F,
         choices = list("t-SNE", "PCA") # largeVis may be added later
       ),
-      bsTooltip("scaling", "The scaling method for the 2d Intertopic Distance Map"), 
+      bsTooltip("scaling", "The scaling method for the 2d Intertopic Distance Map",
+                placement="right"), 
       sliderInput(
         'visTerms',
         h4('Number of terms'),
         min = 5,
         max = 50,
         value = 25),
-      bsTooltip("visTerms", "The number of terms to be displayed.")
+      bsTooltip("visTerms", "The number of terms to be displayed.",
+                placement="right")
     
     ),
     
@@ -420,15 +466,16 @@ dashboardPage(
     
     conditionalPanel(
       condition = "input.tabvals == 4",
-      helpText("Node sizes are scaled by topic proportions."),
-      helpText("Edge thickness is determined by pairwise topic correlations."),
+      p("Node sizes are scaled by topic proportions."),
+     
       selectInput(
         "graphmethod",
         label = "Method",
         choices = c("huge", "cutoff")
           ),
       bsTooltip('graphmethod','Choose whether the graph connections are computed algorithmically\\
- or by a simple correlation cutoff criterium.')
+ or by a simple correlation cutoff criterium.',
+                placement="right")
       ),
     
     conditionalPanel(
@@ -440,15 +487,17 @@ dashboardPage(
         min = 0.01,
         max = 0.5 ,
         value = 0.05),
-      bsTooltip('cutoff','Minimum correlation between topic pairs.')
+      bsTooltip('cutoff','Minimum correlation between topic pairs.',
+                placement="right")
     ),
     
     conditionalPanel(
       condition = "input.tabvals == 4",
-      
+      p("Edge thickness is determined by pairwise topic correlations."),
       checkboxInput("eLabels", label = h4("Edge Labels:"),
                     value = FALSE),
-      bsTooltip('eLabels','Edge labels display correlations between topics.'),
+      bsTooltip('eLabels','Edge labels display correlations between topics.',
+                placement="right"),
       
       sliderInput(
         'eWeight',
@@ -457,7 +506,8 @@ dashboardPage(
         max = 5,
         value = 1
       ),
-      bsTooltip('eWeight','Edge weights adjust thickness based upon topic correlations.')
+      bsTooltip('eWeight','Edge weights adjust thickness based upon topic correlations.',
+                placement="right")
     )
     
   ),

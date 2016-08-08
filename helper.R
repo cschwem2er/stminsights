@@ -15,6 +15,7 @@ library(scales)
 library(LDAvis)
 library(Rtsne)
 library(stringr)
+library(WriteXLS)
 # library(largeVis) not implemented at the moment
 
 
@@ -25,15 +26,12 @@ options(scipen=999)
 # loading stm data #
 ####################
 
-load('data/stm_questionsUK30.RData') # load R environment
+load('data/path_to_image.RData') # load R environment
 
 # The environment needs to include three objects:
 # 1) "model" -> the estimated stm model
 # 2) "out" -> stm meta data generated with stm.prepDocuments
 # 3) "prep" -> effect estimates for all topics generated with stm.estimateEffect
-
-
-
 
 
 ####################
@@ -53,16 +51,17 @@ plotGraph <- function(g, eweight,  labels) {
   ew <- eweight * 5
   gnet <- intergraph::asNetwork(g)
   if (labels==F) {e.labels <- NULL}
-  else e.labels <- ifelse(rep(labels, length(E(g))), round(E(g)$weight, 3), "")
+  else e.labels <- ifelse(rep(labels, length(E(g))), round(E(g)$weight, 2), "")
   
   ggnet2(gnet, mode = "fruchtermanreingold", 
-         edge.size = E(g)$weight * ew, label = T, 
+         edge.size = E(g)$weight * ew + 0.1, label = T, 
          size= V(g)$props , max_size=25,
          label.color = "grey20", label.size= 4,    
         edge.lty = 1, 
          edge.alpha = 0.9,
          color="#377eb8", 
          edge.color="grey10",
+         node.alpha=0.95,
          edge.label = e.labels,
          edge.label.size = 4,
          edge.label.color = "#fb8072", edge.label.alpha = 0.9) +

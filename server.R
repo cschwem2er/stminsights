@@ -25,6 +25,9 @@ shinyServer(function(input,output, session){
     uis
   })
   
+  
+  
+  
 
   # dynamically update topic labels
   tlabels <- reactive({
@@ -34,8 +37,10 @@ shinyServer(function(input,output, session){
     for (i in tnames) {
       topiclabels[[i]] <- input[[i]]
     }
-   
+   print(unlist(topiclabels, use.names=F))
+   print(unlist(names(topiclabels)))
    return(unlist(topiclabels, use.names=F))
+
   })
  
   
@@ -67,11 +72,15 @@ shinyServer(function(input,output, session){
 
   # Find topic documents
   topicDocs <- reactive({
-    if (length(tlabels()) > 0) {
+
     
-    t <- which(input$topic %in% tlabels())
-    }
-    else t <- as.numeric(input$topic)
+    validate(
+      need(length(tlabels()) == ncol(props), "Loading, please wait..")
+    )
+
+    t <- which(input$topic == tlabels())
+ 
+
     nrt <- as.numeric(input$nrthoughts)
     thoughts <- findThoughts(model, n=nrt, topics=c(t),
                              texts=out$meta[[input$doccol]])$docs[[1]]
@@ -79,16 +88,19 @@ shinyServer(function(input,output, session){
     topicThoughts <- thoughts[1:nrt]
     thoughtdf <-data.frame(topicThoughts, stringsAsFactors=F)
     names(thoughtdf) <- " "
+
     return(thoughtdf)
   }) 
   
   # Find topic terms
   topicTerms <- reactive({
-    if (length(tlabels()) > 0) {
-      
-      t <- which(input$topic %in% tlabels())
-    }
-    else t <- as.numeric(input$topic)
+    
+    validate(
+      need(length(tlabels()) == ncol(props), "Loading, please wait..")
+    )
+
+    
+    t <- which(input$topic == tlabels())
     nrterms <- as.numeric(input$nrwords)
     labels <- labelTopics(model, n=nrterms)
     
@@ -231,7 +243,8 @@ shinyServer(function(input,output, session){
       return(plot.STM(model, topics=c(plotPers1, plotPers2),
                       type="perspectives",
                       plabels=c(input$perspTopic1, input$perspTopic2),
-                      n=input$persp_words)
+                      n=input$persp_words,
+                      text.cex = input$persp_cex)
       )
     }
     
@@ -293,7 +306,7 @@ shinyServer(function(input,output, session){
     
   
     
-  })  
+  }, res=90)  
   
   
   
@@ -344,9 +357,16 @@ shinyServer(function(input,output, session){
                              labels=input$eLabels)
  
                 
-                  })
+                  }, res=90)
   
-  
+                 #output$downloadNetwork <- downloadHandler(
+                 #  filename = 'networkplot.png',
+                  # content = function(file) {
+                  #   ggsave(file,
+                   #         plot =  plotGraph(graph(),eweight=input$eWeight, 
+                    #                          labels=input$eLabels), 
+                   #         device = "png")
+                  # }) 
 
 
 
@@ -432,6 +452,47 @@ shinyServer(function(input,output, session){
       paging=FALSE)
   )
   
+  ### label dataframe
+  
+  labelframe <- reactive({
+    tnames <- str_subset(names(input), '^TL')
+    topiclabels <-  list()
+
+    for (i in tnames) {
+      topiclabels[[i]] <- input[[i]]
+    }
+    labels <- unlist(topiclabels, use.names=F)
+    ids <- unlist(names(topiclabels))
+    ids <- str_replace(ids, "TL", "")
+    
+    frequency <- round(colMeans(props), 3)
+    return(data.frame(Topic=ids, Label=labels, Proportion=frequency))
+    
+  })
+  
+  
+  output$labelframe <- renderDataTable(
+    labelframe(), 
+    options = list(
+      
+      pageLength = 1,
+      searching = FALSE,
+      autoWidth=TRUE,
+      scrollX = FALSE,
+      lengthChange = FALSE,
+      info = FALSE,
+      paging=FALSE)
+  )
+  
+  
+  output$downloadLabels <- downloadHandler(
+    filename = function() { 'stmInsights_topiclabels.xlsx' },
+    content = function(file) {
+      WriteXLS(labelframe(), file,
+               Encoding='UTF-8')
+      
+    }
+  )
   
 
 })
