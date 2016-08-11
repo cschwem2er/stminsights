@@ -3,7 +3,7 @@ A web application based on Shiny to analyze Structural Topic Models. An online d
 
 ### Setup
 
-In order for ```stmInsights``` to work properly you need to provide a R-image which includes three objects:
+In order for ```stmInsights``` to work properly you need to provide an R-image which includes three objects:
 
 - **model**: the estimated stm model generated with ```stm()```
 - **out**: stm meta data generated with ```prepDocuments()```
