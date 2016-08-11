@@ -9,7 +9,7 @@ In order for ```stmInsights``` to work properly you need to provide an R-image w
 - **out**: stm meta data generated with ```prepDocuments()```
 - **prep**: effect estimates for all topics generated with ```estimateEffect()```
 
-Object names must not be changed, otherwise the app will crash. Adjust the path for the ```load() function``` in the ```helper.R``` file for your own image. 
+Object names must not be changed, otherwise the app will crash. Adjust the path for the ```load()```function in the ```helper.R``` file for your own image. 
 Afterwards you can upload all files to any shiny server, install the required packages and run the app.
 
 ### Restrictions
