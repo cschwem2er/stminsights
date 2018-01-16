@@ -18,7 +18,8 @@
 #' @import ggrepel
 #' @import purrr
 #' @import stringr
-#' @details To be written (sorry =D).
+#' @import dplyr
+#' @details To be written, sorry =D.
 #' @export
 #'
 run_stminsights <- function() {
@@ -31,5 +32,3 @@ run_stminsights <- function() {
                 launch.browser = TRUE)
 
   }
-
-
