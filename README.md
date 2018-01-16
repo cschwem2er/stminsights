@@ -2,7 +2,7 @@
 
 <img src="/images/stminsights_interface.PNG" width="600" height="400">
 
-This app enables interactive validation, interpretation and visualisation of [Structural Topic Models](http://structuraltopicmodel.com) (STM). In case you are not familiar with STM, the [package vignette](https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf) is an excellent starting point.
+This app enables interactive validation, interpretation and visualisation of [Structural Topic Models](http://structuraltopicmodel.com) (STM). In case you are not familiar with STM, the [package vignette](https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf) is an excellent starting point. In contrast to [stmgui](https://cran.r-project.org/web/packages/stmgui/index.html), which also allows to preprocess text data and fit models, stminsights is focused more on making your life easier after these steps.
 
 
 ## How to Install
