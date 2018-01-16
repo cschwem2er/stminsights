@@ -17,7 +17,7 @@ After installing stminsights run ``stminsights::run_stminsights()`` to launch th
 - one or several estimateEffect objects.
 - an object `out` which was used to fit your stm models
 
-As an example, the following code fits two model and estimates effects for the stm corpus poliblog5k and saves all objects required for stminsights in `stm_poliblog5k.RData`. 
+As an example, the following code fits two models and estimates effects for the [Political Blog Corpus](http://www.sailing.cs.cmu.edu/main/?page_id=710). Afterwards, all objects required for stminsights are stored in `stm_poliblog5k.RData`. 
 
 
 ```
