@@ -1,18 +1,53 @@
-# stmInsights
-A web application based on Shiny to analyze Structural Topic Models. An online demo is available [here](http://pathways.polsys.uni-bamberg.de:443/stmInsights).
+# stminsights
 
-### Setup
+This app enables interactive validation, interpretation and visualisation of [Structural Topic Models](http://structuraltopicmodel.com) (STM). In case you are not familiar with STM, the [package vignette](https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf) is an excellent starting point.
 
-In order for ```stmInsights``` to work properly you need to provide an R-image which includes three objects:
+## How to Install
 
-- **model**: the estimated stm model generated with ```stm()```
-- **out**: stm meta data generated with ```prepDocuments()```
-- **prep**: effect estimates for all topics generated with ```estimateEffect()```
+You can download and install the app by running ``devtools::install_github('methodds/stminsights')``
 
-Object names must not be changed, otherwise the app will crash. Adjust the path for the ```load()```function in the ```helper.R``` file for your own image. 
-Afterwards you can upload all files to any shiny server, install the required packages and run the app.
+## How to Use
 
-### Restrictions
+After installing stminsights you can run ``stminsights::run_app()`` to launch the shiny app in your browser. Afterwards you can upload an `.RData` file which should include:
 
-- At the moment this app only works for models without content covariates.
-- In order to display labels for all graphs correctly, the ``Topics`` has to be clicked first. This is due to text fields being generated dynamically depending on the number of topics of the given model.
+- one or several stm objects.
+- one or several estimateEffect objects.
+- an object `out` which was used to fit your stm models
+
+As an example, the following code fits two model and estimates effects for the stm corpus poliblog5k and saves all objects required for stminsights in `stm_poliblog5k.RData`. 
+
+```
+library(stm)
+
+out <- list(documents = poliblog5k.docs,
+            vocab = poliblog5k.voc,
+            meta = poliblog5k.meta)
+stm_poli <- stm(documents = out$documents, 
+                vocab = out$vocab,
+                data = out$meta, 
+                prevalence = ~ rating * s(day),
+                K = 20)
+
+prep_stm_poli <- estimateEffect(1:20 ~ rating * s(day), stm_poli,
+                                meta = out$meta)
+
+stm_poli_content <-  stm(documents = out$documents, 
+                         vocab = out$vocab,
+                         data = out$meta, 
+                         prevalence = ~ rating + s(day),
+                         content = ~ rating,
+                         K = 15)  
+
+prep_poli_content <- estimateEffect(1:15 ~ rating + s(day), stm_poli_content,
+                                    meta = out$meta)
+
+save.image('stm_poliblog5k.RData')
+```
+
+After launching stminsights and uploading the file, all objects are automatically imported  and you can select which models and effect estimates to analyze.
+
+## Live Demo
+
+In case you want to try out a demo before installing stminsights,  download `stm_poliblog5k.RData` in the data folder of this repo and visit [www.polsoz.uni-bamberg.de/stminsights] to play around with the app.
+
+
