@@ -13,5 +13,5 @@ In addition, the image should contain the \code{out} object which was used to fi
 See the description for additional information.
 }
 \details{
-To be written.
+To be written (sorry =D).
 }

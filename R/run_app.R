@@ -13,10 +13,12 @@
 #' @import shinyBS
 #' @import shinydashboard
 #' @import scales
-#' @import tidyverse
+#' @import ggplot2
 #' @import shinyjs
 #' @import ggrepel
-#' @details To be written.
+#' @import purrr
+#' @import stringr
+#' @details To be written (sorry =D).
 #' @export
 #'
 run_stminsights <- function() {
