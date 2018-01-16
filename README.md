@@ -51,6 +51,6 @@ After launching stminsights and uploading the file, all objects are automaticall
 
 ## Live Demo
 
-In case you want to try out a demo before installing stminsights,  download `stm_poliblog5k.RData` in the data folder of this repo and visit [www.polsoz.uni-bamberg.de/stminsights] to play around with the app.
+In case you want to try out a demo before installing stminsights,  download `stm_poliblog5k.RData` in the data folder of this repo and visit [www.polsoz.uni-bamberg.de/stminsights](www.polsoz.uni-bamberg.de/stminsights) to play around with the app.
 
 
