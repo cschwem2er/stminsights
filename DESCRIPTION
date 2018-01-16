@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Dan Zangri [aut, cre]
 Maintainer: Carsten Schwemmer <carsten.schwemmer@methodds.de>
 Description: This app enables interactive validation, interpretation and visualisation of Structural Topic models from the STM package. 
-Imports: stm, igraph, tidygraph, ggraph, ggrepel, shiny, shinyBS, shinydashboard, shinyjs, ggplot2, purrr, stringr, scales, dplyr
+Imports: stm, igraph, tidygraph, ggraph, ggrepel, shiny, shinyBS, shinydashboard, shinyjs, ggplot2, purrr, stringr, scales, dplyr, tibble
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

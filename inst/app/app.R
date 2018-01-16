@@ -11,6 +11,7 @@ library(stringr)
 library(purrr)
 library(ggplot2)
 library(ggrepel)
+library(tibble)
 
 # set.seed(1337)
 # options(scipen = 999)

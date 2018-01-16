@@ -19,6 +19,7 @@
 #' @import purrr
 #' @import stringr
 #' @import dplyr
+#' @import tibble
 #' @details To be written, sorry =D.
 #' @export
 #'
