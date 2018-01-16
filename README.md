@@ -51,6 +51,6 @@ After launching stminsights and uploading the file, all objects are automaticall
 
 ## Live Demo
 
-In case you want to try stminsights before installing it,  download `stm_poliblog5k.RData`  [here](www.polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
+In case you want to try stminsights before installing it,  download `stm_poliblog5k.RData` [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
 
