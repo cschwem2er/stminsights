@@ -1590,7 +1590,9 @@ server <- function(input, output, session) {
     names(modelframe) <- c("Attribute", "Value")
 
     modelframe <-
-      modelframe %>% filter(!Attribute %in% c('documents', 'vocab', 'data', 'verbose'))
+      modelframe %>%
+      filter(!Attribute %in% c('documents', 'vocab', 'data', 'verbose')) %>%
+      filter(Attribute != '')
     return(modelframe)
   })
 

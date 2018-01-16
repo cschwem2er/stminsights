@@ -7,7 +7,7 @@ This app enables interactive validation, interpretation and visualisation of [St
 
 ## How to Install
 
-You can download and install the app by running ``devtools::install_github('methodds/stminsights')``
+You can download and install the app by running ``devtools::install_github('methodds/stminsights')``.
 
 ## How to Use
 
