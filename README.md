@@ -11,7 +11,7 @@ You can download and install the app by running ``devtools::install_github('meth
 
 ## How to Use
 
-After installing stminsights you can run ``stminsights::run_app()`` to launch the shiny app in your browser. Afterwards you can upload an `.RData` file which should include:
+After installing stminsights run ``stminsights::run_app()`` to launch the shiny app in your browser. Afterwards you can upload an `.RData` file which should include:
 
 - one or several stm objects.
 - one or several estimateEffect objects.
