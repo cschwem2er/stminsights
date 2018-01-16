@@ -20,7 +20,6 @@ After installing stminsights you can run ``stminsights::run_app()`` to launch th
 As an example, the following code fits two model and estimates effects for the stm corpus poliblog5k and saves all objects required for stminsights in `stm_poliblog5k.RData`. 
 
 
-
 ```
 library(stm)
 
@@ -29,19 +28,19 @@ out <- list(documents = poliblog5k.docs,
             meta = poliblog5k.meta)
 
 poli <- stm(documents = out$documents, 
-                vocab = out$vocab,
-                data = out$meta, 
-                prevalence = ~ rating * s(day),
-                K = 20)
+            vocab = out$vocab,
+            data = out$meta, 
+            prevalence = ~ rating * s(day),
+            K = 20)
 prep_poli <- estimateEffect(1:20 ~ rating * s(day), poli,
-                                meta = out$meta)
+                            meta = out$meta)
 
 poli_content <-  stm(documents = out$documents, 
-                         vocab = out$vocab,
-                         data = out$meta, 
-                         prevalence = ~ rating + s(day),
-                         content = ~ rating,
-                         K = 15)  
+                     vocab = out$vocab,
+                     data = out$meta, 
+                     prevalence = ~ rating + s(day),
+                     content = ~ rating,
+                     K = 15)  
 prep_poli_content <- estimateEffect(1:15 ~ rating + s(day), poli_content,
                                     meta = out$meta)
 
