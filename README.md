@@ -7,7 +7,9 @@ This app enables interactive validation, interpretation and visualisation of [St
 
 ## How to Install
 
-You can download and install the app by running ``devtools::install_github('methodds/stminsights')``.
+You can download and install the app by running ``devtools::install_github('methodds/stminsights')``.    
+
+For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a tutorial is available [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
 
 ## How to Use
 
@@ -51,6 +53,6 @@ After launching stminsights and uploading the file, all objects are automaticall
 
 ## Live Demo
 
-In case you want to try stminsights before installing it,  download `stm_poliblog5k.RData` [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
+In case you want to try stminsights before installing it, download `stm_poliblog5k.RData` [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
 
