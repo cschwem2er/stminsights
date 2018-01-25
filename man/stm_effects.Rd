@@ -16,7 +16,7 @@ stm_effects(estimates, variable, type, ci = 0.95, moderator = NULL,
 \item{type}{The estimate type. Can either be \code{'pointestimate'}
 or  \code{'continuous'}.}
 
-\item{ci}{The confidence intervall for uncertainty estimates.
+\item{ci}{The confidence interval for uncertainty estimates.
 Defaults to  \code{0.95}.}
 
 \item{moderator}{The moderator variable in case you want to include

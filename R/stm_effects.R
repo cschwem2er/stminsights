@@ -11,7 +11,7 @@
 #' @param type The estimate type. Can either be \code{'pointestimate'}
 #' or  \code{'continuous'}.
 #'
-#' @param ci The confidence intervall for uncertainty estimates.
+#' @param ci The confidence interval for uncertainty estimates.
 #'  Defaults to  \code{0.95}.
 #'
 #' @param moderator The moderator variable in case you want to include
@@ -88,7 +88,12 @@ stm_effects <- function(estimates,
     moderator = moderator,
     moderator.value = modval
   )
+  names(data$cis) <- data$topics
+  names(data$means) <- data$topics
+  names(data$uvals) <- data$topics
+
   tidy_stm <- data$topics %>% purrr::map(function(x) {
+    x <- as.character(x)
     cis <- t(data$cis[[x]]) %>% as.data.frame() %>%
       purrr::set_names(c('lower', 'upper'))
     props <-
