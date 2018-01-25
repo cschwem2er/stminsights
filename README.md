@@ -57,14 +57,14 @@ In case you want to try stminsights before installing it, download `stm_poliblog
 
 ## Citation
 
-To cite package `stminsights` in publications use:
+To cite package `stminsights` in publications please use:
 ```
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
   Structural Topic Models. R package version 0.1.0.
   https://github.com/methodds/stminsights
 ```
 
-A BibTeX entry for LaTeX users is
+A BibTeX entry for LaTeX users is:
 
 ```
   @Manual{,
