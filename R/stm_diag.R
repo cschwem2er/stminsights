@@ -1,7 +1,7 @@
 #' @title computes stm model diagnostics
-#' @name stm_diag
+#' @name get_diag
 #' @description
-#' \code{ stm_diag()} is a helper function to compute average and median
+#' \code{ get_diag()} is a helper function to compute average and median
 #' \code{\link[stm]{semanticCoherence}} and \code{\link[stm]{exclusivity}} for
 #' a number of  \code{\link[stm]{stm}} models. The function does not work for
 #' models with content covariates.
@@ -40,7 +40,7 @@
 #'             K = 30)
 #'
 #' # get diagnostics
-#' diag <- stm_diag(models = list(
+#' diag <- get_diag(models = list(
 #'                  model_10 = poli10,
 #'                  model_20 = poli20,
 #'                  model_30 = poli30),
@@ -56,7 +56,7 @@
 #' @import dplyr
 #' @export
 
-stm_diag <- function(models, # list of stm models
+get_diag <- function(models, # list of stm models
                      outobj) # out object containing documents
 {
 

@@ -1,5 +1,5 @@
 #' @title extract stm effect estimates
-#' @name stm_effects
+#' @name get_effects
 #' @description
 #' \code{ stm_effects()} is a helper function to store effect estimates from
 #' stm in a data frame.
@@ -32,7 +32,7 @@
 #' # store effects
 #' prep <- estimateEffect(1:3 ~ treatment, gadarianFit, gadarian)
 #'
-#' effects <- stm_effects(estimates = prep,
+#' effects <- get_effects(estimates = prep,
 #'                       variable = 'treatment',
 #'                       type = 'pointestimate')
 #'
@@ -51,7 +51,7 @@
 #'                           moderator = 'treatment',
 #'                           modval = 1) %>%
 #'  bind_rows(
-#'    stm_effects(estimates = prep_int,
+#'    get_effects(estimates = prep_int,
 #'                variable = 'pid_rep',
 #'                type = 'continuous',
 #'                moderator = 'treatment',
@@ -64,7 +64,7 @@
 #'
 #' @export
 
-stm_effects <- function(estimates,
+get_effects <- function(estimates,
                         # estimates object
                         variable,
                         # variable for estimates
