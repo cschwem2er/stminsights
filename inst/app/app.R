@@ -1,14 +1,11 @@
 library(shiny)
 library(shinyBS)
 library(shinydashboard)
-library(shinyjs)
 library(stm)
-library(igraph)
+#library(igraph)
 library(tidygraph)
 library(ggraph)
-library(scales)
 library(stringr)
-library(purrr)
 library(ggplot2)
 library(ggrepel)
 library(tibble)
@@ -358,7 +355,7 @@ ui <- dashboardPage(
 
       tabPanel(
         'Info & Topics',
-        useShinyjs(),
+        shinyjs::useShinyjs(),
 
         # tags$a(href="javascript:history.go(0)",
         #        popify(tags$i(class="fa fa-refresh fa-5x"),
@@ -553,13 +550,13 @@ server <- function(input, output, session) {
       Filter(function(x)
         'STM' %in% class(get(x)), ls(envir = .GlobalEnv))
 
-    stm_data$models <- map(stm_data$model_names, get)
+    stm_data$models <- purrr::map(stm_data$model_names, get)
     names(stm_data$models) <- stm_data$model_names
     stm_data$effect_names <-
       Filter(function(x)
         'estimateEffect' %in% class(get(x)),
         ls(envir =  .GlobalEnv))
-    stm_data$effects <- map(stm_data$effect_names, get)
+    stm_data$effects <- purrr::map(stm_data$effect_names, get)
     names(stm_data$effects) <- stm_data$effect_names
     stm_data$out <- out
     stm_data$columns <- names(stm_data$out$meta)
@@ -595,7 +592,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$rfile, {
-    delay(800, hide('rfile'))
+    shinyjs::delay(800, shinyjs::hide('rfile'))
   }, priority = 10)
 
 
@@ -708,8 +705,8 @@ server <- function(input, output, session) {
                             group = F)  +
       geom_errorbarh(aes(xmin = lower, xmax = upper),
                      height = 0.1) +
-      scale_x_continuous(labels = percent,
-                         breaks = pretty_breaks(n = 8)) +
+      scale_x_continuous(labels = scales::percent,
+                         breaks = scales::pretty_breaks(n = 8)) +
       labs(x = ylab , y  = xlab) + theme_bw(base_size = 14) +
       theme(
         panel.grid.minor = element_blank(),
@@ -759,11 +756,11 @@ server <- function(input, output, session) {
       geom_ribbon(aes(ymin = lower, ymax = upper),
                   alpha = 0.2,
                   fill = '#778899') +
-      scale_x_continuous(breaks = pretty_breaks(n = 8), expand = c(0.00, 0)) +
+      scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
       scale_y_continuous(
-        breaks = pretty_breaks(n = 8),
+        breaks = scales::pretty_breaks(n = 8),
         expand = c(0.00, 0),
-        labels = percent
+        labels = scales::percent
       ) +
       guides(fill = F,
              color = F,
@@ -847,11 +844,11 @@ server <- function(input, output, session) {
         fill = Moderator
       ),
       alpha = 0.2) +
-      scale_x_continuous(breaks = pretty_breaks(n = 8), expand = c(0.00, 0)) +
+      scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
       scale_y_continuous(
-        breaks = pretty_breaks(n = 8),
+        breaks = scales::pretty_breaks(n = 8),
         expand = c(0.00, 0),
-        labels = percent
+        labels = scales::percent
       ) +
       guides(fill = FALSE, group = FALSE)  +
       coord_cartesian(ylim = c(-0.001, max(both$upper))) +
@@ -960,8 +957,8 @@ server <- function(input, output, session) {
         )
       ) +
       scale_color_brewer(palette = 'Set1') +
-      scale_y_continuous(breaks = pretty_breaks(n = 5)) +
-      scale_x_continuous(breaks = pretty_breaks(n = 5))
+      scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
+      scale_x_continuous(breaks = scales::pretty_breaks(n = 5))
 
     ggsave(
       "plot.png",
@@ -1086,26 +1083,41 @@ server <- function(input, output, session) {
   #### find topic documents ####
 
   topicDocs <- reactive({
-    validate(need(length(tlabels()) == ncol(props()), "Loading, please wait.."))
+    validate(
+      need(!is.null(model()), "Loading, please wait.."),
+      need(!is.null(tlabels()), "Loading, please wait.."),
+      need(!is.null(stm_data()), "Loading, please wait.."),
+      need(length(tlabels()) == ncol(props()), "Loading, please wait.."))
 
     t <- which(input$topic == tlabels())
+    validate(need(length(t) > 0, "Loading, please wait.."))
 
 
 
     #nrt <- as.numeric(input$nrthoughts)
-    thoughts <- findThoughts(
-      model(),
-      n = 50,
-      # set to 50
-      topics = c(t),
-      texts = stm_data()$out$meta[[input$doccol]]
-    )$docs[[1]]
+   # if(is.null(model())) {return(tibble(docs = ''))}
+  #  else {
+    thoughts <- reactive({
 
-    topicThoughts <- thoughts[1:50]
+      findThoughts(
+        model(),
+        n = 50,
+        # set to 50
+        topics = c(t),
+        texts = stm_data()$out$meta[[input$doccol]]
+      )
+
+    })
+
+
+    topicThoughts <- thoughts()$docs[[1]][1:50]
     thoughtdf <- data.frame(topicThoughts, stringsAsFactors = F)
     names(thoughtdf) <- " "
 
     return(thoughtdf)
+   # }
+
+
   })
 
   #### Find topic terms ####
@@ -1147,7 +1159,7 @@ server <- function(input, output, session) {
 
       names(labels$cov.betas) <-
         str_c('Marginal.FREX.', labels$covnames)
-      contentList <- labels$cov.betas %>% map(function (x) {
+      contentList <- labels$cov.betas %>% purrr::map(function (x) {
         x$frexlabels[t,] %>% str_c(collapse = ', ')
       })
 
@@ -1241,7 +1253,7 @@ server <- function(input, output, session) {
       geom_bar(stat = "identity",
                fill = "#377eb8",
                color = "#000000") +
-      coord_flip() + scale_y_continuous(labels = percent,
+      coord_flip() + scale_y_continuous(labels = scales::percent,
                                         expand = c(0, 0)) +
       labs(y = "Proportion", x = "Topic") +
       theme_light(base_size = 14) +
@@ -1406,7 +1418,6 @@ server <- function(input, output, session) {
 
     interaction <- reactive({
       input$moderator
-      print(input$moderator)
     })
 
     if (interaction() == FALSE & type == "continuous") {
@@ -1474,15 +1485,15 @@ server <- function(input, output, session) {
 
 
       g <-
-        simplify(graph.adjacency(cormat, mode = 'undirected', weighted = TRUE))
+        igraph::simplify(igraph::graph.adjacency(cormat, mode = 'undirected', weighted = TRUE))
 
-      if (length(E(g)) == 0) {
+      if (length(igraph::E(g)) == 0) {
         stop(
           "There are no (sufficiently high) correlations between the topics of this STM model."
         )
       }
-      V(g)$name <- tlabels()
-      V(g)$props <- colMeans(model()$theta)
+     igraph::V(g)$name <- tlabels()
+      igraph::V(g)$props <- colMeans(model()$theta)
 
       return(g)
     }
@@ -1521,8 +1532,8 @@ server <- function(input, output, session) {
   plotGraph <- function(g,  labels, cutiso) {
     # generate topic correlation graph
 
-    if (length(V(g)) == 0)
-      return()
+    #if (length(V(g)) == 0)
+    #  return()
 
     toplot <- as_tbl_graph(g) %>%
       mutate(degree = centrality_degree(loops = FALSE)) %>%
@@ -1548,20 +1559,21 @@ server <- function(input, output, session) {
       geom_edge_link(
         aes(edge_width = weight, label =  edge_label),
         label_colour = '#fc8d62',
+        edge_colour = '#377eb8',
         alpha = 0.5,
         label_size = 4,
         angle_calc = 'along',
         label_dodge = unit(3, "mm")
       ) +
-      geom_node_point(size = 4, colour = '#377eb8')  +
+      geom_node_point(size = 4, colour = 'black')  +
       geom_node_label(
         aes(label = name, size = props),
-        colour = 'steelblue',
+        colour = 'black',
         repel = TRUE,
         alpha = 0.85
       ) +
       theme_graph() +
-      scale_size(range = c(2, 10), labels = percent) +
+      scale_size(range = c(2, 10), labels = scales::percent) +
       labs(size = 'Topic Proportion',
            edge_width = 'Topic Correlation') +
       scale_edge_width(range = c(0, 3))

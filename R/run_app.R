@@ -1,35 +1,66 @@
-#' This is a helper function to launch the stminsights app
-#'
+#' @title launch the stminsights shiny app
+#' @name run_stminsights
+#' @description
 #' \code{run_stminsights} launches the app to analyze Structural Topic models.
-#' It requires uploading an R image containing an arbitrary number of stm models and effect estimates.
-#' In addition, the image should contain the \code{out} object which was used to fit the models.
-#' See the description for additional information.
+#' It requires an .RData file with stm objects as illustrated in the example below.
+#'
+#' @param use_browser Choose whether you want to launch the shiny app in your browser.
+#' Defaults to \code{TRUE}.
+#' @examples
+#' \dontrun{
+#' library(stm)
+#'
+#' # required out object
+#' out <- list(documents = poliblog5k.docs,
+#'             vocab = poliblog5k.voc,
+#'             meta = poliblog5k.meta)
+#'
+#' # one or several stm models and effect estimates
+#' poli <- stm(documents = out$documents,
+#'             vocab = out$vocab,
+#'             data = out$meta,
+#'             prevalence = ~ rating * s(day),
+#'             K = 20)
+#' prep_poli <- estimateEffect(1:20 ~ rating * s(day), poli,
+#'                             meta = out$meta)
+#'
+#' poli_content <-  stm(documents = out$documents,
+#'                      vocab = out$vocab,
+#'                      data = out$meta,
+#'                      prevalence = ~ rating + s(day),
+#'                      content = ~ rating,
+#'                      K = 15)
+#' prep_poli_content <- estimateEffect(1:15 ~ rating + s(day), poli_content,
+#'                                     meta = out$meta)
+#'
+#' # all objects stored in an .RData file
+#' save.image('stm_poliblog5k.RData')
+#'
+#' # launch the app
+#' run_stminsights()
+#' }
 #'
 #' @import stm
-#' @import igraph
 #' @import tidygraph
 #' @import ggraph
 #' @import shiny
 #' @import shinyBS
 #' @import shinydashboard
-#' @import scales
 #' @import ggplot2
-#' @import shinyjs
 #' @import ggrepel
-#' @import purrr
 #' @import stringr
 #' @import dplyr
 #' @import tibble
-#' @details To be written, sorry =D.
+#'
 #' @export
 #'
-run_stminsights <- function() {
+run_stminsights <- function(use_browser = TRUE) {
   appDir <- system.file("app", package = "stminsights")
   if (appDir == "") {
     stop("Could not find directory. Try re-installing `stminsights`.",
          call. = FALSE)
   }
   runApp(appDir, display.mode = "normal",
-                launch.browser = TRUE)
+                launch.browser = use_browser)
 
   }
