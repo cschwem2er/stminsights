@@ -55,4 +55,24 @@ After launching stminsights and uploading the file, all objects are automaticall
 
 In case you want to try stminsights before installing it, download `stm_poliblog5k.RData` [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
+## Citation
+
+To cite package `stminsights` in publications use:
+```
+  Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
+  Structural Topic Models. R package version 0.1.0.
+  https://github.com/methodds/stminsights
+```
+
+A BibTeX entry for LaTeX users is
+
+```
+  @Manual{,
+    title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
+    author = {Carsten Schwemmer},
+    year = {2018},
+    note = {R package version 0.1.0},
+    url = {https://github.com/methodds/stminsights},
+  }
+```
 
