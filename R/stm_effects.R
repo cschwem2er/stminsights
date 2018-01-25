@@ -1,5 +1,5 @@
 #' @title extract stm effect estimates
-#' @name stm_estimates
+#' @name stm_effects
 #' @description
 #' \code{ stm_effects()} is a helper function to store effect estimates from
 #' stm in a data frame.
@@ -37,7 +37,7 @@
 #'                       type = 'pointestimate')
 #'
 #' # plot effects
-#' effects %>% filter(topic == 10) %>%
+#' effects %>% filter(topic == 3) %>%
 #' ggplot(aes(x = value, y = proportion)) +
 #'  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, size = 1) +
 #'  coord_flip() + theme_light() + labs(x = 'Treatment', y = 'Topic Proportion')

@@ -60,7 +60,10 @@ run_stminsights <- function(use_browser = TRUE) {
     stop("Could not find directory. Try re-installing `stminsights`.",
          call. = FALSE)
   }
+
+  if (use_browser == TRUE)
   runApp(appDir, display.mode = "normal",
-                launch.browser = use_browser)
+                launch.browser = TRUE)
+  else runApp(appDir, display.mode = "normal")
 
   }

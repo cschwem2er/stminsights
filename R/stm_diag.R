@@ -1,7 +1,7 @@
 #' @title computes stm model diagnostics
 #' @name stm_diag
 #' @description
-#' \code{ stm_diag()} computes average and median
+#' \code{ stm_diag()} is a helper function to compute average and median
 #' \code{\link[stm]{semanticCoherence}} and \code{\link[stm]{exclusivity}} for
 #' a number of  \code{\link[stm]{stm}} models. The function does not work for
 #' models with content covariates.
