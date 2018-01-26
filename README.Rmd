@@ -12,10 +12,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-# A Shiny Application for Inspecting Structural Topic Models
+# stminsights
+
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
+[![Travis-CI Build Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
 
 
 <img src="man/figures/stminsights_interface.PNG" width="600" height="400">
+
+## A Shiny Application for Structural Topic Models
 
 This app enables interactive validation, interpretation and visualisation of [Structural Topic Models](http://structuraltopicmodel.com) (STM). In case you are not familiar with STM, the [package vignette](https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf) is an excellent starting point. In contrast to [stmgui](https://cran.r-project.org/web/packages/stmgui/index.html), which also allows to preprocess text data and fit models, stminsights is focused more on making your life easier after these steps.
 
