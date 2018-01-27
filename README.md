@@ -59,12 +59,12 @@ save.image('stm_poliblog5k.RData')
 
 After launching stminsights and uploading the file, all objects are automatically imported and you can select which models and effect estimates to analyze.
 
-Live Demo on Shiny Server
--------------------------
+How to Deploy on Shiny Server
+-----------------------------
 
-In case you want to try stminsights before installing it, download `stm_poliblog5k.RData` [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
+Deploying stminsights to your own shiny server is pretty simple: Place the file `app.R`, which is located at `inst/app` of this package, to a folder in your server directory and you should be good to go.
 
-Uploading stminsights to your own shiny server is also pretty simple: Place the file `app.R`, which is located at `inst/app` of this package, to a folder in your shiny server directory and you should be good to go.
+To test stminsights on my server, download `stm_poliblog5k.RData` [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData) and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
 Citation
 --------
