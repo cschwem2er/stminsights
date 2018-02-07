@@ -135,6 +135,7 @@ ui <- dashboardPage(
 
       htmlOutput("plotVar"),
       htmlOutput("plotLabel"),
+      htmlOutput("plotLabel2"),
 
       sliderInput(
         'effectci',
@@ -252,8 +253,39 @@ ui <- dashboardPage(
         'persp_cex',
         "Controls the scaling constant on text size.",
         placement = "right"
+      ),
+     checkboxInput(
+        'contLabels',
+        'Change content categories',
+        value = FALSE
+      ),
+      bsTooltip(
+        'contLabels',
+        "Check if you want to change the categories to plot. Only affects content models.",
+        placement = "right"
       )
 
+
+    ),
+
+
+
+    conditionalPanel(
+      condition = "input.tabvals == 7 && input.plotType == 'perspectives' && input.contLabels == true",
+
+      htmlOutput("perspCat1"),
+      bsTooltip(
+        'perspCat1',
+        "Choose the first category for the content perspective plot.",
+        placement = "right"
+      ),
+
+      htmlOutput("perspCat2"),
+      bsTooltip(
+        'perspCat2',
+        "Choose the second category for the content perspective plot.",
+        placement = "right"
+      )
     ),
 
 
@@ -677,7 +709,7 @@ server <- function(input, output, session) {
                                  variable,
                                  topic,
                                  xlab = input$plotLabel,
-                                 ylab = 'Topic proportion',
+                                 ylab = input$plotLabel2,
                                  ci = 0.95) {
     # function for plotting point estimates for estimated effects
     data <- plot(
@@ -732,7 +764,7 @@ server <- function(input, output, session) {
                               variable,
                               topic,
                               xlab = input$plotLabel,
-                              ylab = 'Topic Proportion',
+                              ylab = input$plotLabel2,
                               ci = 0.95) {
     # function for plotting estimated effects of continuous variables
     data <- plot(
@@ -790,7 +822,7 @@ server <- function(input, output, session) {
                                   variable,
                                   topic,
                                   xlab = input$plotLabel,
-                                  ylab = 'Topic Proportion',
+                                  ylab =  input$plotLabel2,
                                   ci = 0.95,
                                   modvar = modvar,
                                   modval1 =  modval1,
@@ -1004,6 +1036,27 @@ server <- function(input, output, session) {
     )
   })
 
+  output$perspCat1 <- renderUI({
+    selectInput(
+      "perspCat1",
+      label = "Content - Category 1",
+      choices = model()$settings$covariates$yvarlevels,
+      selected = model()$settings$covariates$yvarlevels[1]
+    )
+  })
+
+  output$perspCat2 <- renderUI({
+    selectInput(
+      "perspCat2",
+      label = "Content - Category 2",
+      choices = model()$settings$covariates$yvarlevels,
+      selected = model()$settings$covariates$yvarlevels[2]
+    )
+  })
+
+
+
+
   output$effectTopic <- renderUI({
     selectInput(
       "effectTopic",
@@ -1027,6 +1080,11 @@ server <- function(input, output, session) {
               label = "Axis label",
               value = input$plotVar)
   })
+  output$plotLabel2 <- renderUI({
+  textInput("plotLabel2",
+            label = "Axis label 2",
+            value = 'Topic Proportion')
+})
 
   output$modvar <- renderUI({
     selectInput(
@@ -1134,34 +1192,56 @@ server <- function(input, output, session) {
 
     labList <- list()
 
+
     if ("content" %in% modelcall()$Attribute) {
       labels <- sageLabels(model(), n = nrterms)
+      contentList <- list()
 
       if (1 %in% input$labtypes) {
         prob <- str_c(labels$marginal$prob[t,], collapse = ', ')
         labList$Probability <- prob
 
+        names(labels$cov.betas) <-
+          str_c('Prob_', labels$covnames)
+        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
+          x$problabels[t,] %>% str_c(collapse = ', ')
+        }))
+
       }
       if (2 %in% input$labtypes) {
         frex <- str_c(labels$marginal$frex[t,], collapse = ', ')
         labList$FREX <- frex
+
+        names(labels$cov.betas) <-
+          str_c('FREX_', labels$covnames)
+        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
+          x$frexlabels[t,] %>% str_c(collapse = ', ')
+        }))
       }
 
       if (3 %in% input$labtypes) {
         lift <- str_c(labels$marginal$lift[t,], collapse = ', ')
         labList$Lift <- lift
+
+        names(labels$cov.betas) <-
+          str_c('Lift_', labels$covnames)
+        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
+          x$liftlabels[t,] %>% str_c(collapse = ', ')
+        }))
       }
 
       if (4 %in% input$labtypes) {
         score <- str_c(labels$marginal$score[t,], collapse = ', ')
         labList$Score <- score
+
+        names(labels$cov.betas) <-
+          str_c('Score_', labels$covnames)
+        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
+          x$scorelabels[t,] %>% str_c(collapse = ', ')
+        }))
       }
 
-      names(labels$cov.betas) <-
-        str_c('Marginal.FREX.', labels$covnames)
-      contentList <- labels$cov.betas %>% purrr::map(function (x) {
-        x$frexlabels[t,] %>% str_c(collapse = ', ')
-      })
+
 
       labList <- c(labList, contentList)
 
@@ -1348,6 +1428,11 @@ server <- function(input, output, session) {
     if (type == "perspectives") {
       if (("content" %in% modelcall()$Attribute) &
           (plotPers1 == plotPers2)) {
+
+        plabels <- model()$settings$covariates$yvarlevels
+        print(plabels)
+        print(plabels[1])
+        print(plabels[[1]])
         png(
           'plot.png',
           width = 8,
@@ -1361,7 +1446,9 @@ server <- function(input, output, session) {
           topics = plotPers1,
           type = "perspectives",
           n = input$persp_words,
-          plabels = model()$settings$covariates$yvarlevels,
+          main = plotPers1,
+          covarlevels = c(input$perspCat1, input$perspCat2),
+          plabels = c(input$perspCat1, input$perspCat2),
           text.cex = input$persp_cex
         )
 

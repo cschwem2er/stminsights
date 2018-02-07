@@ -104,8 +104,8 @@ get_effects <- function(estimates,
       ) %>%
       bind_cols(cis)
   })
-  tidy_stm <- tidy_stm %>% bind_rows() %>%
-    mutate(topic = factor(topic))
+  tidy_stm <- tidy_stm %>% bind_rows()
+  tidy_stm$topic <- as.factor(tidy_stm$topic)
   if (type == 'pointestimate') {
     tidy_stm$value <- as.factor(tidy_stm$value)
   }

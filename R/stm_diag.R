@@ -69,21 +69,19 @@ get_diag <- function(models, # list of stm models
       exclusivity = mean(exclusivity_mod),
       coherence = mean(coherence_mod),
       statistic = 'mean',
-      topics = nr_topics_mod)
+      nr_topics = nr_topics_mod)
     model_df_median <- tibble(
       exclusivity = stats::median(exclusivity_mod),
       coherence = stats::median(coherence_mod),
       statistic = 'median',
-      topics = nr_topics_mod)
+      nr_topics = nr_topics_mod)
 
     model_df <- bind_rows(model_df_mean, model_df_median) %>%
       mutate(name = y)
     model_df
   })
 
-  model_dfs <- bind_rows(model_dfs) %>%
-    mutate(topics = as.factor(topics))
-
+  model_dfs <- bind_rows(model_dfs)
   return(model_dfs)
 
 }

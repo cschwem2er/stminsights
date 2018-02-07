@@ -84,9 +84,10 @@ To test stminsights on my server, download `stm_poliblog5k.RData` [here](http://
 ## Citation
 
 To cite package `stminsights` in publications please use:
+
 ```
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.1.0.
+  Structural Topic Models. R package version 0.1.1.
   https://github.com/methodds/stminsights
 ```
 
