@@ -45,7 +45,7 @@
 #' # combine estimates for interaction effects
 #' prep_int <- estimateEffect(1:3 ~ treatment*s(pid_rep), gadarianFit, gadarian)
 #'
-#' effects_int <- stm_effects(estimates = prep_int,
+#' effects_int <- get_effects(estimates = prep_int,
 #'                           variable = 'pid_rep',
 #'                           type = 'continuous',
 #'                           moderator = 'treatment',
@@ -90,7 +90,7 @@ get_effects <- function(estimates,
   )
   names(data$cis) <- data$topics
   names(data$means) <- data$topics
-  names(data$uvals) <- data$topics
+  names(data$uvals) <- data$uvals
 
   tidy_stm <- data$topics %>% purrr::map(function(x) {
     x <- as.character(x)
