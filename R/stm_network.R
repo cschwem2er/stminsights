@@ -7,7 +7,7 @@
 #'
 #' @param method The method for determining edges. Can be either  \code{'simple'} or  \code{'huge'}.
 #'
-#' @param cutoff The correlation cutoff criterion for \code{method = 'cutoff'}. Defaults to \code{0.05}
+#' @param cutoff The correlation cutoff criterion for \code{method = 'cutoff'}. Defaults to \code{0.05}.
 #'
 #' @param labels An optional vector of topic labels. Must include a label for each topic of the model.
 #'

@@ -8,7 +8,7 @@
 
 \item{method}{The method for determining edges. Can be either  \code{'simple'} or  \code{'huge'}.}
 
-\item{cutoff}{The correlation cutoff criterion for \code{method = 'cutoff'}. Defaults to \code{0.05}}
+\item{cutoff}{The correlation cutoff criterion for \code{method = 'cutoff'}. Defaults to \code{0.05}.}
 
 \item{labels}{An optional vector of topic labels. Must include a label for each topic of the model.}
 
