@@ -28,7 +28,7 @@ See examples for combining data for multiple values.}
 \item{cov_val1}{The first value of a covariate for type \code{'difference'}.}
 
 \item{cov_val2}{The second value of a covariate for type \code{'difference'}.
-The topic proportion of \code{'cov_val2'} will be substracted from the
+The topic proportion of \code{'cov_val2'} will be subtracted from the
  proportion of \code{'cov_val1'}.}
 }
 \value{

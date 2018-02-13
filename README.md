@@ -24,8 +24,8 @@ How to Use
 
 After installing stminsights run `stminsights::run_stminsights()` to launch the shiny app in your browser. Afterwards you can upload an `.RData` file which should include:
 
--   one or several stm objects.
--   one or several estimateEffect objects.
+-   one or several `stm` objects.
+-   one or several `estimateEffect` objects.
 -   an object `out` which was used to fit your stm models
 
 As an example, the following code fits two models and estimates effects for the [Political Blog Corpus](http://www.sailing.cs.cmu.edu/main/?page_id=710). Afterwards, all objects required for stminsights are stored in `stm_poliblog5k.RData`.

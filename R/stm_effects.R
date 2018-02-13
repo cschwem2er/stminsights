@@ -22,7 +22,7 @@
 #' @param cov_val1 The first value of a covariate for type \code{'difference'}.
 #'
 #' @param cov_val2 The second value of a covariate for type \code{'difference'}.
-#' The topic proportion of \code{'cov_val2'} will be substracted from the
+#' The topic proportion of \code{'cov_val2'} will be subtracted from the
 #'  proportion of \code{'cov_val1'}.
 #' @return
 #'   Returns effect estimates in a tidy data frame.
