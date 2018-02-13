@@ -5,7 +5,7 @@
 \title{extract stm effect estimates}
 \usage{
 get_effects(estimates, variable, type, ci = 0.95, moderator = NULL,
-  modval = NULL)
+  modval = NULL, cov_val1 = NULL, cov_val2 = NULL)
 }
 \arguments{
 \item{estimates}{The object containing estimates calculated with
@@ -13,8 +13,8 @@ get_effects(estimates, variable, type, ci = 0.95, moderator = NULL,
 
 \item{variable}{The variable for which estimates should be extracted.}
 
-\item{type}{The estimate type. Can either be \code{'pointestimate'}
-or  \code{'continuous'}.}
+\item{type}{The estimate type. Must be either \code{'pointestimate'},
+\code{'continuous'}, or \code{'difference'}.}
 
 \item{ci}{The confidence interval for uncertainty estimates.
 Defaults to  \code{0.95}.}
@@ -24,6 +24,12 @@ an interaction effect.}
 
 \item{modval}{The value of the moderator variable for an interaction effect.
 See examples for combining data for multiple values.}
+
+\item{cov_val1}{The first value of a covariate for type \code{'difference'}.}
+
+\item{cov_val2}{The second value of a covariate for type \code{'difference'}.
+The topic proportion of \code{'cov_val2'} will be substracted from the
+ proportion of \code{'cov_val1'}.}
 }
 \value{
 Returns effect estimates in a tidy data frame.
@@ -33,29 +39,34 @@ Returns effect estimates in a tidy data frame.
 stm in a data frame.
 }
 \examples{
-\dontrun{
+
 
 library(stm)
 library(dplyr)
 library(ggplot2)
 
 # store effects
-prep <- estimateEffect(1:3 ~ treatment, gadarianFit, gadarian)
+prep <- estimateEffect(1:3 ~ treatment + pid_rep, gadarianFit, gadarian)
 
 effects <- get_effects(estimates = prep,
                       variable = 'treatment',
                       type = 'pointestimate')
 
+
+\dontrun{
 # plot effects
 effects \%>\% filter(topic == 3) \%>\%
 ggplot(aes(x = value, y = proportion)) +
  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, size = 1) +
  coord_flip() + theme_light() + labs(x = 'Treatment', y = 'Topic Proportion')
 
-# combine estimates for interaction effects
-prep_int <- estimateEffect(1:3 ~ treatment*s(pid_rep), gadarianFit, gadarian)
+ }
 
-effects_int <- stm_effects(estimates = prep_int,
+# combine estimates for interaction effects
+prep_int <- estimateEffect(1:3 ~ treatment * s(pid_rep),
+ gadarianFit, gadarian)
+
+effects_int <- get_effects(estimates = prep_int,
                           variable = 'pid_rep',
                           type = 'continuous',
                           moderator = 'treatment',
@@ -67,6 +78,21 @@ effects_int <- stm_effects(estimates = prep_int,
                moderator = 'treatment',
                modval = 0)
  )
-}
+
+\dontrun{
+# plot interaction effects
+effects_int \%>\% filter(topic == 2) \%>\%
+ mutate(moderator = as.factor(moderator)) \%>\%
+ ggplot(aes(x = value, y = proportion, color = moderator,
+ group = moderator, fill = moderator)) +
+ geom_line() +
+ geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2)  +
+ theme_light() + labs(x = 'PID Rep.', y = 'Topic Proportion',
+ color = 'Treatment', group = 'Treatment', fill = 'Treatment')
+  }
+
+# estimate differences
+
+
 
 }

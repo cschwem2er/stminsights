@@ -1,4 +1,11 @@
 
+# stminsights 0.1.2
+
+## Minor improvements / Bug Fix
+
+* fixed a bug in get_effects (#5)
+* added 'difference' effect estimates in get_effects
+
 # stminsights 0.1.1
 
 ## Minor improvements

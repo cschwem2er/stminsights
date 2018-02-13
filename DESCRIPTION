@@ -1,13 +1,13 @@
 Package: stminsights
 Type: Package
 Title: A Shiny Application for Inspecting Structural Topic Models
-Version: 0.1.1
-Date: 2018-02-07
+Version: 0.1.2
+Date: 2018-02-12
 Authors@R: person("Carsten", "Schwemmer", email = "carsten.schwemmer@methodds.de",
   role = c("aut", "cre"))
 URL: https://github.com/methodds/stminsights
 Description: This app enables interactive validation, interpretation and visualization of Structural Topic models from the STM package. It also includes helper functions for model diagnostics and extracting data from stm effect estimates.
-Imports:  stm (>= 1.3.0), 
+Imports:  stm (>= 1.3.3), 
           tidygraph (>= 1.0.0),
           ggraph (>= 1.0.0), 
           igraph (>= 1.1.0), 
