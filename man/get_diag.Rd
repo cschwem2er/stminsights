@@ -36,23 +36,21 @@ poli10 <- stm(documents = out$documents,
             vocab = out$vocab,
             data = out$meta,
             prevalence = ~ rating * s(day),
-            K = 10)
-poli20 <- stm(documents = out$documents,
+            K = 10,
+            verbose = FALSE,
+            max.em.its = 10)
+poli15 <- stm(documents = out$documents,
             vocab = out$vocab,
             data = out$meta,
             prevalence = ~ rating * s(day),
-            K = 20)
-poli30 <- stm(documents = out$documents,
-            vocab = out$vocab,
-            data = out$meta,
-            prevalence = ~ rating * s(day),
-            K = 30)
+            K = 15,
+            verbose = FALSE,
+            max.em.its = 10)
 
 # get diagnostics
 diag <- get_diag(models = list(
                  model_10 = poli10,
-                 model_20 = poli20,
-                 model_30 = poli30),
+                 model_15 = poli15),
                  outobj = out)
 
 # plot diagnostics

@@ -8,6 +8,9 @@
 #' Defaults to \code{TRUE}.
 #' @examples
 #' \dontrun{
+#'
+
+
 #' library(stm)
 #'
 #' # required out object
@@ -37,8 +40,11 @@
 #' save.image('stm_poliblog5k.RData')
 #'
 #' # launch the app
+#' if(interactive()){
 #' run_stminsights()
 #' }
+#' }
+#'
 #'
 #' @import stm
 #' @import tidygraph

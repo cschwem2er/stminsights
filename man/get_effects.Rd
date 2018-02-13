@@ -35,7 +35,7 @@ The topic proportion of \code{'cov_val2'} will be subtracted from the
 Returns effect estimates in a tidy data frame.
 }
 \description{
-\code{ stm_effects()} is a helper function to store effect estimates from
+\code{ get_effects()} is a helper function to store effect estimates from
 stm in a data frame.
 }
 \examples{

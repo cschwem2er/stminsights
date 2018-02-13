@@ -16,6 +16,7 @@ It requires an .RData file with stm objects as illustrated in the example below.
 }
 \examples{
 \dontrun{
+
 library(stm)
 
 # required out object
@@ -45,7 +46,10 @@ prep_poli_content <- estimateEffect(1:15 ~ rating + s(day), poli_content,
 save.image('stm_poliblog5k.RData')
 
 # launch the app
+if(interactive()){
 run_stminsights()
 }
+}
+
 
 }

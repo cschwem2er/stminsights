@@ -1,7 +1,7 @@
 #' @title extract stm effect estimates
 #' @name get_effects
 #' @description
-#' \code{ stm_effects()} is a helper function to store effect estimates from
+#' \code{ get_effects()} is a helper function to store effect estimates from
 #' stm in a data frame.
 #' @param estimates The object containing estimates calculated with
 #' \code{\link[stm]{estimateEffect}}.

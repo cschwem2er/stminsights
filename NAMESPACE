@@ -2,6 +2,7 @@
 
 export(get_diag)
 export(get_effects)
+export(get_network)
 export(run_stminsights)
 import(dplyr)
 import(ggplot2)
