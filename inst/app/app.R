@@ -628,6 +628,15 @@ server <- function(input, output, session) {
   }, priority = 10)
 
 
+  observeEvent(input$plotType, {
+    if(input$plotType %in% c('wordcloud', 'perspectives')) {
+      shinyjs::hide('download_plot')
+    }
+    else {shinyjs::show('download_plot')}
+
+  }, priority = 10)
+
+
 
   model <- reactive({
     req(stm_data())
