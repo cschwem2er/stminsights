@@ -3,6 +3,11 @@
 
 # stminsights
 
+[![Travis-CI Build
+Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
+
 <img src="man/figures/stminsights_interface.PNG" width="600" height="400">
 
 ## A Shiny Application for Structural Topic Models

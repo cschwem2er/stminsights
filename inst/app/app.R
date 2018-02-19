@@ -749,13 +749,13 @@ server <- function(input, output, session) {
           colour = "grey95"
         )
       )
-    ggsave(
-      "plot.png",
-      plot,
-      dpi = 300,
-      width = 9,
-      height = 6
-    )
+    # ggsave(
+    #   "plot.png",
+    #   plot,
+    #   dpi = 300,
+    #   width = 9,
+    #   height = 6
+    # )
     return(plot)
   }
 
@@ -807,13 +807,13 @@ server <- function(input, output, session) {
           colour = "grey95"
         )
       )
-    ggsave(
-      "plot.png",
-      plot,
-      dpi = 300,
-      width = 9,
-      height = 6
-    )
+    # ggsave(
+    #   "plot.png",
+    #   plot,
+    #   dpi = 300,
+    #   width = 9,
+    #   height = 6
+    # )
     return(plot)
   }
 
@@ -897,13 +897,13 @@ server <- function(input, output, session) {
       scale_color_brewer(palette = 'Set1') +
       labs(x = xlab , y  = ylab)
 
-    ggsave(
-      "plot.png",
-      plot,
-      dpi = 300,
-      width = 9,
-      height = 6
-    )
+    # ggsave(
+    #   "plot.png",
+    #   plot,
+    #   dpi = 300,
+    #   width = 9,
+    #   height = 6
+    # )
     return(plot)
 
   }
@@ -992,13 +992,13 @@ server <- function(input, output, session) {
       scale_y_continuous(breaks = scales::pretty_breaks(n = 5)) +
       scale_x_continuous(breaks = scales::pretty_breaks(n = 5))
 
-    ggsave(
-      "plot.png",
-      dplot,
-      dpi = 300,
-      width = 9,
-      height = 6
-    )
+    # ggsave(
+    #   "plot.png",
+    #   dplot,
+    #   dpi = 300,
+    #   width = 9,
+    #   height = 6
+    # )
 
     return(dplot)
   }
@@ -1340,11 +1340,11 @@ server <- function(input, output, session) {
       theme(axis.text = element_text(size = 14),
             panel.grid.major.y = element_blank())
 
-    ggsave("plot.png",
-           p,
-           dpi = 300,
-           width = 9,
-           height = 6)
+    # ggsave("plot.png",
+    #        p,
+    #        dpi = 300,
+    #        width = 9,
+    #        height = 6)
     return(p)
   }
 
@@ -1383,25 +1383,25 @@ server <- function(input, output, session) {
 
     #### wordcloud ####
     if (type == "wordcloud") {
-      png(
-        'plot.png',
-        width = 9,
-        height = 6,
-        units = 'in',
-        res = 120
-      )
+      # png(
+      #   'plot.png',
+      #   width = 9,
+      #   height = 6,
+      #   units = 'in',
+      #   res = 120
+      # )
+      #
+      # #  return(
+      # cloud(
+      #   model(),
+      #   topic = plotT,
+      #   random.order = FALSE,
+      #   max.words = input$cloud_words,
+      #   scale = c(scalemax, scalemin)
+      # )
+      # dev.off()
 
-      #  return(
-      cloud(
-        model(),
-        topic = plotT,
-        random.order = FALSE,
-        max.words = input$cloud_words,
-        scale = c(scalemax, scalemin)
-      )
-      dev.off()
 
-      return(
         cloud(
           model(),
           topic = plotT,
@@ -1409,7 +1409,7 @@ server <- function(input, output, session) {
           max.words = input$cloud_words,
           scale = c(scalemax, scalemin)
         )
-      )
+
     }
 
     #### pointestimate ####
@@ -1430,31 +1430,28 @@ server <- function(input, output, session) {
           (plotPers1 == plotPers2)) {
 
         plabels <- model()$settings$covariates$yvarlevels
-        print(plabels)
-        print(plabels[1])
-        print(plabels[[1]])
-        png(
-          'plot.png',
-          width = 8,
-          height = 6,
-          units = 'in',
-          res = 150
-        )
 
-        plot(
-          model(),
-          topics = plotPers1,
-          type = "perspectives",
-          n = input$persp_words,
-          main = plotPers1,
-          covarlevels = c(input$perspCat1, input$perspCat2),
-          plabels = c(input$perspCat1, input$perspCat2),
-          text.cex = input$persp_cex
-        )
+        # png(
+        #   'plot.png',
+        #   width = 8,
+        #   height = 6,
+        #   units = 'in',
+        #   res = 150
+        # )
+#
+#         plot(
+#           model(),
+#           topics = plotPers1,
+#           type = "perspectives",
+#           n = input$persp_words,
+#           main = plotPers1,
+#           covarlevels = c(input$perspCat1, input$perspCat2),
+#           plabels = c(input$perspCat1, input$perspCat2),
+#           text.cex = input$persp_cex
+#         )
 
-        dev.off()
+        #dev.off()
 
-        return(
           plot(
             model(),
             topics = plotPers1,
@@ -1463,31 +1460,31 @@ server <- function(input, output, session) {
             plabels = model()$settings$covariates$yvarlevels,
             text.cex = input$persp_cex
           )
-        )
+
+
       }
       else {
-        png(
-          'plot.png',
-          width = 8,
-          height = 6,
-          units = 'in',
-          res = 150
-        )
+        # png(
+        #   'plot.png',
+        #   width = 8,
+        #   height = 6,
+        #   units = 'in',
+        #   res = 150
+        # )
+        #
+        # plot(
+        #   model(),
+        #   topics = c(plotPers1, plotPers2),
+        #   type = "perspectives",
+        #   plabels = c(input$perspTopic1, input$perspTopic2),
+        #   n = input$persp_words,
+        #   text.cex = input$persp_cex
+        # )
+        # dev.off()
+        #
 
-        plot(
-          model(),
-          topics = c(plotPers1, plotPers2),
-          type = "perspectives",
-          plabels = c(input$perspTopic1, input$perspTopic2),
-          n = input$persp_words,
-          text.cex = input$persp_cex
-        )
-        dev.off()
 
-
-
-        return(
-          plot(
+        p <-   plot(
             model(),
             topics = c(plotPers1, plotPers2),
             type = "perspectives",
@@ -1496,7 +1493,6 @@ server <- function(input, output, session) {
             text.cex = input$persp_cex
           )
 
-        )
       }
     }
     #
@@ -1669,13 +1665,13 @@ server <- function(input, output, session) {
     }
 
 
-    ggsave(
-      "plot.png",
-      plot,
-      dpi = 300,
-      width = 9,
-      height = 6
-    )
+    # ggsave(
+    #   "plot.png",
+    #   plot,
+    #   dpi = 300,
+    #   width = 9,
+    #   height = 6
+    # )
     return(plot)
   }
 
@@ -1752,60 +1748,51 @@ server <- function(input, output, session) {
   )
 
   output$download_plot <- downloadHandler(
-    filename = function() {
-      paste("stminsights_plot", "png", sep = ".")
+    filename = 'plot.pdf',
+    content = function(file) {
+      pdf(file = file, width = 9, height = 6)
+   print(plot_effect_graph())
+      dev.off()
     },
-    content = function(con) {
-      file.copy("plot.png", con,
-                overwrite = TRUE)
-    }
+   contentType = "image/png"
   )
 
 
   output$download_prop <- downloadHandler(
-    filename = function() {
-      paste("stminsights_plot", "png", sep = ".")
+    filename = 'plot.pdf',
+    content = function(file) {
+      pdf(file = file, width = 9, height = 6)
+      print(plotTopicProps(props()))
+      dev.off()
     },
-    content = function(con) {
-      file.copy("plot.png", con,
-                overwrite = TRUE)
-    }
+    contentType = "image/png"
   )
 
-
-
-  output$download_plot <- downloadHandler(
-    filename = function() {
-      paste("stminsights_plot", "png", sep = ".")
-    },
-    content = function(con) {
-      file.copy("plot.png", con,
-                overwrite = TRUE)
-    }
-  )
 
 
 
   output$download_graph <- downloadHandler(
-    filename = function() {
-      paste("stminsights_plot", "png", sep = ".")
+    filename = 'plot.pdf',
+    content = function(file) {
+      pdf(file = file, width = 9, height = 6)
+      print(plot_corr_graph())
+      dev.off()
     },
-    content = function(con) {
-      file.copy("plot.png", con,
-                overwrite = TRUE)
-    }
+    contentType = "image/png"
   )
+
 
 
   output$download_diag <- downloadHandler(
-    filename = function() {
-      paste("stminsights_plot", "png", sep = ".")
+    filename = 'plot.pdf',
+    content = function(file) {
+      pdf(file = file, width = 9, height = 6)
+      print(get_diags())
+      dev.off()
     },
-    content = function(con) {
-      file.copy("plot.png", con,
-                overwrite = TRUE)
-    }
+    contentType = "image/png"
   )
+
 
 
 

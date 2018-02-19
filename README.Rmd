@@ -11,13 +11,14 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 
-#[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
-#[![Travis-CI Build Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
-#[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
+#[![CRAN_Release_Badge](https://www.r-pkg.org/badges/version-ago/stminsights)](https://CRAN.R-project.org/package=stminsights)
 
 ```
 
 # stminsights
+
+[![Travis-CI Build Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
 
 
 
