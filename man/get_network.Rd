@@ -23,44 +23,44 @@ as tidygraph objects and add labels and topic proportions.
 }
 \examples{
 
+library(stm)
+library(ggraph)
+
+# prepare data
+data <- textProcessor(documents = gadarian$open.ended.response,
+metadata = gadarian)
+out <- prepDocuments(data$documents, data$vocab, data$meta)
+
+# fit model
+gadarian_10 <- stm(documents = out$documents,
+                   vocab = out$vocab,
+                   data = out$meta,
+                   prevalence = ~ treatment + s(pid_rep),
+                   K = 10,
+                   max.em.its = 5, # reduce computation time for example
+                   verbose = FALSE)
+
+# extract network
+stm_corrs <- get_network(model = gadarian_10,
+                         method = 'simple',
+                         labels = paste('Topic', 1:10),
+                         cutiso = TRUE)
+
 \dontrun{
- library(stm)
- library(ggraph)
-
- # run model
- out <- list(documents = poliblog5k.docs,
-            vocab = poliblog5k.voc,
-             meta = poliblog5k.meta)
-
- poli10 <- stm(documents = out$documents,
-               vocab = out$vocab,
-               data = out$meta,
-               prevalence = ~ rating,
-               K = 10,
-               verbose = FALSE,
-               max.em.its = 10)
-
- # extract network
- stm_corrs <- get_network(model = poli10,
-                          method = 'huge',
-                          labels = paste('Topic', 1:10),
-                          cutiso = TRUE)
-
- # plot network
- ggraph(stm_corrs, layout = 'fr') +
-   geom_edge_link(
-     aes(edge_width = weight),
-     label_colour = '#fc8d62',
-     edge_colour = '#377eb8') +
-   geom_node_point(size = 4, colour = 'black')  +
-   geom_node_label(
-     aes(label = name, size = props),
-     colour = 'black',  repel = TRUE, alpha = 0.85) +
-   scale_size(range = c(2, 10), labels = scales::percent) +
-   labs(size = 'Topic Proportion',  edge_width = 'Topic Correlation') +
-   scale_edge_width(range = c(1, 3)) +
-   theme_graph()
-
+# plot network
+ggraph(stm_corrs, layout = 'fr') +
+  geom_edge_link(
+    aes(edge_width = weight),
+    label_colour = '#fc8d62',
+    edge_colour = '#377eb8') +
+  geom_node_point(size = 4, colour = 'black')  +
+  geom_node_label(
+    aes(label = name, size = props),
+    colour = 'black',  repel = TRUE, alpha = 0.85) +
+  scale_size(range = c(2, 10), labels = scales::percent) +
+  labs(size = 'Topic Proportion',  edge_width = 'Topic Correlation') +
+  scale_edge_width(range = c(1, 3)) +
+  theme_graph()
 }
 
 }

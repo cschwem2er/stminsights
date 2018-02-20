@@ -1,4 +1,4 @@
-#' @title launch the stminsights shiny app
+#' #' @title launch the stminsights shiny app
 #' @name run_stminsights
 #' @description
 #' \code{run_stminsights} launches the app to analyze Structural Topic models.
@@ -7,42 +7,43 @@
 #' @param use_browser Choose whether you want to launch the shiny app in your browser.
 #' Defaults to \code{TRUE}.
 #' @examples
-#' \dontrun{
 #'
-
-
 #' library(stm)
 #'
-#' # required out object
-#' out <- list(documents = poliblog5k.docs,
-#'             vocab = poliblog5k.voc,
-#'             meta = poliblog5k.meta)
+#' # prepare data
+#' data <- textProcessor(documents = gadarian$open.ended.response,
+#' metadata = gadarian)
+#' out <- prepDocuments(data$documents, data$vocab, data$meta)
 #'
-#' # one or several stm models and effect estimates
-#' poli <- stm(documents = out$documents,
-#'             vocab = out$vocab,
-#'             data = out$meta,
-#'             prevalence = ~ rating * s(day),
-#'             K = 20)
-#' prep_poli <- estimateEffect(1:20 ~ rating * s(day), poli,
-#'                             meta = out$meta)
+#' # fit models and effect estimates
+#' gadarian_3 <- stm(documents = out$documents,
+#'                   vocab = out$vocab,
+#'                   data = out$meta,
+#'                   prevalence = ~ treatment + s(pid_rep),
+#'                   K = 3,
+#'                   max.em.its = 5, # reduce computation time for example
+#'                   verbose = FALSE)
 #'
-#' poli_content <-  stm(documents = out$documents,
-#'                      vocab = out$vocab,
-#'                      data = out$meta,
-#'                      prevalence = ~ rating + s(day),
-#'                      content = ~ rating,
-#'                      K = 15)
-#' prep_poli_content <- estimateEffect(1:15 ~ rating + s(day), poli_content,
-#'                                     meta = out$meta)
+#' prep_3 <- estimateEffect(1:3 ~ treatment + s(pid_rep), gadarian_3,
+#'                          meta = out$meta)
 #'
-#' # all objects stored in an .RData file
-#' save.image('stm_poliblog5k.RData')
+#' gadarian_7 <- stm(documents = out$documents,
+#'                   vocab = out$vocab,
+#'                   data = out$meta,
+#'                   prevalence = ~ treatment + s(pid_rep),
+#'                   K = 7,
+#'                   max.em.its = 5, # reduce computation time for example
+#'                   verbose = FALSE)
+#'
+#' prep_7 <- estimateEffect(1:7 ~ treatment + s(pid_rep), gadarian_7,
+#'                          meta = out$meta)
+#'
+#' # save objects in .RData file
+#' save.image(paste0(tempdir(), '/stm_gadarian.RData'))
 #'
 #' # launch the app
 #' if(interactive()){
-#' run_stminsights()
-#' }
+#'   run_stminsights()
 #' }
 #'
 #'

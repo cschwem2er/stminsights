@@ -317,7 +317,7 @@ ui <- dashboardPage(
       selectInput(
         "graphmethod",
         label = "Method",
-        choices = c("huge", "cutoff")
+        choices = c("cutoff", "huge")
       ),
       bsTooltip(
         'graphmethod',

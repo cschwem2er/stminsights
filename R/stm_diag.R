@@ -12,45 +12,45 @@
 #'   Returns model diagnostics in a tidy data frame.
 #'
 #' @examples
-#' \dontrun{
+#'
 #' library(stm)
 #' library(dplyr)
 #' library(ggplot2)
 #'
-#' # out object
-#' out <- list(documents = poliblog5k.docs,
-#'             vocab = poliblog5k.voc,
-#'             meta = poliblog5k.meta)
+#' # prepare data
+#' data <- textProcessor(documents = gadarian$open.ended.response,
+#' metadata=gadarian)
+#' out <- prepDocuments(data$documents, data$vocab, data$meta)
 #'
-#' # one or several stm models
-#' poli10 <- stm(documents = out$documents,
-#'             vocab = out$vocab,
-#'             data = out$meta,
-#'             prevalence = ~ rating * s(day),
-#'             K = 10,
-#'             verbose = FALSE,
-#'             max.em.its = 10)
-#' poli15 <- stm(documents = out$documents,
-#'             vocab = out$vocab,
-#'             data = out$meta,
-#'             prevalence = ~ rating * s(day),
-#'             K = 15,
-#'             verbose = FALSE,
-#'             max.em.its = 10)
-
+#' # fit models
+#' gadarian_3 <- stm(documents = out$documents,
+#'                   vocab = out$vocab,
+#'                   data = out$meta,
+#'                   prevalence = ~ treatment + s(pid_rep),
+#'                   K = 3,
+#'                   max.em.its = 5, # reduce computation time for example
+#'                   verbose = FALSE)
+#'
+#' gadarian_7 <- stm(documents = out$documents,
+#'                   vocab = out$vocab,
+#'                   data = out$meta,
+#'                   prevalence = ~ treatment + s(pid_rep),
+#'                   K = 7,
+#'                   max.em.its = 5, # reduce computation time for example
+#'                   verbose = FALSE)
 #'
 #' # get diagnostics
 #' diag <- get_diag(models = list(
-#'                  model_10 = poli10,
-#'                  model_15 = poli15),
+#'                  model_3 = gadarian_3,
+#'                  model_7 = gadarian_7),
 #'                  outobj = out)
 #'
 #' # plot diagnostics
 #' diag %>%
 #' ggplot(aes(x = coherence, y = exclusivity, color = statistic))  +
-#'   geom_text(aes(label = name), nudge_x = 0.8) + geom_point() +
+#'   geom_text(aes(label = name), nudge_x = 5) + geom_point() +
 #'   labs(x = 'Semantic Coherence', y = 'Exclusivity') + theme_light()
-#'}
+#'
 #' @import stm
 #' @import dplyr
 #' @export
@@ -60,7 +60,7 @@ get_diag <- function(models, # list of stm models
 {
 
   model_dfs <-  purrr::map2(models, names(models), function(x, y) {
-    exclusivity_mod<- exclusivity(x)
+    exclusivity_mod <- exclusivity(x)
     coherence_mod <- semanticCoherence(x,  outobj$documents)
     nr_topics_mod <- ncol(x$theta)
 

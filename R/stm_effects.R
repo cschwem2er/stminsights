@@ -29,7 +29,6 @@
 #'
 #' @examples
 #'
-#'
 #' library(stm)
 #' library(dplyr)
 #' library(ggplot2)
@@ -42,14 +41,12 @@
 #'                       type = 'pointestimate')
 #'
 #'
-#'\dontrun{
 #' # plot effects
 #' effects %>% filter(topic == 3) %>%
 #' ggplot(aes(x = value, y = proportion)) +
 #'  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, size = 1) +
 #'  coord_flip() + theme_light() + labs(x = 'Treatment', y = 'Topic Proportion')
 #'
-#'  }
 #'
 #' # combine estimates for interaction effects
 #' prep_int <- estimateEffect(1:3 ~ treatment * s(pid_rep),
@@ -68,7 +65,6 @@
 #'                modval = 0)
 #'  )
 #'
-#' \dontrun{
 #' # plot interaction effects
 #' effects_int %>% filter(topic == 2) %>%
 #'  mutate(moderator = as.factor(moderator)) %>%
@@ -78,10 +74,6 @@
 #'  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2)  +
 #'  theme_light() + labs(x = 'PID Rep.', y = 'Topic Proportion',
 #'  color = 'Treatment', group = 'Treatment', fill = 'Treatment')
-#'   }
-#'
-#' # estimate differences
-#'
 #'
 #'
 #' @import stm

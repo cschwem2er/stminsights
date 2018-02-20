@@ -10,14 +10,10 @@ There were no ERRORs, WARNINGS or NOTES.
 
 ## Comments from last Submission:
 
-'please write package names and software names in single quotes (e.g. 'shiny') in title and description.'
+'Most of your examples are wrapped in \dontrun{}, hence nothing gets tested. Please unwrap the examples if that is feasible and if they can be executed in < 5 sec for each Rd file or create additionally small toy examples.'
 
-I now quoted shiny in the title and added a single quoted reference to stm in the description.
+This is challenging as most functions required structural topic model objects, which contain several dense matrices (hence need a lot of RAM) and take a long time to compute. I nevertheless tried to come up with small examples that should run in < 5 seconds on average hardware.
 
-'Most of your code cannot be checked (especially the GUI part).'
+'Please ensure that your functions or examples (save.image('stm_poliblog5k.RData')) do not write by default or in your examples in the user's home filespace. That is not allow by CRAN policies. Please only write/save files if the user has specified a directory.'
 
-I separated an additional function, `get_network()`, used in the GUI part, such that the code can be tested now. In future releases I will add further tests for other functions used in the gui
-
-'Please ensure that your functions do not write by default or in your examples in the user's home filespace. That is not allow by CRAN policies. Please only write/save files if the user has specified a directory. In your examples you can write to tempdir(). '
-
-I adjusted all plots for the GUI such that files will only be saved if the user specified a directory via a download handler.
+I adjusted the problematic example which now writes to a temp directory.
