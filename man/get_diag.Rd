@@ -25,11 +25,14 @@ models with content covariates.
 library(stm)
 library(dplyr)
 library(ggplot2)
+library(quanteda)
 
 # prepare data
-data <- textProcessor(documents = gadarian$open.ended.response,
-metadata=gadarian)
-out <- prepDocuments(data$documents, data$vocab, data$meta)
+data <- corpus(gadarian, text_field = 'open.ended.response')
+docvars(data)$text <- texts(data)
+data <- dfm(data, stem = TRUE, remove = stopwords('english'),
+            remove_punct = TRUE)
+out <- convert(data, to = 'stm')
 
 # fit models
 gadarian_3 <- stm(documents = out$documents,
@@ -37,27 +40,28 @@ gadarian_3 <- stm(documents = out$documents,
                   data = out$meta,
                   prevalence = ~ treatment + s(pid_rep),
                   K = 3,
-                  max.em.its = 5, # reduce computation time for example
+                  max.em.its = 3, # reduce computation time for example
                   verbose = FALSE)
 
-gadarian_7 <- stm(documents = out$documents,
+gadarian_5 <- stm(documents = out$documents,
                   vocab = out$vocab,
                   data = out$meta,
                   prevalence = ~ treatment + s(pid_rep),
-                  K = 7,
-                  max.em.its = 5, # reduce computation time for example
+                  K = 5,
+                  max.em.its = 3, # reduce computation time for example
                   verbose = FALSE)
 
 # get diagnostics
 diag <- get_diag(models = list(
                  model_3 = gadarian_3,
-                 model_7 = gadarian_7),
+                 model_5 = gadarian_5),
                  outobj = out)
-
+\dontrun{
 # plot diagnostics
 diag \%>\%
 ggplot(aes(x = coherence, y = exclusivity, color = statistic))  +
   geom_text(aes(label = name), nudge_x = 5) + geom_point() +
   labs(x = 'Semantic Coherence', y = 'Exclusivity') + theme_light()
+}
 
 }

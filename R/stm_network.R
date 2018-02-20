@@ -19,25 +19,28 @@
 #'
 #' library(stm)
 #' library(ggraph)
+#' library(quanteda)
 #'
 #' # prepare data
-#' data <- textProcessor(documents = gadarian$open.ended.response,
-#' metadata = gadarian)
-#' out <- prepDocuments(data$documents, data$vocab, data$meta)
+#' data <- corpus(gadarian, text_field = 'open.ended.response')
+#' docvars(data)$text <- texts(data)
+#' data <- dfm(data, stem = TRUE, remove = stopwords('english'),
+#'             remove_punct = TRUE)
+#' out <- convert(data, to = 'stm')
 #'
 #' # fit model
-#' gadarian_10 <- stm(documents = out$documents,
+#' gadarian_15 <- stm(documents = out$documents,
 #'                    vocab = out$vocab,
 #'                    data = out$meta,
 #'                    prevalence = ~ treatment + s(pid_rep),
-#'                    K = 10,
+#'                    K = 15,
 #'                    max.em.its = 5, # reduce computation time for example
 #'                    verbose = FALSE)
 #'
 #' # extract network
-#' stm_corrs <- get_network(model = gadarian_10,
+#' stm_corrs <- get_network(model = gadarian_15,
 #'                          method = 'simple',
-#'                          labels = paste('Topic', 1:10),
+#'                          labels = paste('Topic', 1:15),
 #'                          cutiso = TRUE)
 #'
 #' \dontrun{

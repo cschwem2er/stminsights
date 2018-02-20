@@ -17,11 +17,14 @@ It requires an .RData file with stm objects as illustrated in the example below.
 \examples{
 
 library(stm)
+library(quanteda)
 
 # prepare data
-data <- textProcessor(documents = gadarian$open.ended.response,
-metadata = gadarian)
-out <- prepDocuments(data$documents, data$vocab, data$meta)
+data <- corpus(gadarian, text_field = 'open.ended.response')
+docvars(data)$text <- texts(data)
+data <- dfm(data, stem = TRUE, remove = stopwords('english'),
+            remove_punct = TRUE)
+out <- convert(data, to = 'stm')
 
 # fit models and effect estimates
 gadarian_3 <- stm(documents = out$documents,

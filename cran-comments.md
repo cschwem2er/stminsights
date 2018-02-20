@@ -8,7 +8,7 @@
 ## R CMD check results
 There were no ERRORs, WARNINGS or NOTES.
 
-## Comments from last Submission:
+## Comments from last submission:
 
 'Most of your examples are wrapped in \dontrun{}, hence nothing gets tested. Please unwrap the examples if that is feasible and if they can be executed in < 5 sec for each Rd file or create additionally small toy examples.'
 
