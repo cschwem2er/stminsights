@@ -34,7 +34,7 @@
 #'                    data = out$meta,
 #'                    prevalence = ~ treatment + s(pid_rep),
 #'                    K = 15,
-#'                    max.em.its = 5, # reduce computation time for example
+#'                    max.em.its = 2, # reduce computation time for example
 #'                    verbose = FALSE)
 #'
 #' # extract network
