@@ -3,6 +3,8 @@
 
 # stminsights
 
+[![CRAN
+status](http://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
 [![Travis-CI Build
 Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
 [![AppVeyor Build
@@ -24,23 +26,29 @@ focused more on making your life easier after these steps.
 
 ## How to Install
 
-You can download and install the app by running
-`devtools::install_github('methodds/stminsights')`.
+You can download and install the latest development version of the app
+by running `devtools::install_github('methodds/stminsights')`.
 
 For Windows users installing from github requires proper setup of
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a
 tutorial is available
 [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
 
+stminsights can also be installed from CRAN by running
+`install.packages('stminsights')`.
+
 ## How to Use
 
-After installing stminsights run `stminsights::run_stminsights()` to
-launch the shiny app in your browser. Afterwards you can upload an
-`.RData` file which should include:
+After loading stminsights you can launch the shiny app in your browser:
 
-  - one or several `stm` objects.
-  - one or several `estimateEffect` objects.
-  - an object `out` which was used to fit your stm models
+``` r
+library(stminsights)
+run_stminsights()
+```
+
+You can then upload an `.RData` file which should include: - one or
+several `stm` objects. - one or several `estimateEffect` objects. - an
+object `out` which was used to fit your stm models
 
 As an example, the following code fits two models and estimates effects
 for the [Political Blog
@@ -78,6 +86,9 @@ save.image('stm_poliblog5k.RData')
 After launching stminsights and uploading the file, all objects are
 automatically imported and you can select which models and effect
 estimates to analyze.
+
+In addition to the shiny app, several helper functions are available
+(e.g. `get_effects()` for storing effect estimates in a tidy dataframe).
 
 ## How to Deploy on Shiny Server
 

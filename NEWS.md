@@ -1,10 +1,11 @@
 
 # stminsights 0.1.2
 
-## Minor improvements / Bug Fix
+## Minor improvements / Bug Fix / CRAN Release
 
 * fixed a bug in get_effects (#5)
 * added 'difference' effect estimates in get_effects
+* the package is now available on CRAN: https://cran.r-project.org/web/packages/stm/index.html
 
 # stminsights 0.1.1
 
