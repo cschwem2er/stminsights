@@ -6,4 +6,5 @@
 * Windows Server 2012 R2 x64 (build 9600), R 3.4.2 (on Appveyor)
 
 ## R CMD check results
+
 There were no ERRORs, WARNINGS or NOTES.
