@@ -29,18 +29,19 @@
 #' out <- convert(data, to = 'stm')
 #'
 #' # fit model
-#' gadarian_15 <- stm(documents = out$documents,
+#' gadarian_10 <- stm(documents = out$documents,
 #'                    vocab = out$vocab,
 #'                    data = out$meta,
 #'                    prevalence = ~ treatment + s(pid_rep),
-#'                    K = 15,
-#'                    max.em.its = 2, # reduce computation time for example
+#'                    K = 10,
+#'                    max.em.its = 1, # reduce computation time for example
 #'                    verbose = FALSE)
 #'
 #' # extract network
-#' stm_corrs <- get_network(model = gadarian_15,
+#' stm_corrs <- get_network(model = gadarian_10,
 #'                          method = 'simple',
-#'                          labels = paste('Topic', 1:15),
+#'                          labels = paste('Topic', 1:10),
+#'                          cutoff = 0.01,
 #'                          cutiso = TRUE)
 #'
 #' \dontrun{

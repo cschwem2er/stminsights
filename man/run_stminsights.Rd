@@ -23,7 +23,7 @@ library(quanteda)
 data <- corpus(gadarian, text_field = 'open.ended.response')
 docvars(data)$text <- texts(data)
 data <- dfm(data, stem = TRUE, remove = stopwords('english'),
-            remove_punct = TRUE)
+            remove_punct = TRUE) \%>\% dfm_trim(min_count = 2)
 out <- convert(data, to = 'stm')
 
 # fit models and effect estimates
@@ -32,21 +32,21 @@ gadarian_3 <- stm(documents = out$documents,
                   data = out$meta,
                   prevalence = ~ treatment + s(pid_rep),
                   K = 3,
-                  max.em.its = 2, # reduce computation time for example
+                  max.em.its = 1, # reduce computation time for example
                   verbose = FALSE)
 
 prep_3 <- estimateEffect(1:3 ~ treatment + s(pid_rep), gadarian_3,
                          meta = out$meta)
 
-gadarian_7 <- stm(documents = out$documents,
+gadarian_5 <- stm(documents = out$documents,
                   vocab = out$vocab,
                   data = out$meta,
                   prevalence = ~ treatment + s(pid_rep),
-                  K = 7,
-                  max.em.its = 2, # reduce computation time for example
+                  K = 5,
+                  max.em.its = 1, # reduce computation time for example
                   verbose = FALSE)
 
-prep_7 <- estimateEffect(1:7 ~ treatment + s(pid_rep), gadarian_7,
+prep_5 <- estimateEffect(1:5 ~ treatment + s(pid_rep), gadarian_5,
                          meta = out$meta)
 
 # save objects in .RData file

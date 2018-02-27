@@ -31,7 +31,7 @@
 #'                   data = out$meta,
 #'                   prevalence = ~ treatment + s(pid_rep),
 #'                   K = 3,
-#'                   max.em.its = 2, # reduce computation time for example
+#'                   max.em.its = 1, # reduce computation time for example
 #'                   verbose = FALSE)
 #'
 #' gadarian_5 <- stm(documents = out$documents,
@@ -39,7 +39,7 @@
 #'                   data = out$meta,
 #'                   prevalence = ~ treatment + s(pid_rep),
 #'                   K = 5,
-#'                   max.em.its = 2, # reduce computation time for example
+#'                   max.em.its = 1, # reduce computation time for example
 #'                   verbose = FALSE)
 #'
 #' # get diagnostics
