@@ -4,7 +4,9 @@
 # stminsights
 
 [![CRAN
-status](http://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
+status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights?color=orange)](https://cran.rstudio.com/web/packages/stminsights/index.html)
 [![Travis-CI Build
 Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
 [![AppVeyor Build
@@ -48,7 +50,7 @@ run_stminsights()
 
 You can then upload an `.RData` file which should include: - one or
 several `stm` objects. - one or several `estimateEffect` objects. - an
-object `out` which was used to fit your stm models
+object `out` which was used to fit your stm models.
 
 As an example, the following code fits two models and estimates effects
 for the [Political Blog
