@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-projec
 [![CRAN
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://cran.rstudio.com/web/packages/stminsights/index.html)
 
-<img src="man/figures/stminsights_interface.png" width="600">
+<img src="man/figures/stminsights_interface.png" width="800">
 
 ## A Shiny Application for Structural Topic Models
 
