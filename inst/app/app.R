@@ -2,7 +2,6 @@ library(shiny)
 library(shinyBS)
 library(shinydashboard)
 library(stm)
-#library(igraph)
 library(tidygraph)
 library(ggraph)
 library(stringr)
@@ -11,8 +10,6 @@ library(ggrepel)
 library(tibble)
 library(dplyr)
 
-# set.seed(1337)
-# options(scipen = 999)
 
 
 
