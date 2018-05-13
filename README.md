@@ -7,10 +7,8 @@
 Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
-[![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://cran.rstudio.com/web/packages/stminsights/index.html)
+[![CRAN status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://cran.rstudio.com/web/packages/stminsights/index.html)
 
 <img src="man/figures/stminsights_interface.png" width="800">
 
@@ -48,7 +46,7 @@ library(stminsights)
 run_stminsights()
 ```
 
-You can then upload an `.RData` file which should include: - one or
+You can then upload a `.RData` file which should include: - one or
 several `stm` objects. - one or several `estimateEffect` objects. - an
 object `out` which was used to fit your stm models.
 
@@ -94,22 +92,23 @@ In addition to the shiny app, several helper functions are available
 
 ## How to Deploy on Shiny Server
 
-Deploying stminsights to your own shiny server is pretty simple: Place
-the file `app.R`, which is located at `inst/app` of this package, to a
-folder in your server directory and you should be good to go.
+Deploying stminsights to your own shiny server is simple: Place the file
+`app.R`, which is located at `inst/app` of this package, to a folder in
+your server directory and you should be good to go.
 
-To test stminsights on my server, download `stm_poliblog5k.RData`
+To test stminsights on my server, you can download
+`stm_poliblog5k.RData`
 [here](http://polsoz.uni-bamberg.de:1337/data/poliblog/stm_poliblog5k.RData)
 and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
 ## Citation
 
-To cite package `stminsights` in publications please
-use:
+If you use stminsights for your publications please consider citing
+it:
 
 ``` 
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.1.2.
+  Structural Topic Models. R package version 0.2.0.
   https://github.com/methodds/stminsights
 ```
 
@@ -120,7 +119,7 @@ A BibTeX entry for LaTeX users is:
     title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
     author = {Carsten Schwemmer},
     year = {2018},
-    note = {R package version 0.1.2},
+    note = {R package version 0.2.0},
     url = {https://github.com/methodds/stminsights},
   }
 ```

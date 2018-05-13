@@ -1,4 +1,14 @@
 
+
+# stminsights 0.2.0
+
+## Minor improvements
+
+* include vignette for an introduction to stminsights
+* include url for bug reports
+* update readme
+
+
 # stminsights 0.1.2
 
 ## Minor improvements / Bug Fix / CRAN Release
