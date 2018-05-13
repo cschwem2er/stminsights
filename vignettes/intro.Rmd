@@ -119,8 +119,8 @@ Hovering over UI elements displays tooltips that assist users in navigating thro
 Although the shiny application includes several options for exporting and visualizing the output from structural topic models, users may wish to create their own plots in different formats. For such cases stminsights offers three utility functions that can be used outside of the shiny application:
 
 - `get_effects()`: create a dataframe including prevalence effects for one stm model
-- `get_network()`: create a [tidygraph](https://github.com/thomasp85/tidygraph) for correlation network of one stm model
-- `get_diag()`: create a dataframe including statistical diagnostic measures for several models
+- `get_network()`: create a [tidygraph](https://github.com/thomasp85/tidygraph) for a correlation network of one stm model
+- `get_diag()`: create a dataframe including statistical diagnostics for several models
 
 
 
