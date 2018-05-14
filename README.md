@@ -7,6 +7,11 @@
 Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
+[![CRAN 
+status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
+[![CRAN 
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://cran.rstudio.com/web/packages/stminsights/index.html)
+
 
 <img src="man/figures/stminsights_interface.png" width="800">
 

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## A Shiny Application for Inspecting Structural Topic Models 
 
-Topic models are widely used statistical models to reduce the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several [Structural Topic Models](http://structuraltopicmodel.com) (stm). In case you are not familiar with stm, the stm package vignette is an excellent starting point.
+Topic models are widely used statistical models to reduce the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several [Structural Topic Models](http://structuraltopicmodel.com) (stm). In case you are not familiar with structural topic models, the stm package vignette is an excellent starting point.
 
 ## How to Install
 
