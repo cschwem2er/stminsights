@@ -8,6 +8,8 @@
 #' Defaults to \code{TRUE}.
 #' @examples
 #'
+#'  \dontrun{
+#'
 #' library(stm)
 #' library(quanteda)
 #'
@@ -49,6 +51,7 @@
 #'   run_stminsights()
 #' }
 #'
+#' }
 #'
 #' @import stm
 #' @import tidygraph

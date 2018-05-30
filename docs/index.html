@@ -106,7 +106,12 @@
 <p>After loading stminsights you can launch the shiny app in your browser:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(stminsights)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="reference/run_stminsights.html">run_stminsights</a></span>()</a></code></pre></div>
-<p>You can then upload a <code>.RData</code> file which should include: - one or several <code>stm</code> objects. - one or several <code>estimateEffect</code> objects. - an object <code>out</code> which was used to fit your stm models.</p>
+<p>You can then upload a <code>.RData</code> file which should include:</p>
+<ul>
+<li>one or several <code>stm</code> objects.</li>
+<li>one or several <code>estimateEffect</code> objects.</li>
+<li>an object <code>out</code> which was used to fit your stm models.</li>
+</ul>
 <p>As an example, the following code fits two models and estimates effects for the <a href="http://www.sailing.cs.cmu.edu/main/?page_id=710">Political Blog Corpus</a>. Afterwards, all objects required for stminsights are stored in <code>stm_poliblog5k.RData</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(stm)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
@@ -114,26 +119,26 @@
 <a class="sourceLine" id="cb2-4" data-line-number="4">            <span class="dt">vocab =</span> poliblog5k.voc,</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">            <span class="dt">meta =</span> poliblog5k.meta)</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">poli &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/stm">stm</a></span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">poli &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">            <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">            <span class="dt">data =</span> out<span class="op">$</span>meta, </a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">            <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day),</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">            <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day),</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">            <span class="dt">K =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">prep_poli &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/estimateEffect">estimateEffect</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day), poli,</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">prep_poli &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day), poli,</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13">                            <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">poli_content &lt;-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/stm">stm</a></span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">poli_content &lt;-<span class="st">  </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">                     <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17">                     <span class="dt">data =</span> out<span class="op">$</span>meta, </a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">                     <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day),</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">                     <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day),</a>
 <a class="sourceLine" id="cb2-19" data-line-number="19">                     <span class="dt">content =</span> <span class="op">~</span><span class="st"> </span>rating,</a>
 <a class="sourceLine" id="cb2-20" data-line-number="20">                     <span class="dt">K =</span> <span class="dv">15</span>)  </a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">prep_poli_content &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/estimateEffect">estimateEffect</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day), poli_content,</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">prep_poli_content &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day), poli_content,</a>
 <a class="sourceLine" id="cb2-22" data-line-number="22">                                    <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
 <a class="sourceLine" id="cb2-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb2-24" data-line-number="24"><span class="kw">save.image</span>(<span class="st">'stm_poliblog5k.RData'</span>)</a></code></pre></div>
 <p>After launching stminsights and uploading the file, all objects are automatically imported and you can select which models and effect estimates to analyze.</p>
-<p>In addition to the shiny app, several helper functions are available (e.g. <code><a href="reference/get_effects.html">get_effects()</a></code> for storing effect estimates in a tidy dataframe).</p>
+<p>In addition to the shiny app, several helper functions are available, e.g. <code><a href="reference/get_effects.html">get_effects()</a></code> for storing effect estimates in a tidy dataframe.</p>
 </div>
 <div id="how-to-deploy-on-shiny-server" class="section level2">
 <h2 class="hasAnchor">
@@ -192,6 +197,8 @@
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/methodds/stminsights"><img src="https://travis-ci.org/methodds/stminsights.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/methodds/stminsights"><img src="https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://cran.r-project.org/package=stminsights"><img src="https://www.r-pkg.org/badges/version/stminsights" alt="CRAN status"></a></li>
+<li><a href="https://cran.rstudio.com/web/packages/stminsights/index.html"><img src="https://cranlogs.r-pkg.org/badges/grand-total/stminsights" alt="CRAN downloads"></a></li>
 </ul>
 </div>
 </div>

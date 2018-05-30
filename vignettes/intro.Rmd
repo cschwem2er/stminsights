@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## A Shiny Application for Inspecting Structural Topic Models 
 
-Topic models are widely used statistical models to reduce the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several [Structural Topic Models](http://structuraltopicmodel.com) (stm). In case you are not familiar with structural topic models, the stm package vignette is an excellent starting point.
+Topic models are widely used statistical models for reducing the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several [Structural Topic Models](http://structuraltopicmodel.com) (stm). In case you are not familiar with structural topic models, the stm package vignette is an excellent starting point.
 
 ## How to Install
 
@@ -37,7 +37,7 @@ The main part of stminsights is an interactive shiny application, which requires
 - one or several `estimateEffect` objects.
 - an object `out` which was used to fit your stm models and contains documents, vocabulary and metadata.
 
-As an example, the following code uses the [quanteda](https://quanteda.io/) package to prepare the gadarian corpus for structural topic modeling. Afterwars, two models and estimates effects are computed and all objects required for stminsights are stored in `stm_gadarian.RData`: 
+As an example, the following code uses the [quanteda](https://quanteda.io/) package to prepare the gadarian corpus for structural topic modeling. Afterwards, two models and estimates effects are computed and all objects required for stminsights are stored in `stm_gadarian.RData`: 
 
 
 ```{r, eval = FALSE}
@@ -87,7 +87,7 @@ Hovering over UI elements displays tooltips that assist users in navigating thro
 
 - Info & Topics: 
 
-    - load the `.RData` file and select models as well as effect estimates
+    - load the `.RData` file, select models and as effect estimates
     - inspect the most important terms and documents for topics
     - assign labels to topics
     
@@ -108,7 +108,7 @@ Hovering over UI elements displays tooltips that assist users in navigating thro
     
 - Misc: 
 
-    - export of information about the select model in spreadsheet format
+    - export information about the select model in spreadsheet format
     - calculate diagnostics for evaluating all models in the `.RData`
     - export diagnostic plots
     
@@ -119,7 +119,7 @@ Hovering over UI elements displays tooltips that assist users in navigating thro
 Although the shiny application includes several options for exporting and visualizing the output from structural topic models, users may wish to create their own plots in different formats. For such cases stminsights offers three utility functions that can be used outside of the shiny application:
 
 - `get_effects()`: create a dataframe including prevalence effects for one stm model
-- `get_network()`: create a [tidygraph](https://github.com/thomasp85/tidygraph) for a correlation network of one stm model
+- `get_network()`: create a [tidygraph](https://github.com/thomasp85/tidygraph) for a correlation network of stm topics
 - `get_diag()`: create a dataframe including statistical diagnostics for several models
 
 

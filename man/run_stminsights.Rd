@@ -16,6 +16,8 @@ It requires an .RData file with stm objects as illustrated in the example below.
 }
 \examples{
 
+ \dontrun{
+
 library(stm)
 library(quanteda)
 
@@ -57,5 +59,6 @@ if(interactive()){
   run_stminsights()
 }
 
+}
 
 }
