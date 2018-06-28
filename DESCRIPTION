@@ -22,6 +22,7 @@ Imports:
           stringr (>= 1.2.0), 
           dplyr (>= 0.7.0), 
           tibble (>= 1.4.0), 
+          readr (>= 1.1.0),
           huge (>= 1.2.0),
           stats,
           scales

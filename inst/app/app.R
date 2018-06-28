@@ -1749,7 +1749,7 @@ server <- function(input, output, session) {
       'stmInsights_topiclabels.tsv'
     },
     content = function(file) {
-      write_tsv(labelframe(), file)
+      readr::write_tsv(labelframe(), file)
 
     }
   )
