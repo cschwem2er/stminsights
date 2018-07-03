@@ -8,8 +8,8 @@
 <title>A 'Shiny' Application for Inspecting Structural Topic Models • stminsights</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="A 'Shiny' Application for Inspecting Structural Topic Models">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="A 'Shiny' Application for Inspecting Structural Topic Models">
 <meta property="og:description" content="This app enables interactive validation, interpretation and visualization of structural topic models from the 'stm' package by Roberts and others (2014) &lt;doi:10.1111/ajps.12103&gt;. It also includes helper functions for model diagnostics and extracting data from effect estimates.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">stminsights</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -119,21 +119,21 @@
 <a class="sourceLine" id="cb2-4" data-line-number="4">            <span class="dt">vocab =</span> poliblog5k.voc,</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5">            <span class="dt">meta =</span> poliblog5k.meta)</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">poli &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">poli &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/stm">stm</a></span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">            <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">            <span class="dt">data =</span> out<span class="op">$</span>meta, </a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">            <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day),</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">            <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day),</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">            <span class="dt">K =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">prep_poli &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day), poli,</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">prep_poli &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/estimateEffect">estimateEffect</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day), poli,</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13">                            <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">poli_content &lt;-<span class="st">  </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">poli_content &lt;-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/stm">stm</a></span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">                     <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17">                     <span class="dt">data =</span> out<span class="op">$</span>meta, </a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">                     <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day),</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">                     <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day),</a>
 <a class="sourceLine" id="cb2-19" data-line-number="19">                     <span class="dt">content =</span> <span class="op">~</span><span class="st"> </span>rating,</a>
 <a class="sourceLine" id="cb2-20" data-line-number="20">                     <span class="dt">K =</span> <span class="dv">15</span>)  </a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">prep_poli_content &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day), poli_content,</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">prep_poli_content &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/estimateEffect">estimateEffect</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/stm/topics/s">s</a></span>(day), poli_content,</a>
 <a class="sourceLine" id="cb2-22" data-line-number="22">                                    <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
 <a class="sourceLine" id="cb2-23" data-line-number="23"></a>
 <a class="sourceLine" id="cb2-24" data-line-number="24"><span class="kw">save.image</span>(<span class="st">'stm_poliblog5k.RData'</span>)</a></code></pre></div>

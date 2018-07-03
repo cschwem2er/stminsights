@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -33,6 +35,7 @@
 <meta property="og:description" content=" get_network() is a helper function to extract stm topic correlation networks
 as tidygraph objects and add labels and topic proportions." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -59,7 +62,7 @@ as tidygraph objects and add labels and topic proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stminsights</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -164,7 +167,8 @@ as tidygraph objects and add labels and topic proportions.</p>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/docvars'>docvars</a></span>(<span class='no'>data</span>)$<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/texts'>texts</a></span>(<span class='no'>data</span>)
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/dfm'>dfm</a></span>(<span class='no'>data</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/reexports'>stopwords</a></span>(<span class='st'>'english'</span>),
             <span class='kw'>remove_punct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/convert'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("convert"): no applicable method for 'convert' applied to an object of class "c('dfm', 'dgCMatrix', 'CsparseMatrix', 'dsparseMatrix', 'generalMatrix', 'dCsparseMatrix', 'dMatrix', 'sparseMatrix', 'compMatrix', 'Matrix', 'xMatrix', 'mMatrix', 'Mnumeric', 'replValueSp')"</span></div><div class='input'>
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/convert'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)
+
 <span class='co'># fit model</span>
 <span class='no'>gadarian_10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/stm'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
                    <span class='kw'>vocab</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>vocab</span>,
@@ -172,14 +176,14 @@ as tidygraph objects and add labels and topic proportions.</p>
                    <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/s'>s</a></span>(<span class='no'>pid_rep</span>),
                    <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>10</span>,
                    <span class='kw'>max.em.its</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
-                   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in asSTMCorpus(documents, vocab, data): object 'out' not found</span></div><div class='input'>
+                   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
 <span class='co'># extract network</span>
 <span class='no'>stm_corrs</span> <span class='kw'>&lt;-</span> <span class='fu'>get_network</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>gadarian_10</span>,
                          <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'simple'</span>,
                          <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>'Topic'</span>, <span class='fl'>1</span>:<span class='fl'>10</span>),
                          <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-                         <span class='kw'>cutiso</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in is.data.frame(x): object 'gadarian_10' not found</span></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
+                         <span class='kw'>cutiso</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><span class='co'># NOT RUN {</span>
 <span class='co'># plot network</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/ggraph/topics/ggraph'>ggraph</a></span>(<span class='no'>stm_corrs</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>'fr'</span>) +
   <span class='fu'><a href='http://www.rdocumentation.org/packages/ggraph/topics/geom_edge_link'>geom_edge_link</a></span>(

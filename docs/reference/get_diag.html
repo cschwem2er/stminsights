@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -35,6 +37,7 @@ semanticCoherence and exclusivity for
 a number of  stm models. The function does not work for
 models with content covariates." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
@@ -61,7 +64,7 @@ models with content covariates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stminsights</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.1</span>
       </span>
     </div>
 
@@ -148,17 +151,26 @@ models with content covariates.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>library</span>(<span class='no'>stm</span>)
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='fu'>library</span>(<span class='no'>ggplot2</span>)
-<span class='fu'>library</span>(<span class='no'>quanteda</span>)
-
+<span class='fu'>library</span>(<span class='no'>stm</span>)</div><div class='output co'>#&gt; <span class='message'>stm v1.3.3 (2018-1-26) successfully loaded. See ?stm for help. </span>
+#&gt; <span class='message'> Papers, resources, and other materials at structuraltopicmodel.com</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>ggplot2</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘ggplot2’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:dplyr’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    vars</span></div><div class='input'><span class='fu'>library</span>(<span class='no'>quanteda</span>)</div><div class='output co'>#&gt; <span class='message'>Package version: 1.3.0</span></div><div class='output co'>#&gt; <span class='message'>Parallel computing: 2 of 4 threads used.</span></div><div class='output co'>#&gt; <span class='message'>See https://quanteda.io for tutorials and examples.</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘quanteda’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:utils’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    View</span></div><div class='input'>
 <span class='co'># prepare data</span>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/corpus'>corpus</a></span>(<span class='no'>gadarian</span>, <span class='kw'>text_field</span> <span class='kw'>=</span> <span class='st'>'open.ended.response'</span>)
 <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/docvars'>docvars</a></span>(<span class='no'>data</span>)$<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/texts'>texts</a></span>(<span class='no'>data</span>)
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/dfm'>dfm</a></span>(<span class='no'>data</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/reexports'>stopwords</a></span>(<span class='st'>'english'</span>),
             <span class='kw'>remove_punct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/convert'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("convert"): no applicable method for 'convert' applied to an object of class "c('dfm', 'dgCMatrix', 'CsparseMatrix', 'dsparseMatrix', 'generalMatrix', 'dCsparseMatrix', 'dMatrix', 'sparseMatrix', 'compMatrix', 'Matrix', 'xMatrix', 'mMatrix', 'Mnumeric', 'replValueSp')"</span></div><div class='input'>
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/quanteda/topics/convert'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)
+
 <span class='co'># fit models</span>
 <span class='no'>gadarian_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/stm'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
                   <span class='kw'>vocab</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>vocab</span>,
@@ -166,19 +178,21 @@ models with content covariates.</p>
                   <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/s'>s</a></span>(<span class='no'>pid_rep</span>),
                   <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>,
                   <span class='kw'>max.em.its</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
-                  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in asSTMCorpus(documents, vocab, data): object 'out' not found</span></div><div class='input'>
+                  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
 <span class='no'>gadarian_5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/stm'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
                   <span class='kw'>vocab</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>vocab</span>,
                   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>meta</span>,
                   <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/s'>s</a></span>(<span class='no'>pid_rep</span>),
                   <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>,
                   <span class='kw'>max.em.its</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
-                  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in asSTMCorpus(documents, vocab, data): object 'out' not found</span></div><div class='input'>
+                  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
 <span class='co'># get diagnostics</span>
 <span class='no'>diag</span> <span class='kw'>&lt;-</span> <span class='fu'>get_diag</span>(<span class='kw'>models</span> <span class='kw'>=</span> <span class='fu'>list</span>(
                  <span class='kw'>model_3</span> <span class='kw'>=</span> <span class='no'>gadarian_3</span>,
                  <span class='kw'>model_5</span> <span class='kw'>=</span> <span class='no'>gadarian_5</span>),
-                 <span class='kw'>outobj</span> <span class='kw'>=</span> <span class='no'>out</span>)</div><div class='output co'>#&gt; <span class='error'>Error in purrr::map2(models, names(models), function(x, y) {    exclusivity_mod &lt;- exclusivity(x)    coherence_mod &lt;- semanticCoherence(x, outobj$documents)    nr_topics_mod &lt;- ncol(x$theta)    model_df_mean &lt;- tibble(exclusivity = mean(exclusivity_mod),         coherence = mean(coherence_mod), statistic = "mean",         nr_topics = nr_topics_mod)    model_df_median &lt;- tibble(exclusivity = stats::median(exclusivity_mod),         coherence = stats::median(coherence_mod), statistic = "median",         nr_topics = nr_topics_mod)    model_df &lt;- bind_rows(model_df_mean, model_df_median) %&gt;%         mutate(name = y)    model_df}): object 'gadarian_3' not found</span></div><span class='co'># NOT RUN {</span>
+                 <span class='kw'>outobj</span> <span class='kw'>=</span> <span class='no'>out</span>)</div><span class='co'># NOT RUN {</span>
 <span class='co'># plot diagnostics</span>
 <span class='no'>diag</span> <span class='kw'>%&gt;%</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>coherence</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>exclusivity</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>statistic</span>))  +
