@@ -1,4 +1,4 @@
-#' #' @title launch the stminsights shiny app
+#' @title launch the stminsights shiny app
 #' @name run_stminsights
 #' @description
 #' \code{run_stminsights} launches the app to analyze Structural Topic models.
