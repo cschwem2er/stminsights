@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 
 
-<img src="man/figures/stminsights_interface.png" width="800">
+<img src="man/figures/logo.png" width="800">
 
 ## A Shiny Application for Structural Topic Models
 

@@ -80,7 +80,7 @@ library(stminsights)
 run_stminsights()
 ```
 
-<img src="../man/figures/stminsights_interface.png" width="800">
+<img src="../man/figures/logo.png" width="800">
 
 Hovering over UI elements displays tooltips that assist users in navigating through the application. Stminsights is organized as a dashboard with five columns that serve different purposes:
 
