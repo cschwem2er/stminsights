@@ -1,14 +1,4 @@
 authors:
   Carsten Schwemmer:
     href: https://www.carstenschwemmer.com
-image: man/figures/stminsights_interface.png
-
-navbar:
-  type: standard
-  right:
-    - icon: fa-github fa-lg
-      text: "github"
-      href: https://github.com/methodds/stminsights/
-    - icon: fa-lg fa-twitter
-      text: "twitter"
-      href: http://twitter.com/c_schwemmer
+image: man/figures/logo.png
