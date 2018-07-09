@@ -1175,8 +1175,8 @@ server <- function(input, output, session) {
     })
 
 
-    topicThoughts <- thoughts()$docs[[1]][1:50]
-    thoughtdf <- data.frame(topicThoughts, stringsAsFactors = F)
+    topicThoughts <- thoughts()$docs[[1]][1:100]
+    thoughtdf <- data.frame(topicThoughts, stringsAsFactors = FALSE)
     names(thoughtdf) <- " "
 
     return(thoughtdf)
