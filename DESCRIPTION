@@ -17,7 +17,7 @@ Imports:
           shinyBS (>= 0.6.0), 
           shinydashboard (>= 0.6.0), 
           shinyjs (>= 1.0.0), 
-          ggplot2 (>= 2.2.0), 
+          ggplot2 (>= 3.0.0), 
           purrr (>= 0.2.0), 
           stringr (>= 1.2.0), 
           dplyr (>= 0.7.0), 
