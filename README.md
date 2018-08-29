@@ -105,12 +105,12 @@ and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
 ## Citation
 
-If you use stminsights for your publications please consider citing
+If you use stminsights for your publications please cite
 it:
 
 ``` 
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.2.0.
+  Structural Topic Models. R package version 0.2.2.
   https://github.com/methodds/stminsights
 ```
 
@@ -121,7 +121,7 @@ A BibTeX entry for LaTeX users is:
     title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
     author = {Carsten Schwemmer},
     year = {2018},
-    note = {R package version 0.2.0},
+    note = {R package version 0.2.2},
     url = {https://github.com/methodds/stminsights},
   }
 ```
