@@ -41,7 +41,7 @@
 #' stm_corrs <- get_network(model = gadarian_10,
 #'                          method = 'simple',
 #'                          labels = paste('Topic', 1:10),
-#'                          cutoff = 0.01,
+#'                          cutoff = 0.001,
 #'                          cutiso = TRUE)
 #'
 #' \dontrun{

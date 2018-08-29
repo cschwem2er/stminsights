@@ -183,7 +183,7 @@ as tidygraph objects and add labels and topic proportions.</p>
 <span class='no'>stm_corrs</span> <span class='kw'>&lt;-</span> <span class='fu'>get_network</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>gadarian_10</span>,
                          <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'simple'</span>,
                          <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>paste</span>(<span class='st'>'Topic'</span>, <span class='fl'>1</span>:<span class='fl'>10</span>),
-                         <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
+                         <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
                          <span class='kw'>cutiso</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><span class='co'># NOT RUN {</span>
 <span class='co'># plot network</span>
 <span class='fu'><a href='http://www.rdocumentation.org/packages/ggraph/topics/ggraph'>ggraph</a></span>(<span class='no'>stm_corrs</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>'fr'</span>) +

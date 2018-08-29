@@ -105,8 +105,8 @@ and upload it at www.polsoz.uni-bamberg.de/stminsights.
 
 ## Citation
 
-If you use stminsights for your publications please cite
-it:
+Please cite stminsights if you use it for your
+publications:
 
 ``` 
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
