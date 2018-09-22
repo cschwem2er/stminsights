@@ -1,3 +1,9 @@
+# stminsights 0.2.3
+
+## Minor improvements
+
+* multiple variables can now be selected for inspecting representative documents of topics
+
 # stminsights 0.2.2
 
 ## Update Dependencies

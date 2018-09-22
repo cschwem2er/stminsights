@@ -602,7 +602,8 @@ server <- function(input, output, session) {
         "doccol",
         label = "Document column",
         choices = stm_data()$columns,
-        selected = "text"
+        multiple = TRUE,
+        selected = stm_data()$columns[1]
       )
     })
 
@@ -1169,15 +1170,22 @@ server <- function(input, output, session) {
         n = 100,
         # set to 100
         topics = c(t),
-        texts = stm_data()$out$meta[[input$doccol]]
+        texts = stm_data()$out$meta[[input$doccol[1]]]
+
       )
 
     })
 
 
-    topicThoughts <- thoughts()$docs[[1]][1:100]
-    thoughtdf <- data.frame(topicThoughts, stringsAsFactors = FALSE)
-    names(thoughtdf) <- " "
+    # slice and select meta data according to findThoughts indices
+
+    topicIndices <- thoughts()$index[[1]][1:100]
+    thoughtdf <- stm_data()$out$meta %>%
+      slice(topicIndices) %>% select(input$doccol)
+
+    #topicThoughts <- thoughts()$docs[[1]][1:100]
+    #thoughtdf <- data.frame(topicThoughts, stringsAsFactors = FALSE)
+    #names(thoughtdf) <- " "
 
     return(thoughtdf)
    # }
