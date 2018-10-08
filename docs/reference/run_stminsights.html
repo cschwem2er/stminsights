@@ -98,7 +98,7 @@ It requires an .RData file with stm objects as illustrated in the example below.
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/methodds/stminsights">
+  <a href="https://github.com/cschwem2er/stminsights">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -116,7 +116,7 @@ It requires an .RData file with stm objects as illustrated in the example below.
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>launch the stminsights shiny app</h1>
-    <small class="dont-index">Source: <a href='https://github.com/methodds/stminsights/blob/master/R/run_app.R'><code>R/run_app.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/cschwem2er/stminsights/blob/master/R/run_app.R'><code>R/run_app.R</code></a></small>
     <div class="hidden name"><code>run_stminsights.Rd</code></div>
     </div>
 
@@ -147,11 +147,11 @@ Defaults to <code>TRUE</code>.</p></td>
 <span class='fu'>library</span>(<span class='no'>quanteda</span>)
 
 <span class='co'># prepare data</span>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://docs.quanteda.io/reference/corpus.html'>corpus</a></span>(<span class='no'>gadarian</span>, <span class='kw'>text_field</span> <span class='kw'>=</span> <span class='st'>'open.ended.response'</span>)
-<span class='fu'><a href='http://docs.quanteda.io/reference/docvars.html'>docvars</a></span>(<span class='no'>data</span>)$<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://docs.quanteda.io/reference/texts.html'>texts</a></span>(<span class='no'>data</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://docs.quanteda.io/reference/dfm.html'>dfm</a></span>(<span class='no'>data</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='http://docs.quanteda.io/reference/reexports.html'>stopwords</a></span>(<span class='st'>'english'</span>),
-            <span class='kw'>remove_punct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='http://docs.quanteda.io/reference/dfm_trim.html'>dfm_trim</a></span>(<span class='kw'>min_count</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://docs.quanteda.io/reference/convert.html'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span>(<span class='no'>gadarian</span>, <span class='kw'>text_field</span> <span class='kw'>=</span> <span class='st'>'open.ended.response'</span>)
+<span class='fu'><a href='https://quanteda.io/reference/docvars.html'>docvars</a></span>(<span class='no'>data</span>)$<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/texts.html'>texts</a></span>(<span class='no'>data</span>)
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/dfm.html'>dfm</a></span>(<span class='no'>data</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='https://quanteda.io/reference/reexports.html'>stopwords</a></span>(<span class='st'>'english'</span>),
+            <span class='kw'>remove_punct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://quanteda.io/reference/dfm_trim.html'>dfm_trim</a></span>(<span class='kw'>min_count</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/convert.html'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)
 
 <span class='co'># fit models and effect estimates</span>
 <span class='no'>gadarian_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stm/topics/stm'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,

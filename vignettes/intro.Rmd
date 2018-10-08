@@ -22,7 +22,7 @@ Topic models are widely used statistical models for reducing the dimensionality 
 
 Stminsights can be installed from CRAN by running ``install.packages('stminsights')``.
 
-You can also download the latest development version of the app by running ``devtools::install_github('methodds/stminsights')``.    
+You can also download the latest development version of the app by running ``devtools::install_github('cschwem2er/stminsights')``.    
 
 For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a tutorial is available [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
 

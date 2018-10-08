@@ -27,7 +27,7 @@ is an excellent starting point.
 ## How to Install
 
 You can download and install the latest development version of the app
-by running `devtools::install_github('methodds/stminsights')`.
+by running `devtools::install_github('cschwem2er/stminsights')`.
 
 For Windows users installing from github requires proper setup of
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a
@@ -106,7 +106,7 @@ publications:
 ``` 
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
   Structural Topic Models. R package version 0.2.3.
-  https://github.com/methodds/stminsights
+  https://github.com/cschwem2er/stminsights
 ```
 
 A BibTeX entry for LaTeX users is:
@@ -117,6 +117,6 @@ A BibTeX entry for LaTeX users is:
     author = {Carsten Schwemmer},
     year = {2018},
     note = {R package version 0.2.3},
-    url = {https://github.com/methodds/stminsights},
+    url = {https://github.com/cschwem2er/stminsights},
   }
 ```
