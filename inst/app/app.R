@@ -82,7 +82,20 @@ ui <- dashboardPage(
       bsTooltip(
         'doccol',
         "Select the column of your meta dataframe to be displayed."
-      )
+      ),
+
+      checkboxGroupInput(
+        "include_doc_theta",
+        "Display document index and theta",
+        c(
+          "Document #" = 1,
+          "Theta" = 2
+        ),
+        selected = c(1, 2)
+      ),
+      bsTooltip('include_doc_theta',
+                "Check to include row indices and thetas",
+                placement = "right")
 
     ),
 
@@ -1183,6 +1196,14 @@ server <- function(input, output, session) {
     thoughtdf <- stm_data()$out$meta %>%
       slice(topicIndices) %>% select(input$doccol)
 
+    if (1 %in% input$include_doc_theta) {
+      thoughtdf <- cbind(seq.int(nrow(thoughtdf)), thoughtdf)
+      colnames(thoughtdf)[1] <- "Document"
+    }
+    if (2 %in% input$include_doc_theta) {
+      thoughtdf$theta <- model()$theta[c(topicIndices),t]
+    }
+
     #topicThoughts <- thoughts()$docs[[1]][1:100]
     #thoughtdf <- data.frame(topicThoughts, stringsAsFactors = FALSE)
     #names(thoughtdf) <- " "
@@ -1308,7 +1329,7 @@ server <- function(input, output, session) {
       autoWidth = TRUE,
       scrollX = TRUE,
       info = FALSE,
-      lengthMenu = c(1, 2, 5, 10),
+      lengthMenu = c(1, 5, 10, 50),
       lengthChange = T
     )
   )
