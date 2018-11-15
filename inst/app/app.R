@@ -127,6 +127,25 @@ ui <- dashboardPage(
 
 
     conditionalPanel(
+      condition = "input.tabvals == 12",
+
+      numericInput(
+        'articleID',
+        label = "Corpus Article ID",
+        value = 1,
+        min = 1,
+        max = nrow(fittedmodel[['theta']])
+      ),
+
+      bsTooltip('plotType', "Choose the topic be displayed.",
+                placement = "right")
+
+
+
+    ),
+
+
+    conditionalPanel(
       condition = "input.tabvals == 7 && input.plotType != 'perspectives'",
 
       htmlOutput("effectTopic"),
@@ -478,7 +497,7 @@ ui <- dashboardPage(
 
 
       tabPanel(
-        'Proportions',
+        'Proportions (corpus)',
 
         p('This plot shows the topic proportions over all documents.'),
         plotOutput('topicprops',
@@ -488,6 +507,18 @@ ui <- dashboardPage(
         downloadButton("download_prop", "Download plot"),
 
         value = 6
+      ),
+
+
+      tabPanel(
+        'Proportions (documents)',
+
+        p('This plot shows the topic proportions for single documents.'),
+        plotOutput('topicpropsperdoc',
+                   height = '600px',
+                   #             height = paste(as.character((ncol(props()) * 25), 'px')),
+                   width = "70%"),
+        value = 12
       ),
 
 
@@ -671,6 +702,7 @@ server <- function(input, output, session) {
     colnames(props) <- 1:ncol(props)
     return(props)
   })
+
 
 
 
@@ -1387,10 +1419,50 @@ server <- function(input, output, session) {
     return(p)
   }
 
+  #### Topic proportions plot  ####
+
+  plotTopicPropsPerDoc <- function(proportions) {
+    req(input$modelchoice)
+    req(stm_data())
+    if (length(tlabels()) > 0) {
+      names_ <- tlabels()
+    }
+    else {
+      names_ <- colnames(proportions)
+    }
+    frequency <- (proportions[input$articleID,])
+    order <- order(frequency, decreasing = F)
+    percentage <- frequency[order]
+    names_ <- names_[order]
+    topic <- factor(names_, levels = names_)
+    combined <- data.frame(percentage, topic)
+    p <- ggplot(combined, aes(x = topic, y = percentage)) +
+      geom_bar(stat = "identity",
+               fill = "#377eb8",
+               color = "#000000") +
+      coord_flip() + scale_y_continuous(labels = scales::percent,
+                                        expand = c(0, 0)) +
+      labs(y = "Proportion", x = "Topic") +
+      theme_light(base_size = 14) +
+      theme(axis.text = element_text(size = 14),
+            panel.grid.major.y = element_blank())
+
+    # ggsave("plot.png",
+    #        p,
+    #        dpi = 300,
+    #        width = 9,
+    #        height = 6)
+    return(p)
+  }
+
 
 
   output$topicprops <- renderPlot({
     plotTopicProps(props())
+  })
+
+  output$topicpropsperdoc <- renderPlot({
+    plotTopicPropsPerDoc(props())
   })
 
 
