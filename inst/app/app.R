@@ -88,8 +88,9 @@ ui <- dashboardPage(
         "include_doc_theta",
         "Display document index and theta",
         c(
-          "Document #" = 1,
-          "Theta" = 2
+          "Original Document ID" = 1,
+          "Row index" = 2,
+          "Theta" = 3
         ),
         selected = c(1, 2)
       ),
@@ -1189,18 +1190,20 @@ server <- function(input, output, session) {
 
     })
 
-
     # slice and select meta data according to findThoughts indices
-
     topicIndices <- thoughts()$index[[1]][1:100]
     thoughtdf <- stm_data()$out$meta %>%
       slice(topicIndices) %>% select(input$doccol)
 
-    if (1 %in% input$include_doc_theta) {
-      thoughtdf <- cbind(seq.int(nrow(thoughtdf)), thoughtdf)
-      colnames(thoughtdf)[1] <- "Document"
-    }
     if (2 %in% input$include_doc_theta) {
+      thoughtdf <- cbind(seq.int(nrow(thoughtdf)), thoughtdf)
+      colnames(thoughtdf)[1] <- "Row Index"
+    }
+    if (1 %in% input$include_doc_theta) {
+      thoughtdf <- cbind(topicIndices, thoughtdf)
+      colnames(thoughtdf)[1] <- "Original Document ID"
+    }
+    if (3 %in% input$include_doc_theta) {
       thoughtdf$theta <- model()$theta[c(topicIndices),t]
     }
 
