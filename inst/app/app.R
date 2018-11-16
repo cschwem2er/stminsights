@@ -134,7 +134,7 @@ ui <- dashboardPage(
         label = "Corpus Article ID",
         value = 1,
         min = 1,
-        max = nrow(model()[['theta']])
+        #max = nrow(model()[['theta']])
       ),
 
       bsTooltip('plotType', "Choose the topic be displayed.",
