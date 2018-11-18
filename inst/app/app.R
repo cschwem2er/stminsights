@@ -81,7 +81,8 @@ ui <- dashboardPage(
 
       bsTooltip(
         'doccol',
-        "Select the column of your meta dataframe to be displayed."
+        "Select the column of your meta dataframe to be displayed.",
+        placement = "right"
       ),
 
       checkboxGroupInput(
@@ -131,7 +132,7 @@ ui <- dashboardPage(
 
       numericInput(
         'articleID',
-        label = "Corpus Article ID",
+        label = "Corpus Document ID",
         value = 1,
         min = 1,
         #max = nrow(model()[['theta']])
@@ -402,8 +403,39 @@ ui <- dashboardPage(
         'Include scaling guides for the plot.',
         placement = "right"
       )
-    )
+    ),
+    conditionalPanel(
+      condition = "input.tabvals == 13",
 
+      h4("Topic x-axis"),
+      selectInput(
+        "topic_graph_1",
+        label = NULL,
+        choices = c(1),
+        selected = 1
+      ),
+      h4("Topic y-axis"),
+      selectInput(
+        "topic_graph_2",
+        label = NULL,
+        choices = c(1),
+        selected = 2
+      ),
+      bsTooltip('topic',
+                "Select the topic to inspect.",
+                placement = "right"),
+
+    h4("Document information"),
+
+
+    uiOutput('doccol2'),
+
+
+    bsTooltip(
+      'doccol2',
+      "Select the column of your meta dataframe to be displayed.",
+      placement = "right")
+    )
     ),
 
   #### body ####
@@ -551,6 +583,41 @@ ui <- dashboardPage(
         value = 4
       ),
 
+      tabPanel(
+        'Document graphs',
+
+        h2('Document plot'),
+
+        p('This plot shows the proportion for an articles over the selected topics'),
+        plotOutput('doc_topic_scatter',
+                   height = '600px',
+                   width = "80%",
+                   click = "plot_click",
+                   brush = brushOpts(
+                     id = "plot_brush"
+                   )),
+        h2('Document info (click)'),
+        p(
+          strong("Click"),
+          " on any dot in the plot to select a document"
+        ),
+        p(
+          "The table will show the proportion for each document on the selected topics as well as the selected meta data to display"
+        ),
+                   dataTableOutput("click_info"),
+        h2('Document info (brush)'),
+        p(
+          strong("Highlight"),
+          " any area in the graph to show multiple documents"
+          ),
+        p(
+          "The table will show the proportion for each document on the selected topics as well as the selected meta data to display (up to 50 documents)"
+          ),
+        dataTableOutput("brush_info"),
+        value = 13
+
+      ),
+
 
 
       tabPanel(
@@ -646,6 +713,16 @@ server <- function(input, output, session) {
       selectInput(
         "doccol",
         label = "Document column",
+        choices = stm_data()$columns,
+        multiple = TRUE,
+        selected = stm_data()$columns[1]
+      )
+    })
+
+    output$doccol2 = renderUI({
+      selectInput(
+        "doccol2",
+        label = "Document column(s)",
         choices = stm_data()$columns,
         multiple = TRUE,
         selected = stm_data()$columns[1]
@@ -1170,6 +1247,14 @@ server <- function(input, output, session) {
                       choices = tlabels(),
                       selected = tlabels()[1])
     updateSelectInput(session,
+                      "topic_graph_1",
+                      choices = tlabels(),
+                      selected = tlabels()[1])
+    updateSelectInput(session,
+                      "topic_graph_2",
+                      choices = tlabels(),
+                      selected = tlabels()[2])
+    updateSelectInput(session,
                       "effectTopic",
                       choices = tlabels(),
                       selected = tlabels()[1])
@@ -1360,7 +1445,7 @@ server <- function(input, output, session) {
     escape = FALSE,
     options = list(
       pageLength = 1,
-      searching = FALSE,
+      searching = TRUE,
       autoWidth = TRUE,
       scrollX = TRUE,
       info = FALSE,
@@ -1455,6 +1540,23 @@ server <- function(input, output, session) {
     return(p)
   }
 
+  plotScatterDoc <- function(df_scatter, t1, t2) {
+    req(input$modelchoice)
+    req(stm_data())
+    req(tlabels())
+
+    p <-   ggplot(df_scatter, aes_string(x=names(df_scatter)[1],y=names(df_scatter)[2])) +
+      geom_point() +
+      xlim(0,1) +
+      ylim(0,1) +
+      xlab(paste0("Topic ",t1)) +
+      ylab(paste0("Topic ",t2)) +
+      theme_bw()
+    return(p)
+    #input$topic_graph_2
+  }
+
+
 
 
   output$topicprops <- renderPlot({
@@ -1466,6 +1568,62 @@ server <- function(input, output, session) {
   })
 
 
+  output$doc_topic_scatter <- renderPlot({
+    t1 <- which(input$topic_graph_1 == tlabels())
+    t2 <- which(input$topic_graph_2 == tlabels())
+
+    df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+ #   colnames(df_scatter) <- c(paste0("Topic ",t1), paste0("Topic ",t2))
+    plotScatterDoc(df_scatter, t1, t2)
+  })
+
+  output$click_info <- renderDataTable({
+    t1 <- which(input$topic_graph_1 == tlabels())
+    t2 <- which(input$topic_graph_2 == tlabels())
+
+    df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+    df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
+    df_scatter <- cbind(df_scatter, df_scatterjoin)
+    nearclickdata <- nearPoints(df_scatter, input$plot_click, addDist = FALSE, maxpoints = 1)
+    colnames(nearclickdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
+    return(nearclickdata)
+
+  },
+      options = list(
+        pageLength = 1,
+        searching = FALSE,
+        autoWidth = TRUE,
+        scrollX = FALSE,
+        lengthChange = FALSE,
+        info = FALSE,
+        paging = FALSE
+      )
+ )
+
+
+  output$brush_info <- renderDataTable({
+      t1 <- which(input$topic_graph_1 == tlabels())
+      t2 <- which(input$topic_graph_2 == tlabels())
+
+      df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+      df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
+      df_scatter <- cbind(df_scatter, df_scatterjoin)
+      nearbrushdata <- brushedPoints(df_scatter, input$plot_brush)
+      nearbrushdata <- nearbrushdata[1:(min(nrow(brushedPoints(df_scatter, input$plot_brush)),50)),]
+      colnames(nearbrushdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
+      return(nearbrushdata)
+
+    },
+    options = list(
+      pageLength = 1,
+      searching = FALSE,
+      autoWidth = TRUE,
+      scrollX = FALSE,
+      lengthChange = FALSE,
+      info = FALSE,
+      paging = FALSE
+    )
+  )
 
   #### effectplot ####
 
