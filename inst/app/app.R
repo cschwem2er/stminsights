@@ -591,7 +591,7 @@ ui <- dashboardPage(
         p('This plot shows the proportion for an articles over the selected topics'),
         plotOutput('doc_topic_scatter',
                    height = '600px',
-                   width = "80%",
+                   width = "600px",
                    click = "plot_click",
                    brush = brushOpts(
                      id = "plot_brush"
