@@ -81,9 +81,23 @@ ui <- dashboardPage(
 
       bsTooltip(
         'doccol',
-        "Select the column of your meta dataframe to be displayed."
-      )
+        "Select the column of your meta dataframe to be displayed.",
+        placement = "right"
+      ),
 
+      checkboxGroupInput(
+        "include_doc_theta",
+        "Display:",
+        c(
+          "STM document ID" = 1,
+          "Row index" = 2,
+          "Theta" = 3
+        ),
+        selected = NULL
+      ),
+      bsTooltip('include_doc_theta',
+                "Check to include document, row indices and thetas",
+                placement = "right")
     ),
 
 
@@ -107,6 +121,58 @@ ui <- dashboardPage(
       bsTooltip('plotType', "Choose the plot type to be displayed.",
                 placement = "right")
 
+
+
+    ),
+
+
+    conditionalPanel(
+      condition = "input.tabvals == 12",
+      width = 2,
+      h4('Document proportions'),
+      numericInput(
+        'articleID',
+        label = "STM document ID",
+        value = 1,
+        min = 1,
+        #max = nrow(model()[['theta']])
+      ),
+
+      bsTooltip('plotType', "Choose the topic be displayed.",
+                placement = "right"),
+      br(),
+      h4('Scatter plot'),
+      h5("Topic x-axis"),
+      selectInput(
+        "topic_graph_1",
+        label = NULL,
+        choices = c(1),
+        selected = 1
+      ),
+      bsTooltip('topic_graph_1',
+                "Select the topic that will be on the x-axis.",
+                placement = "right"),
+      h5("Topic y-axis"),
+      selectInput(
+        "topic_graph_2",
+        label = NULL,
+        choices = c(1),
+        selected = 2
+      ),
+      bsTooltip('topic_graph_2',
+                "Select the topic that will be on the y-axis.",
+                placement = "right"),
+      br(),
+      h4('Document information'),
+
+
+      uiOutput('doccol2'),
+
+
+      bsTooltip(
+        'doccol2',
+        "Select the column of your meta dataframe to be displayed.",
+        placement = "right")
 
 
     ),
@@ -370,7 +436,6 @@ ui <- dashboardPage(
         placement = "right"
       )
     )
-
     ),
 
   #### body ####
@@ -464,7 +529,7 @@ ui <- dashboardPage(
 
 
       tabPanel(
-        'Proportions',
+        'Proportions (corpus)',
 
         p('This plot shows the topic proportions over all documents.'),
         plotOutput('topicprops',
@@ -474,6 +539,49 @@ ui <- dashboardPage(
         downloadButton("download_prop", "Download plot"),
 
         value = 6
+      ),
+
+
+      tabPanel(
+        'Proportions (documents)',
+        h1('Proportion plot'),
+        p('This plot shows the topic proportions for single documents.'),
+        plotOutput('topicpropsperdoc',
+                   height = '600px',
+                   #             height = paste(as.character((ncol(props()) * 25), 'px')),
+                   width = "70%"),
+        #downloadButton("download_prop_docs", "Download plot"),
+        h1('Scatter plot'),
+
+        p('This plot shows the proportion for an articles over the selected topics'),
+        plotOutput('doc_topic_scatter',
+                   height = '600px',
+                   width = "600px",
+                   click = "plot_click",
+                   brush = brushOpts(
+                     id = "plot_brush"
+                   )),
+        #downloadButton("download_scatter", "Download plot"),
+        h2('Document info (click)'),
+        p(
+          strong("Click"),
+          " on any dot in the plot to select a document"
+        ),
+        p(
+          "The table will show the proportion for each document on the selected topics as well as the selected meta data to display"
+        ),
+        dataTableOutput("click_info"),
+        h2('Document info (brush)'),
+        p(
+          strong("Highlight"),
+          " any area in the graph to show multiple documents"
+        ),
+        p(
+          "The table will show the proportion for each document on the selected topics as well as the selected meta data to display (up to 50 documents)"
+        ),
+        dataTableOutput("brush_info"),
+
+        value = 12
       ),
 
 
@@ -607,6 +715,16 @@ server <- function(input, output, session) {
       )
     })
 
+    output$doccol2 = renderUI({
+      selectInput(
+        "doccol2",
+        label = "Document column(s)",
+        choices = stm_data()$columns,
+        multiple = TRUE,
+        selected = stm_data()$columns[1]
+      )
+    })
+
     output$modelchoice = renderUI({
       selectInput("modelchoice",
                   label = "Model",
@@ -657,6 +775,7 @@ server <- function(input, output, session) {
     colnames(props) <- 1:ncol(props)
     return(props)
   })
+
 
 
 
@@ -1124,6 +1243,14 @@ server <- function(input, output, session) {
                       choices = tlabels(),
                       selected = tlabels()[1])
     updateSelectInput(session,
+                      "topic_graph_1",
+                      choices = tlabels(),
+                      selected = tlabels()[1])
+    updateSelectInput(session,
+                      "topic_graph_2",
+                      choices = tlabels(),
+                      selected = tlabels()[2])
+    updateSelectInput(session,
                       "effectTopic",
                       choices = tlabels(),
                       selected = tlabels()[1])
@@ -1176,12 +1303,22 @@ server <- function(input, output, session) {
 
     })
 
-
     # slice and select meta data according to findThoughts indices
-
     topicIndices <- thoughts()$index[[1]][1:100]
     thoughtdf <- stm_data()$out$meta %>%
       slice(topicIndices) %>% select(input$doccol)
+
+    if (2 %in% input$include_doc_theta) {
+      thoughtdf <- cbind(seq.int(nrow(thoughtdf)), thoughtdf)
+      colnames(thoughtdf)[1] <- "Row Index"
+    }
+    if (1 %in% input$include_doc_theta) {
+      thoughtdf <- cbind(topicIndices, thoughtdf)
+      colnames(thoughtdf)[1] <- "STM document ID"
+    }
+    if (3 %in% input$include_doc_theta) {
+      thoughtdf$theta <- model()$theta[c(topicIndices),t]
+    }
 
     #topicThoughts <- thoughts()$docs[[1]][1:100]
     #thoughtdf <- data.frame(topicThoughts, stringsAsFactors = FALSE)
@@ -1304,12 +1441,13 @@ server <- function(input, output, session) {
     escape = FALSE,
     options = list(
       pageLength = 1,
-      searching = FALSE,
+      searching = TRUE,
       autoWidth = TRUE,
       scrollX = TRUE,
       info = FALSE,
-      lengthMenu = c(1, 2, 5, 10),
-      lengthChange = T
+      lengthMenu = c(1, 5, 10, 50),
+      lengthChange = T,
+      dom  = '<"top">lrt<"bottom">ip'
     )
   )
 
@@ -1363,13 +1501,124 @@ server <- function(input, output, session) {
     return(p)
   }
 
+  #### Topic proportions plot  ####
+
+  plotTopicPropsPerDoc <- function(proportions) {
+    req(input$modelchoice)
+    req(stm_data())
+    if (length(tlabels()) > 0) {
+      names_ <- tlabels()
+    }
+    else {
+      names_ <- colnames(proportions)
+    }
+    frequency <- (proportions[input$articleID,])
+    order <- order(frequency, decreasing = F)
+    percentage <- frequency[order]
+    names_ <- names_[order]
+    topic <- factor(names_, levels = names_)
+    combined <- data.frame(percentage, topic)
+    p <- ggplot(combined, aes(x = topic, y = percentage)) +
+      geom_bar(stat = "identity",
+               fill = "#377eb8",
+               color = "#000000") +
+      coord_flip() + scale_y_continuous(labels = scales::percent,
+                                        expand = c(0, 0)) +
+      labs(y = "Proportion", x = "Topic") +
+      theme_light(base_size = 14) +
+      theme(axis.text = element_text(size = 14),
+            panel.grid.major.y = element_blank())
+
+    # ggsave("plot.png",
+    #        p,
+    #        dpi = 300,
+    #        width = 9,
+    #        height = 6)
+    return(p)
+  }
+
+  plotScatterDoc <- function(df_scatter, t1, t2) {
+    req(input$modelchoice)
+    req(stm_data())
+    req(tlabels())
+
+    p <-   ggplot(df_scatter, aes_string(x=names(df_scatter)[1],y=names(df_scatter)[2])) +
+      geom_point() +
+      xlim(0,1) +
+      ylim(0,1) +
+      xlab(paste0("Topic ",t1)) +
+      ylab(paste0("Topic ",t2)) +
+      theme_bw()
+    return(p)
+  }
+
+
 
 
   output$topicprops <- renderPlot({
     plotTopicProps(props())
   })
 
+  output$topicpropsperdoc <- renderPlot({
+    plotTopicPropsPerDoc(props())
+  })
 
+
+  output$doc_topic_scatter <- renderPlot({
+    t1 <- which(input$topic_graph_1 == tlabels())
+    t2 <- which(input$topic_graph_2 == tlabels())
+
+    df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+    plotScatterDoc(df_scatter, t1, t2)
+  })
+
+  output$click_info <- renderDataTable({
+    t1 <- which(input$topic_graph_1 == tlabels())
+    t2 <- which(input$topic_graph_2 == tlabels())
+
+    df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+    df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
+    df_scatter <- cbind(df_scatter, df_scatterjoin)
+    nearclickdata <- nearPoints(df_scatter, input$plot_click, addDist = FALSE, maxpoints = 1)
+    colnames(nearclickdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
+    return(nearclickdata)
+
+  },
+      options = list(
+        pageLength = 1,
+        searching = FALSE,
+        autoWidth = TRUE,
+        scrollX = FALSE,
+        lengthChange = FALSE,
+        info = FALSE,
+        paging = FALSE
+      )
+ )
+
+
+  output$brush_info <- renderDataTable({
+      t1 <- which(input$topic_graph_1 == tlabels())
+      t2 <- which(input$topic_graph_2 == tlabels())
+
+      df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+      df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
+      df_scatter <- cbind(df_scatter, df_scatterjoin)
+      nearbrushdata <- brushedPoints(df_scatter, input$plot_brush)
+      nearbrushdata <- nearbrushdata[1:(min(nrow(brushedPoints(df_scatter, input$plot_brush)),50)),]
+      colnames(nearbrushdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
+      return(nearbrushdata)
+
+    },
+    options = list(
+      pageLength = 1,
+      searching = FALSE,
+      autoWidth = TRUE,
+      scrollX = FALSE,
+      lengthChange = FALSE,
+      info = FALSE,
+      paging = FALSE
+    )
+  )
 
   #### effectplot ####
 
@@ -1778,6 +2027,33 @@ server <- function(input, output, session) {
     content = function(file) {
       pdf(file = file, width = 9, height = 6)
       print(plotTopicProps(props()))
+      dev.off()
+    },
+    contentType = "image/png"
+  )
+
+
+  output$download_scatter <- downloadHandler(
+    filename = 'plot.pdf',
+    content = function(file) {
+      pdf(file = file, width = 9, height = 6)
+      print({
+        t1 <- which(input$topic_graph_1 == tlabels())
+        t2 <- which(input$topic_graph_2 == tlabels())
+
+        df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+        plotScatterDoc(df_scatter, t1, t2)})
+      dev.off()
+    },
+    contentType = "image/png"
+  )
+
+
+  output$download_prop_docs <- downloadHandler(
+    filename = 'plot.pdf',
+    content = function(file) {
+      pdf(file = file, width = 9, height = 6)
+      print(plotTopicPropsPerDoc(props()))
       dev.off()
     },
     contentType = "image/png"

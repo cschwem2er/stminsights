@@ -1,3 +1,18 @@
+# stminsights 0.3.0
+
+## New features
+
+* representative documents are now searchable
+* representative document table now contains (optional) information on: row id, STM document ID and theta
+* proportions can now be plotted for each individual document using the STM document ID
+* documents can be plotted in a (clickable) 2d scatter plot that shows proportions on two topics simultaneously
+* document information displayed upon clicking scatter plot
+
+## Minor improvements
+
+* popup texts moved such that inputs can be selected more easily
+* default options for document inspection changed
+
 # stminsights 0.2.3
 
 ## Minor improvements
