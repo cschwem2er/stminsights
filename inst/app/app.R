@@ -169,10 +169,22 @@ ui <- dashboardPage(
       uiOutput('doccol2'),
 
 
+
       bsTooltip(
         'doccol2',
         "Select the column of your meta dataframe to be displayed.",
-        placement = "right")
+        placement = "right"),
+      checkboxGroupInput(
+        "include_doc_theta2",
+        "Display:",
+        c(
+          "STM document ID" = 1
+        ),
+        selected = NULL
+      ),
+      bsTooltip('include_doc_theta',
+                "Check to include STM document ID",
+                placement = "right")
 
 
     ),
@@ -1577,9 +1589,16 @@ server <- function(input, output, session) {
     t2 <- which(input$topic_graph_2 == tlabels())
 
     df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+    if (1 %in% input$include_doc_theta2) {
+      df_scatter$STM_doc_ID <- 1:nrow(df_scatter)
+    }
     df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
     df_scatter <- cbind(df_scatter, df_scatterjoin)
+
     nearclickdata <- nearPoints(df_scatter, input$plot_click, addDist = FALSE, maxpoints = 1)
+    if (1 %in% input$include_doc_theta2) {
+      colnames(nearclickdata)[3] <- "STM document ID"
+    }
     colnames(nearclickdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
     return(nearclickdata)
 
@@ -1601,10 +1620,16 @@ server <- function(input, output, session) {
       t2 <- which(input$topic_graph_2 == tlabels())
 
       df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+      if (1 %in% input$include_doc_theta2) {
+        df_scatter$STM_doc_ID <- 1:nrow(df_scatter)
+      }
       df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
       df_scatter <- cbind(df_scatter, df_scatterjoin)
       nearbrushdata <- brushedPoints(df_scatter, input$plot_brush)
       nearbrushdata <- nearbrushdata[1:(min(nrow(brushedPoints(df_scatter, input$plot_brush)),50)),]
+      if (1 %in% input$include_doc_theta2) {
+        colnames(nearbrushdata)[3] <- "STM document ID"
+      }
       colnames(nearbrushdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
       return(nearbrushdata)
 
