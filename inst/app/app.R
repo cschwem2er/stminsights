@@ -1307,7 +1307,7 @@ server <- function(input, output, session) {
         as.character()
       findThoughts(
         model(),
-        n = 100,
+        n = 300,
         # set to 100
         topics = c(t),
         texts = thought_texts
@@ -1317,7 +1317,7 @@ server <- function(input, output, session) {
     })
 
     # slice and select meta data according to findThoughts indices
-    topicIndices <- thoughts()$index[[1]][1:100]
+    topicIndices <- thoughts()$index[[1]][1:300]
     thoughtdf <- stm_data()$out$meta %>%
       slice(topicIndices) %>% select(input$doccol)
 
