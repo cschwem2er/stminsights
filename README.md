@@ -105,7 +105,7 @@ publications:
 
 ``` 
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.2.3.
+  Structural Topic Models. R package version 0.3.0.
   https://github.com/cschwem2er/stminsights
 ```
 
@@ -116,7 +116,7 @@ A BibTeX entry for LaTeX users is:
     title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
     author = {Carsten Schwemmer},
     year = {2018},
-    note = {R package version 0.2.3},
+    note = {R package version 0.3.0},
     url = {https://github.com/cschwem2er/stminsights},
   }
 ```

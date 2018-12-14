@@ -1,6 +1,6 @@
 # stminsights 0.3.0
 
-## New features
+## New features implemented by Jonne Guyt
 
 * representative documents are now searchable
 * representative document table now contains (optional) information on: row id, STM document ID and theta

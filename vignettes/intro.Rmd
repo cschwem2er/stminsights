@@ -82,7 +82,7 @@ run_stminsights()
 
 <img src="../man/figures/logo.png" width="800">
 
-Hovering over UI elements displays tooltips that assist users in navigating through the application. Stminsights is organized as a dashboard with five columns that serve different purposes:
+Hovering over UI elements displays tooltips that assist users in navigating through the application. Stminsights is organized as a dashboard with multiple columns that serve different purposes:
 
 
 - Info & Topics: 
@@ -91,10 +91,16 @@ Hovering over UI elements displays tooltips that assist users in navigating thro
     - inspect the most important terms and documents for topics
     - assign labels to topics
     
-- Proportions: 
+- Proportions (corpus): 
 
     - show proportions for each topic
     - export proportion plots
+    
+- Proportions (documents): 
+
+    - show topic proportions for each document
+    - export document topic proportion plots
+    - visualize and inspect document topic proportions interactively
     
 - Plots: 
 
