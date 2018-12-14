@@ -1310,7 +1310,7 @@ server <- function(input, output, session) {
         n = 500,
         # set to 100
         topics = c(t),
-        thresh = c(0.2),
+        #thresh = c(0.2),
         texts = thought_texts
 
       )
