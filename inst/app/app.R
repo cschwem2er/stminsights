@@ -1330,13 +1330,15 @@ server <- function(input, output, session) {
    # if(is.null(model())) {return(tibble(docs = ''))}
   #  else {
     thoughts <- reactive({
+      thought_texts <- stm_data()$out$meta[[input$doccol[1]]] %>%
+        as.character()
 
       findThoughts(
         model(),
         n = input$number_articles,
         # set to 100
         topics = c(t),
-        texts = stm_data()$out$meta[[input$doccol[1]]],
+        texts = thought_texts,
         thresh = input$mintheta
 
       )
