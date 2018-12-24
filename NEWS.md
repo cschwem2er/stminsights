@@ -1,6 +1,17 @@
+# stminsights 0.3.1
+
+## New features (implemented by Jonne Guyt)
+
+* number of documents to be sampled from can now be set by user
+* a minimum threshold (theta) for topic prevalence can be set by user when displaying relevant documents per topic
+
+## Minor improvements
+
+* visual demarcations to highlight different options/panels
+
 # stminsights 0.3.0
 
-## New features implemented by Jonne Guyt
+## New features (implemented by Jonne Guyt)
 
 * representative documents are now searchable
 * representative document table now contains (optional) information on: row id, STM document ID and theta

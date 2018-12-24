@@ -72,7 +72,7 @@ ui <- dashboardPage(
       bsTooltip('nrwords', "The number of terms to be displayed",
                 placement = "right"),
 
-
+      tags$hr(),
       h4("Documents"),
 
 
@@ -516,6 +516,7 @@ ui <- dashboardPage(
         ),
 
 
+        tags$hr(),
         h3('Topics'),
         p('Inspect the most important words for the selected topic.'),
 
@@ -526,8 +527,30 @@ ui <- dashboardPage(
           'Inspect the documents with the highest proportions for the selected topic.'
         ),
 
+        wellPanel(fluidRow(
+          column(4, numericInput(
+            'number_articles',
+            label = "Number of articles to be sampled",
+            value = 100,
+            min = 1,
+            #max = nrow(model()[['theta']])
+          )
+          ),
+          column(4, offset = 2,
+
+                 sliderInput(
+                   'mintheta',
+                   'Minimum topic prevalence (main topic)',
+                   min = 0,
+                   max = 1,
+                   value = 0.2
+                 )
+          )
+        )
+        ),
         dataTableOutput('tlabel'),
 
+        tags$hr(),
         h4("Labels"),
         p(
           "Use the boxes to enter labels for your topics. It is suggested
@@ -1262,6 +1285,10 @@ server <- function(input, output, session) {
                       "topic_graph_2",
                       choices = tlabels(),
                       selected = tlabels()[2])
+#    updateSelectInput(session,
+#                      "topic_selected_condition",
+#                      choices = tlabels(),
+#                      selected = tlabels()[1])
     updateSelectInput(session,
                       "effectTopic",
                       choices = tlabels(),
@@ -1305,19 +1332,21 @@ server <- function(input, output, session) {
     thoughts <- reactive({
       thought_texts <- stm_data()$out$meta[[input$doccol[1]]] %>%
         as.character()
+
       findThoughts(
         model(),
-        n = 100,
+        n = input$number_articles,
         # set to 100
         topics = c(t),
-        texts = thought_texts
+        texts = thought_texts,
+        thresh = input$mintheta
 
       )
 
     })
 
     # slice and select meta data according to findThoughts indices
-    topicIndices <- thoughts()$index[[1]][1:100]
+    topicIndices <- thoughts()$index[[1]][1:input$number_articles]
     thoughtdf <- stm_data()$out$meta %>%
       slice(topicIndices) %>% select(input$doccol)
 
