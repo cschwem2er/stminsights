@@ -77,6 +77,31 @@ ui <- dashboardPage(
 
 
       uiOutput('doccol'),
+      bsTooltip(
+        'number_articles',
+        "Choose how many sample documents to display.",
+        placement = "right"
+      ),
+
+      numericInput('number_articles',
+                   label = "Number of documents",
+                   value = 100,
+                   min = 1
+      ),
+                   #max = nrow(model()[['theta']])),
+      bsTooltip(
+        'mintheta',
+        "Choose the minimum topic prevalence for documents to be displayed.",
+        placement = "right"
+      ),
+                   sliderInput(
+                     'mintheta',
+                     'Minimum topic prevalence',
+                     min = 0,
+                     max = 1,
+                     value = 0.2
+
+    ),
 
 
       bsTooltip(
@@ -527,27 +552,6 @@ ui <- dashboardPage(
           'Inspect the documents with the highest proportions for the selected topic.'
         ),
 
-        wellPanel(fluidRow(
-          column(4, numericInput(
-            'number_articles',
-            label = "Number of articles to be sampled",
-            value = 100,
-            min = 1,
-            #max = nrow(model()[['theta']])
-          )
-          ),
-          column(4, offset = 2,
-
-                 sliderInput(
-                   'mintheta',
-                   'Minimum topic prevalence (main topic)',
-                   min = 0,
-                   max = 1,
-                   value = 0.2
-                 )
-          )
-        )
-        ),
         dataTableOutput('tlabel'),
 
         tags$hr(),
