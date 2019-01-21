@@ -4,9 +4,9 @@
 # stminsights
 
 [![Travis-CI Build
-Status](https://travis-ci.org/methodds/stminsights.svg?branch=master)](https://travis-ci.org/methodds/stminsights)
+Status](https://travis-ci.org/cschwem2er/stminsights.svg?branch=master)](https://travis-ci.org/cschwem2er/stminsights)
 [![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/methodds/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/methodds/stminsights)
+Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/cschwem2er/stminsights)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
 [![CRAN
