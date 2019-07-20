@@ -1,8 +1,8 @@
 Package: stminsights
 Type: Package
 Title: A 'Shiny' Application for Inspecting Structural Topic Models
-Version: 0.3.1
-Date: 2018-12-24
+Version: 0.3.2
+Date: 2019-07-20
 Authors@R: c(
     person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre")),
     person("Jonne", "Guyt", email = "j.y.guyt@uva.nl", role = "ctb")

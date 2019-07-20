@@ -1,3 +1,9 @@
+# stminsights 0.3.2
+
+## new feature
+
+* added plot for pointestimate interaction effects
+
 # stminsights 0.3.1
 
 ## New features (implemented by Jonne Guyt)

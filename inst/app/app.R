@@ -257,7 +257,7 @@ ui <- dashboardPage(
 
 
     conditionalPanel(
-      condition = "input.tabvals == 7 && (input.plotType == 'continuous')",
+      condition = "input.tabvals == 7 && (input.plotType == 'continuous' || input.plotType == 'pointestimate')",
       #|| input.plotType == 'pointestimate' not implemented for now
       checkboxInput('moderator',
                     label = "Interaction Effect"),
@@ -392,7 +392,7 @@ ui <- dashboardPage(
 
 
     conditionalPanel(
-      condition = "input.tabvals == 7 && input.moderator == true && (input.plotType == 'continuous')",
+      condition = "input.tabvals == 7 && input.moderator == true && (input.plotType == 'continuous' || input.plotType == 'pointestimate')",
       # || input.plotType == 'pointestimate') not implemented for now
 
       htmlOutput("modvar"),
@@ -1050,6 +1050,104 @@ server <- function(input, output, session) {
       ) +
       guides(fill = FALSE, group = FALSE)  +
       coord_cartesian(ylim = c(-0.001, max(both$upper))) +
+      theme_bw(base_size = 14) +
+      theme(
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_line(
+          size = 0.2,
+          linetype = 'solid',
+          colour = "grey95"
+        )
+      )   +
+      scale_fill_brewer(palette = 'Set1')  +
+      scale_color_brewer(palette = 'Set1') +
+      labs(x = xlab , y  = ylab)
+
+    # ggsave(
+    #   "plot.png",
+    #   plot,
+    #   dpi = 300,
+    #   width = 9,
+    #   height = 6
+    # )
+    return(plot)
+
+  }
+
+
+
+  plot_pointestimate_int <- function(estobj,
+                                  variable,
+                                  topic,
+                                  xlab = input$plotLabel,
+                                  ylab =  input$plotLabel2,
+                                  ci = 0.95,
+                                  modvar = modvar,
+                                  modval1 =  modval1,
+                                  modval2 =  modval2) {
+    dat1 <-  plot(
+      x = estobj,
+      covariate = variable,
+      topic = topic,
+      method = "pointestimate",
+      moderator = modvar,
+      moderator.value = modval1,
+      ci.level = ci,
+      omit.plot = TRUE,
+      printlegend = FALSE
+    )
+
+    dat2 <-  plot(
+      x = estobj,
+      covariate = variable,
+      topic = topic,
+      method = "pointestimate",
+      moderator = modvar,
+      moderator.value = modval2,
+      ci.level = ci,
+      omit.plot = TRUE,
+      printlegend = FALSE
+    )
+
+    get_int_data <- function(data, label) {
+      means <- tibble(
+        mean  = data$means[[1]],
+        value = data$uvals,
+        labels = data$labels
+      )
+      cis <- t(data$cis[[1]])
+      colnames(cis) <- c('lower', 'upper')
+      comb <- cbind(means, cis)
+      comb$value <- as.factor(comb$value)
+      comb$Moderator <- label
+      return(comb)
+
+    }
+
+    mod1 <- get_int_data(dat1, modval1)
+    mod2 <- get_int_data(dat2, modval2)
+    both <- bind_rows(mod1, mod2)
+
+    plot <-
+      ggplot(both, aes(x = value, y = mean, group = Moderator)) +
+      geom_point(aes(color = Moderator), size = 3) +
+      geom_errorbar(aes(
+        ymin = lower,
+        ymax = upper,
+        group = Moderator,
+        color = Moderator,
+        linetype = Moderator
+      ),
+      alpha = 0.5,
+      width = 0.1,
+      size = 1) +
+    #  scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
+      scale_y_continuous(
+        breaks = scales::pretty_breaks(n = 8),
+        labels = scales::percent
+      ) +
+      guides(fill = FALSE, group = FALSE)  +
+ #     coord_cartesian(ylim = c(-0.001, max(both$upper))) +
       theme_bw(base_size = 14) +
       theme(
         panel.grid.minor = element_blank(),
@@ -1736,13 +1834,38 @@ server <- function(input, output, session) {
     }
 
     #### pointestimate ####
-    if (type == "pointestimate") {
+
+    interaction <- reactive({
+      input$moderator
+    })
+
+    if (interaction() == FALSE & type == "pointestimate") {
+
       return(
         plot_pointestimate(
           estobj = stm_effect_estimates(),
           variable = input$plotVar,
           topic = plotT,
           ci = input$effectci
+        )
+      )
+    }
+
+    if (interaction() == TRUE & type == "pointestimate") {
+      modvar <- input$modvar
+      modval1 <- input$modval1
+      modval2 <- input$modval2
+
+
+      return(
+        plot_pointestimate_int(
+          estobj = stm_effect_estimates(),
+          variable = input$plotVar,
+          topic = plotT,
+          ci = input$effectci,
+          modvar = modvar,
+          modval1 =  modval1,
+          modval2 =  modval2
         )
       )
     }
