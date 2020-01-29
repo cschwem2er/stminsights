@@ -12,7 +12,7 @@ Defaults to \code{TRUE}.}
 }
 \description{
 \code{run_stminsights} launches the app to analyze Structural Topic models.
-It requires an .RData file with stm objects as illustrated in the example below.
+It requires a .RData file with stm objects as illustrated in the example below.
 }
 \examples{
 

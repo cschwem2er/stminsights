@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="extract topic correlation network — get_network" />
 
-<meta property="og:description" content=" get_network() is a helper function to extract stm topic correlation networks
+<meta property="og:description" content=" get_network() is a helper function to extract topic correlation networks
 as tidygraph objects and add labels and topic proportions." />
 
 <meta property="og:image" content="/logo.png" />
@@ -66,7 +66,7 @@ as tidygraph objects and add labels and topic proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stminsights</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@ as tidygraph objects and add labels and topic proportions." />
 
     <div class="ref-description">
     
-    <p><code> get_network()</code> is a helper function to extract stm topic correlation networks
+    <p><code> get_network()</code> is a helper function to extract topic correlation networks
 as tidygraph objects and add labels and topic proportions.</p>
     
     </div>
@@ -163,7 +163,7 @@ as tidygraph objects and add labels and topic proportions.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>stm</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggraph</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package 'ggraph' was built under R version 3.5.1</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>quanteda</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggraph</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package 'ggraph' was built under R version 3.5.3</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>quanteda</span>)
 
 <span class='co'># prepare data</span>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span>(<span class='no'>gadarian</span>, <span class='kw'>text_field</span> <span class='kw'>=</span> <span class='st'>'open.ended.response'</span>)
@@ -197,7 +197,7 @@ as tidygraph objects and add labels and topic proportions.</p>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/geom_node_text'>geom_node_label</a></span>(
     <span class='fu'>aes</span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>props</span>),
     <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>,  <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.85</span>) +
-  <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>10</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/scales/topics/number_format'>percent</a></span>) +
+  <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>10</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/number_format.html'>percent</a></span>) +
   <span class='fu'>labs</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>'Topic Proportion'</span>,  <span class='kw'>edge_width</span> <span class='kw'>=</span> <span class='st'>'Topic Correlation'</span>) +
   <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/scale_edge_width'>scale_edge_width</a></span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)) +
   <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/theme_graph'>theme_graph</a></span>()

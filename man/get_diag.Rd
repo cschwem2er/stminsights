@@ -12,7 +12,7 @@ get_diag(models, outobj)
 \item{outobj}{The \code{out} object containing documents for all stm models.}
 }
 \value{
-Returns model diagnostics in a tidy data frame.
+Returns model diagnostics in a data frame.
 }
 \description{
 \code{ get_diag()} is a helper function to compute average and median

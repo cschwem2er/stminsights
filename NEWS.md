@@ -1,3 +1,11 @@
+# stminsights 0.4.0
+
+## minor improvements and bug fixes
+
+* fixes several bugs introduced by changes in the Shiny package
+* improved error messages for correlation graphs in the interactive app
+* updated documentation, readme and intro vignette
+
 # stminsights 0.3.2
 
 ## new feature

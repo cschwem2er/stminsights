@@ -26,13 +26,17 @@ is an excellent starting point.
 
 ## How to Install
 
+**Important note: The shiny app for the CRAN release of stminsights does
+currently not work properly due to bugs introduced by recent changes in
+the Shiny package (see
+[here](https://github.com/cschwem2er/stminsights/issues/16) for more
+details). Please use the Github version of stminsights for now.**
+
 You can download and install the latest development version of the app
 by running `devtools::install_github('cschwem2er/stminsights')`.
 
 For Windows users installing from github requires proper setup of
-[Rtools](https://cran.r-project.org/bin/windows/Rtools/), for which a
-tutorial is available
-[here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows).
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/).
 
 stminsights can also be installed from CRAN by running
 `install.packages('stminsights')`.
@@ -90,7 +94,7 @@ automatically imported and you can select which models and effect
 estimates to analyze.
 
 In addition to the shiny app, several helper functions are available,
-e.g. `get_effects()` for storing effect estimates in a tidy dataframe.
+e.g. `get_effects()` for storing effect estimates in a tidy dataframe.
 
 ## How to Deploy on Shiny Server
 
@@ -100,12 +104,11 @@ your server directory and you should be good to go.
 
 ## Citation
 
-Please cite stminsights if you use it for your
-publications:
+Please cite stminsights if you use it for your publications:
 
 ``` 
   Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.3.1.
+  Structural Topic Models. R package version 0.4.0.
   https://github.com/cschwem2er/stminsights
 ```
 
@@ -116,7 +119,7 @@ A BibTeX entry for LaTeX users is:
     title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
     author = {Carsten Schwemmer},
     year = {2018},
-    note = {R package version 0.3.1},
+    note = {R package version 0.4.0},
     url = {https://github.com/cschwem2er/stminsights},
   }
 ```

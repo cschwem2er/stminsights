@@ -83,25 +83,26 @@ ui <- dashboardPage(
         placement = "right"
       ),
 
-      numericInput('number_articles',
-                   label = "Number of documents",
-                   value = 100,
-                   min = 1
+      numericInput(
+        'number_articles',
+        label = "Number of documents",
+        value = 100,
+        min = 1
       ),
-                   #max = nrow(model()[['theta']])),
+      #max = nrow(model()[['theta']])),
       bsTooltip(
         'mintheta',
         "Choose the minimum topic prevalence for documents to be displayed.",
         placement = "right"
       ),
-                   sliderInput(
-                     'mintheta',
-                     'Minimum topic prevalence',
-                     min = 0,
-                     max = 1,
-                     value = 0.2
+      sliderInput(
+        'mintheta',
+        'Minimum topic prevalence',
+        min = 0,
+        max = 1,
+        value = 0.2
 
-    ),
+      ),
 
 
       bsTooltip(
@@ -120,9 +121,11 @@ ui <- dashboardPage(
         ),
         selected = NULL
       ),
-      bsTooltip('include_doc_theta',
-                "Check to include document, row indices and thetas",
-                placement = "right")
+      bsTooltip(
+        'include_doc_theta',
+        "Check to include document, row indices and thetas",
+        placement = "right"
+      )
     ),
 
 
@@ -174,9 +177,11 @@ ui <- dashboardPage(
         choices = c(1),
         selected = 1
       ),
-      bsTooltip('topic_graph_1',
-                "Select the topic that will be on the x-axis.",
-                placement = "right"),
+      bsTooltip(
+        'topic_graph_1',
+        "Select the topic that will be on the x-axis.",
+        placement = "right"
+      ),
       h5("Topic y-axis"),
       selectInput(
         "topic_graph_2",
@@ -184,9 +189,11 @@ ui <- dashboardPage(
         choices = c(1),
         selected = 2
       ),
-      bsTooltip('topic_graph_2',
-                "Select the topic that will be on the y-axis.",
-                placement = "right"),
+      bsTooltip(
+        'topic_graph_2',
+        "Select the topic that will be on the y-axis.",
+        placement = "right"
+      ),
       br(),
       h4('Document information'),
 
@@ -198,18 +205,19 @@ ui <- dashboardPage(
       bsTooltip(
         'doccol2',
         "Select the column of your meta dataframe to be displayed.",
-        placement = "right"),
+        placement = "right"
+      ),
       checkboxGroupInput(
         "include_doc_theta2",
         "Display:",
-        c(
-          "STM document ID" = 1
-        ),
+        c("STM document ID" = 1),
         selected = NULL
       ),
-      bsTooltip('include_doc_theta',
-                "Check to include STM document ID",
-                placement = "right")
+      bsTooltip(
+        'include_doc_theta',
+        "Check to include STM document ID",
+        placement = "right"
+      )
 
 
     ),
@@ -355,11 +363,9 @@ ui <- dashboardPage(
         "Controls the scaling constant on text size.",
         placement = "right"
       ),
-     checkboxInput(
-        'contLabels',
-        'Change content categories',
-        value = FALSE
-      ),
+      checkboxInput('contLabels',
+                    'Change content categories',
+                    value = FALSE),
       bsTooltip(
         'contLabels',
         "Check if you want to change the categories to plot. Only affects content models.",
@@ -473,7 +479,7 @@ ui <- dashboardPage(
         placement = "right"
       )
     )
-    ),
+  ),
 
   #### body ####
 
@@ -563,7 +569,7 @@ ui <- dashboardPage(
         uiOutput("textInputs"),
 
         value = 1
-        ),
+      ),
 
 
 
@@ -592,20 +598,20 @@ ui <- dashboardPage(
         #downloadButton("download_prop_docs", "Download plot"),
         h1('Scatter plot'),
 
-        p('This plot shows the proportion for an articles over the selected topics'),
-        plotOutput('doc_topic_scatter',
-                   height = '600px',
-                   width = "600px",
-                   click = "plot_click",
-                   brush = brushOpts(
-                     id = "plot_brush"
-                   )),
+        p(
+          'This plot shows the proportion for an articles over the selected topics'
+        ),
+        plotOutput(
+          'doc_topic_scatter',
+          height = '600px',
+          width = "600px",
+          click = "plot_click",
+          brush = brushOpts(id = "plot_brush")
+        ),
         #downloadButton("download_scatter", "Download plot"),
         h2('Document info (click)'),
-        p(
-          strong("Click"),
-          " on any dot in the plot to select a document"
-        ),
+        p(strong("Click"),
+          " on any dot in the plot to select a document"),
         p(
           "The table will show the proportion for each document on the selected topics as well as the selected meta data to display"
         ),
@@ -681,10 +687,10 @@ ui <- dashboardPage(
 
         value = 2
       )
-  )
+    )
   )))
 
-  )
+)
 
 
 server <- function(input, output, session) {
@@ -785,10 +791,12 @@ server <- function(input, output, session) {
 
 
   observeEvent(input$plotType, {
-    if(input$plotType %in% c('wordcloud', 'perspectives')) {
+    if (input$plotType %in% c('wordcloud', 'perspectives')) {
       shinyjs::hide('download_plot')
     }
-    else {shinyjs::show('download_plot')}
+    else {
+      shinyjs::show('download_plot')
+    }
 
   }, priority = 10)
 
@@ -848,26 +856,32 @@ server <- function(input, output, session) {
                       value = as.character(w[i]))
 
       }
-      uis
+      return(uis)
     })
-  }, priority = -1)
+  }, priority = 5) # was -1 before
 
   # dynamically update topic labels
 
   tlabels <- reactive({
     req(model())
+    req(!any(is.na(str_subset(
+      names(input), '^TL'
+    )[1:ncol(props())])))
     nr_topics <- ncol(props())
-    tnames <- str_subset(names(input), '^TL')[1:nr_topics]
+    tnames <- sort(str_subset(names(input), '^TL'))[1:nr_topics]
+
+
     topiclabels <-  list()
-    #tlabs <- str_extract_all('^TL', names(input))
     for (i in tnames) {
       topiclabels[[i]] <- input[[i]]
     }
-    to_return <- unlist(topiclabels, use.names = F)
-    #print(to_return)
+    to_return <- unlist(topiclabels, use.names = FALSE)
+
     return(to_return)
 
   })
+
+
 
 
 
@@ -898,9 +912,9 @@ server <- function(input, output, session) {
 
     plot <-
       ggplot(comb, aes(y = reorder(value, mean), x = mean)) + geom_point() +
-      geom_line() +  guides(fill = F,
-                            color = F,
-                            group = F)  +
+      geom_line(aes(group = 1)) +  guides(fill = F,
+                                          color = F,
+                                          group = F)  +
       geom_errorbarh(aes(xmin = lower, xmax = upper),
                      height = 0.1) +
       scale_x_continuous(labels = scales::percent,
@@ -954,7 +968,8 @@ server <- function(input, output, session) {
       geom_ribbon(aes(ymin = lower, ymax = upper),
                   alpha = 0.2,
                   fill = '#778899') +
-      scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
+      scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
+                         expand = c(0.00, 0)) +
       scale_y_continuous(
         breaks = scales::pretty_breaks(n = 8),
         expand = c(0.00, 0),
@@ -1042,7 +1057,8 @@ server <- function(input, output, session) {
         fill = Moderator
       ),
       alpha = 0.2) +
-      scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
+      scale_x_continuous(breaks = scales::pretty_breaks(n = 8),
+                         expand = c(0.00, 0)) +
       scale_y_continuous(
         breaks = scales::pretty_breaks(n = 8),
         expand = c(0.00, 0),
@@ -1077,14 +1093,14 @@ server <- function(input, output, session) {
 
 
   plot_pointestimate_int <- function(estobj,
-                                  variable,
-                                  topic,
-                                  xlab = input$plotLabel,
-                                  ylab =  input$plotLabel2,
-                                  ci = 0.95,
-                                  modvar = modvar,
-                                  modval1 =  modval1,
-                                  modval2 =  modval2) {
+                                     variable,
+                                     topic,
+                                     xlab = input$plotLabel,
+                                     ylab =  input$plotLabel2,
+                                     ci = 0.95,
+                                     modvar = modvar,
+                                     modval1 =  modval1,
+                                     modval2 =  modval2) {
     dat1 <-  plot(
       x = estobj,
       covariate = variable,
@@ -1131,23 +1147,23 @@ server <- function(input, output, session) {
     plot <-
       ggplot(both, aes(x = value, y = mean, group = Moderator)) +
       geom_point(aes(color = Moderator), size = 3) +
-      geom_errorbar(aes(
-        ymin = lower,
-        ymax = upper,
-        group = Moderator,
-        color = Moderator,
-        linetype = Moderator
-      ),
-      alpha = 0.5,
-      width = 0.1,
-      size = 1) +
-    #  scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
-      scale_y_continuous(
-        breaks = scales::pretty_breaks(n = 8),
-        labels = scales::percent
+      geom_errorbar(
+        aes(
+          ymin = lower,
+          ymax = upper,
+          group = Moderator,
+          color = Moderator,
+          linetype = Moderator
+        ),
+        alpha = 0.5,
+        width = 0.1,
+        size = 1
       ) +
+      #  scale_x_continuous(breaks = scales::pretty_breaks(n = 8), expand = c(0.00, 0)) +
+      scale_y_continuous(breaks = scales::pretty_breaks(n = 8),
+                         labels = scales::percent) +
       guides(fill = FALSE, group = FALSE)  +
- #     coord_cartesian(ylim = c(-0.001, max(both$upper))) +
+      #     coord_cartesian(ylim = c(-0.001, max(both$upper))) +
       theme_bw(base_size = 14) +
       theme(
         panel.grid.minor = element_blank(),
@@ -1345,10 +1361,10 @@ server <- function(input, output, session) {
               value = input$plotVar)
   })
   output$plotLabel2 <- renderUI({
-  textInput("plotLabel2",
-            label = "Axis label 2",
-            value = 'Topic Proportion')
-})
+    textInput("plotLabel2",
+              label = "Axis label 2",
+              value = 'Topic Proportion')
+  })
 
   output$modvar <- renderUI({
     selectInput(
@@ -1387,10 +1403,10 @@ server <- function(input, output, session) {
                       "topic_graph_2",
                       choices = tlabels(),
                       selected = tlabels()[2])
-#    updateSelectInput(session,
-#                      "topic_selected_condition",
-#                      choices = tlabels(),
-#                      selected = tlabels()[1])
+    #    updateSelectInput(session,
+    #                      "topic_selected_condition",
+    #                      choices = tlabels(),
+    #                      selected = tlabels()[1])
     updateSelectInput(session,
                       "effectTopic",
                       choices = tlabels(),
@@ -1419,9 +1435,14 @@ server <- function(input, output, session) {
   topicDocs <- reactive({
     validate(
       need(!is.null(model()), "Loading, please wait.."),
+      need(!any(is.na(
+        str_subset(names(input), '^TL')[1:ncol(props())]
+      )),
+      "Loading, please wait.."),
       need(!is.null(tlabels()), "Loading, please wait.."),
       need(!is.null(stm_data()), "Loading, please wait.."),
-      need(length(tlabels()) == ncol(props()), "Loading, please wait.."))
+      need(length(tlabels()) == ncol(props()), "Loading, please wait..")
+    )
 
     t <- which(input$topic == tlabels())
     validate(need(length(t) > 0, "Loading, please wait.."))
@@ -1429,8 +1450,8 @@ server <- function(input, output, session) {
 
 
     #nrt <- as.numeric(input$nrthoughts)
-   # if(is.null(model())) {return(tibble(docs = ''))}
-  #  else {
+    # if(is.null(model())) {return(tibble(docs = ''))}
+    #  else {
     thoughts <- reactive({
       thought_texts <- stm_data()$out$meta[[input$doccol[1]]] %>%
         as.character()
@@ -1461,7 +1482,7 @@ server <- function(input, output, session) {
       colnames(thoughtdf)[1] <- "STM document ID"
     }
     if (3 %in% input$include_doc_theta) {
-      thoughtdf$theta <- model()$theta[c(topicIndices),t]
+      thoughtdf$theta <- model()$theta[c(topicIndices), t]
     }
 
     #topicThoughts <- thoughts()$docs[[1]][1:100]
@@ -1469,7 +1490,7 @@ server <- function(input, output, session) {
     #names(thoughtdf) <- " "
 
     return(thoughtdf)
-   # }
+    # }
 
 
   })
@@ -1481,6 +1502,10 @@ server <- function(input, output, session) {
     req(model())
     req(input$topic)
     req(tlabels())
+    req(!any(is.na(str_subset(
+      names(input), '^TL'
+    )[1:ncol(props())]))
+    , cancelOutput = TRUE)
 
     t <- which(input$topic == tlabels())
     nrterms <- as.numeric(input$nrwords)
@@ -1494,47 +1519,55 @@ server <- function(input, output, session) {
       contentList <- list()
 
       if (1 %in% input$labtypes) {
-        prob <- str_c(labels$marginal$prob[t,], collapse = ', ')
+        prob <- str_c(labels$marginal$prob[t, ], collapse = ', ')
         labList$Probability <- prob
 
         names(labels$cov.betas) <-
           str_c('Prob_', labels$covnames)
-        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
-          x$problabels[t,] %>% str_c(collapse = ', ')
-        }))
+        contentList <-
+          c(contentList,
+            labels$cov.betas %>% purrr::map(function (x) {
+              x$problabels[t, ] %>% str_c(collapse = ', ')
+            }))
 
       }
       if (2 %in% input$labtypes) {
-        frex <- str_c(labels$marginal$frex[t,], collapse = ', ')
+        frex <- str_c(labels$marginal$frex[t, ], collapse = ', ')
         labList$FREX <- frex
 
         names(labels$cov.betas) <-
           str_c('FREX_', labels$covnames)
-        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
-          x$frexlabels[t,] %>% str_c(collapse = ', ')
-        }))
+        contentList <-
+          c(contentList,
+            labels$cov.betas %>% purrr::map(function (x) {
+              x$frexlabels[t, ] %>% str_c(collapse = ', ')
+            }))
       }
 
       if (3 %in% input$labtypes) {
-        lift <- str_c(labels$marginal$lift[t,], collapse = ', ')
+        lift <- str_c(labels$marginal$lift[t, ], collapse = ', ')
         labList$Lift <- lift
 
         names(labels$cov.betas) <-
           str_c('Lift_', labels$covnames)
-        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
-          x$liftlabels[t,] %>% str_c(collapse = ', ')
-        }))
+        contentList <-
+          c(contentList,
+            labels$cov.betas %>% purrr::map(function (x) {
+              x$liftlabels[t, ] %>% str_c(collapse = ', ')
+            }))
       }
 
       if (4 %in% input$labtypes) {
-        score <- str_c(labels$marginal$score[t,], collapse = ', ')
+        score <- str_c(labels$marginal$score[t, ], collapse = ', ')
         labList$Score <- score
 
         names(labels$cov.betas) <-
           str_c('Score_', labels$covnames)
-        contentList <- c(contentList, labels$cov.betas %>% purrr::map(function (x) {
-          x$scorelabels[t,] %>% str_c(collapse = ', ')
-        }))
+        contentList <-
+          c(contentList,
+            labels$cov.betas %>% purrr::map(function (x) {
+              x$scorelabels[t, ] %>% str_c(collapse = ', ')
+            }))
       }
 
 
@@ -1548,22 +1581,22 @@ server <- function(input, output, session) {
 
     else{
       if (1 %in% input$labtypes) {
-        prob <- str_c(labels$prob[t,][1:nrterms], collapse = ', ')
+        prob <- str_c(labels$prob[t, ][1:nrterms], collapse = ', ')
         labList$Probability <- prob
 
       }
       if (2 %in% input$labtypes) {
-        frex <- str_c(labels$frex[t,][1:nrterms], collapse = ', ')
+        frex <- str_c(labels$frex[t, ][1:nrterms], collapse = ', ')
         labList$FREX <- frex
       }
 
       if (3 %in% input$labtypes) {
-        lift <- str_c(labels$lift[t,][1:nrterms], collapse = ', ')
+        lift <- str_c(labels$lift[t, ][1:nrterms], collapse = ', ')
         labList$Lift <- lift
       }
 
       if (4 %in% input$labtypes) {
-        score <- str_c(labels$score[t,][1:nrterms], collapse = ', ')
+        score <- str_c(labels$score[t, ][1:nrterms], collapse = ', ')
         labList$Score <- score
       }
 
@@ -1656,7 +1689,7 @@ server <- function(input, output, session) {
     else {
       names_ <- colnames(proportions)
     }
-    frequency <- (proportions[input$articleID,])
+    frequency <- (proportions[input$articleID, ])
     order <- order(frequency, decreasing = F)
     percentage <- frequency[order]
     names_ <- names_[order]
@@ -1686,12 +1719,13 @@ server <- function(input, output, session) {
     req(stm_data())
     req(tlabels())
 
-    p <-   ggplot(df_scatter, aes_string(x=names(df_scatter)[1],y=names(df_scatter)[2])) +
+    p <-
+      ggplot(df_scatter, aes_string(x = names(df_scatter)[1], y = names(df_scatter)[2])) +
       geom_point() +
-      xlim(0,1) +
-      ylim(0,1) +
-      xlab(paste0("Topic ",t1)) +
-      ylab(paste0("Topic ",t2)) +
+      xlim(0, 1) +
+      ylim(0, 1) +
+      xlab(paste0("Topic ", t1)) +
+      ylab(paste0("Topic ", t2)) +
       theme_bw()
     return(p)
   }
@@ -1712,7 +1746,7 @@ server <- function(input, output, session) {
     t1 <- which(input$topic_graph_1 == tlabels())
     t2 <- which(input$topic_graph_2 == tlabels())
 
-    df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+    df_scatter <- data.frame(model()$theta)[, c(t1, t2)]
     plotScatterDoc(df_scatter, t1, t2)
   })
 
@@ -1720,62 +1754,69 @@ server <- function(input, output, session) {
     t1 <- which(input$topic_graph_1 == tlabels())
     t2 <- which(input$topic_graph_2 == tlabels())
 
-    df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
+    df_scatter <- data.frame(model()$theta)[, c(t1, t2)]
     if (1 %in% input$include_doc_theta2) {
       df_scatter$STM_doc_ID <- 1:nrow(df_scatter)
     }
     df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
     df_scatter <- cbind(df_scatter, df_scatterjoin)
 
-    nearclickdata <- nearPoints(df_scatter, input$plot_click, addDist = FALSE, maxpoints = 1)
+    nearclickdata <-
+      nearPoints(df_scatter,
+                 input$plot_click,
+                 addDist = FALSE,
+                 maxpoints = 1)
     if (1 %in% input$include_doc_theta2) {
       colnames(nearclickdata)[3] <- "STM document ID"
     }
-    colnames(nearclickdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
+    colnames(nearclickdata)[1:2] <-
+      c(paste0("Topic ", t1), paste0("Topic ", t2))
     return(nearclickdata)
 
   },
-      options = list(
-        pageLength = 1,
-        searching = FALSE,
-        autoWidth = TRUE,
-        scrollX = FALSE,
-        lengthChange = FALSE,
-        info = FALSE,
-        paging = FALSE
-      )
- )
+  options = list(
+    pageLength = 1,
+    searching = FALSE,
+    autoWidth = TRUE,
+    scrollX = FALSE,
+    lengthChange = FALSE,
+    info = FALSE,
+    paging = FALSE
+  ))
 
 
   output$brush_info <- renderDataTable({
-      t1 <- which(input$topic_graph_1 == tlabels())
-      t2 <- which(input$topic_graph_2 == tlabels())
+    t1 <- which(input$topic_graph_1 == tlabels())
+    t2 <- which(input$topic_graph_2 == tlabels())
 
-      df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
-      if (1 %in% input$include_doc_theta2) {
-        df_scatter$STM_doc_ID <- 1:nrow(df_scatter)
-      }
-      df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
-      df_scatter <- cbind(df_scatter, df_scatterjoin)
-      nearbrushdata <- brushedPoints(df_scatter, input$plot_brush)
-      nearbrushdata <- nearbrushdata[1:(min(nrow(brushedPoints(df_scatter, input$plot_brush)),50)),]
-      if (1 %in% input$include_doc_theta2) {
-        colnames(nearbrushdata)[3] <- "STM document ID"
-      }
-      colnames(nearbrushdata)[1:2] <- c(paste0("Topic ",t1), paste0("Topic ",t2))
-      return(nearbrushdata)
+    df_scatter <- data.frame(model()$theta)[, c(t1, t2)]
+    if (1 %in% input$include_doc_theta2) {
+      df_scatter$STM_doc_ID <- 1:nrow(df_scatter)
+    }
+    df_scatterjoin <- stm_data()$out$meta %>% select(input$doccol2)
+    df_scatter <- cbind(df_scatter, df_scatterjoin)
+    nearbrushdata <- brushedPoints(df_scatter, input$plot_brush)
+    nearbrushdata <-
+      nearbrushdata[1:(min(nrow(
+        brushedPoints(df_scatter, input$plot_brush)
+      ), 50)), ]
+    if (1 %in% input$include_doc_theta2) {
+      colnames(nearbrushdata)[3] <- "STM document ID"
+    }
+    colnames(nearbrushdata)[1:2] <-
+      c(paste0("Topic ", t1), paste0("Topic ", t2))
+    return(nearbrushdata)
 
-    },
-    options = list(
-      pageLength = 1,
-      searching = FALSE,
-      autoWidth = TRUE,
-      scrollX = FALSE,
-      lengthChange = FALSE,
-      info = FALSE,
-      paging = FALSE
-    )
-  )
+  },
+  options = list(
+    pageLength = 1,
+    searching = FALSE,
+    autoWidth = TRUE,
+    scrollX = FALSE,
+    lengthChange = FALSE,
+    info = FALSE,
+    paging = FALSE
+  ))
 
   #### effectplot ####
 
@@ -1823,13 +1864,13 @@ server <- function(input, output, session) {
       # dev.off()
 
 
-        cloud(
-          model(),
-          topic = plotT,
-          random.order = FALSE,
-          max.words = input$cloud_words,
-          scale = c(scalemax, scalemin)
-        )
+      cloud(
+        model(),
+        topic = plotT,
+        random.order = FALSE,
+        max.words = input$cloud_words,
+        scale = c(scalemax, scalemin)
+      )
 
     }
 
@@ -1840,7 +1881,6 @@ server <- function(input, output, session) {
     })
 
     if (interaction() == FALSE & type == "pointestimate") {
-
       return(
         plot_pointestimate(
           estobj = stm_effect_estimates(),
@@ -1874,7 +1914,6 @@ server <- function(input, output, session) {
     if (type == "perspectives") {
       if (("content" %in% modelcall()$Attribute) &
           (plotPers1 == plotPers2)) {
-
         plabels <- model()$settings$covariates$yvarlevels
 
         # png(
@@ -1884,28 +1923,28 @@ server <- function(input, output, session) {
         #   units = 'in',
         #   res = 150
         # )
-#
-#         plot(
-#           model(),
-#           topics = plotPers1,
-#           type = "perspectives",
-#           n = input$persp_words,
-#           main = plotPers1,
-#           covarlevels = c(input$perspCat1, input$perspCat2),
-#           plabels = c(input$perspCat1, input$perspCat2),
-#           text.cex = input$persp_cex
-#         )
+        #
+        #         plot(
+        #           model(),
+        #           topics = plotPers1,
+        #           type = "perspectives",
+        #           n = input$persp_words,
+        #           main = plotPers1,
+        #           covarlevels = c(input$perspCat1, input$perspCat2),
+        #           plabels = c(input$perspCat1, input$perspCat2),
+        #           text.cex = input$persp_cex
+        #         )
 
         #dev.off()
 
-          plot(
-            model(),
-            topics = plotPers1,
-            type = "perspectives",
-            n = input$persp_words,
-            plabels = model()$settings$covariates$yvarlevels,
-            text.cex = input$persp_cex
-          )
+        plot(
+          model(),
+          topics = plotPers1,
+          type = "perspectives",
+          n = input$persp_words,
+          plabels = model()$settings$covariates$yvarlevels,
+          text.cex = input$persp_cex
+        )
 
 
       }
@@ -1931,13 +1970,13 @@ server <- function(input, output, session) {
 
 
         p <-   plot(
-            model(),
-            topics = c(plotPers1, plotPers2),
-            type = "perspectives",
-            plabels = c(input$perspTopic1, input$perspTopic2),
-            n = input$persp_words,
-            text.cex = input$persp_cex
-          )
+          model(),
+          topics = c(plotPers1, plotPers2),
+          type = "perspectives",
+          plabels = c(input$perspTopic1, input$perspTopic2),
+          n = input$persp_words,
+          text.cex = input$persp_cex
+        )
 
       }
     }
@@ -2010,6 +2049,11 @@ server <- function(input, output, session) {
       }
       else {
         cormat <- topicCorr(model(), method = 'huge')$poscor
+        if (!any(cormat != 0)) {
+          print("There were no edges detected between the topics of this STM model.")
+          return(NULL)
+
+        }
       }
 
 
@@ -2017,11 +2061,13 @@ server <- function(input, output, session) {
         igraph::simplify(igraph::graph.adjacency(cormat, mode = 'undirected', weighted = TRUE))
 
       if (length(igraph::E(g)) == 0) {
-        stop(
+        print(
           "There are no (sufficiently high) correlations between the topics of this STM model."
         )
+        return(NULL)
+
       }
-     igraph::V(g)$name <- tlabels()
+      igraph::V(g)$name <- tlabels()
       igraph::V(g)$props <- colMeans(model()$theta)
 
       return(g)
@@ -2029,25 +2075,35 @@ server <- function(input, output, session) {
 
 
 
-  graph <- reactive({
-    calcGraph(model(), input$graphmethod, input$cutoff)
-
-  })
+  # graph <- reactive({
+  #
+  #   calcGraph(model(), input$graphmethod, input$cutoff)
+  #
+  # })
 
 
 
   plot_corr_graph <- eventReactive(input$graphsubmit, {
-    plotGraph(graph(),
-              labels = input$eLabels,
-              cutiso = input$cutiso)
+    graph <-  calcGraph(model(), input$graphmethod, input$cutoff)
+    if (is.null(graph)) {
+      return(NULL)
+    }
+    output <- plotGraph(graph,
+                        labels = input$eLabels,
+                        cutiso = input$cutiso)
+
+    return(output)
 
   })
+
+
 
   output$graphplot <- renderPlot({
     withProgress(message = 'Creating graph..', value = 0,
                  {
                    incProgress(1)
                    plot_corr_graph()
+
 
                  })
   }, res = 90)
@@ -2196,18 +2252,22 @@ server <- function(input, output, session) {
   output$download_plot <- downloadHandler(
     filename = 'plot.pdf',
     content = function(file) {
-      pdf(file = file, width = 9, height = 6)
-   print(plot_effect_graph())
+      pdf(file = file,
+          width = 9,
+          height = 6)
+      print(plot_effect_graph())
       dev.off()
     },
-   contentType = "image/png"
+    contentType = "image/png"
   )
 
 
   output$download_prop <- downloadHandler(
     filename = 'plot.pdf',
     content = function(file) {
-      pdf(file = file, width = 9, height = 6)
+      pdf(file = file,
+          width = 9,
+          height = 6)
       print(plotTopicProps(props()))
       dev.off()
     },
@@ -2218,13 +2278,16 @@ server <- function(input, output, session) {
   output$download_scatter <- downloadHandler(
     filename = 'plot.pdf',
     content = function(file) {
-      pdf(file = file, width = 9, height = 6)
+      pdf(file = file,
+          width = 9,
+          height = 6)
       print({
         t1 <- which(input$topic_graph_1 == tlabels())
         t2 <- which(input$topic_graph_2 == tlabels())
 
-        df_scatter <- data.frame(model()$theta)[,c(t1,t2)]
-        plotScatterDoc(df_scatter, t1, t2)})
+        df_scatter <- data.frame(model()$theta)[, c(t1, t2)]
+        plotScatterDoc(df_scatter, t1, t2)
+      })
       dev.off()
     },
     contentType = "image/png"
@@ -2234,7 +2297,9 @@ server <- function(input, output, session) {
   output$download_prop_docs <- downloadHandler(
     filename = 'plot.pdf',
     content = function(file) {
-      pdf(file = file, width = 9, height = 6)
+      pdf(file = file,
+          width = 9,
+          height = 6)
       print(plotTopicPropsPerDoc(props()))
       dev.off()
     },
@@ -2247,7 +2312,9 @@ server <- function(input, output, session) {
   output$download_graph <- downloadHandler(
     filename = 'plot.pdf',
     content = function(file) {
-      pdf(file = file, width = 9, height = 6)
+      pdf(file = file,
+          width = 9,
+          height = 6)
       print(plot_corr_graph())
       dev.off()
     },
@@ -2259,7 +2326,9 @@ server <- function(input, output, session) {
   output$download_diag <- downloadHandler(
     filename = 'plot.pdf',
     content = function(file) {
-      pdf(file = file, width = 9, height = 6)
+      pdf(file = file,
+          width = 9,
+          height = 6)
       print(get_diags())
       dev.off()
     },

@@ -9,7 +9,7 @@
 #'
 #' @param outobj The \code{out} object containing documents for all stm models.
 #' @return
-#'   Returns model diagnostics in a tidy data frame.
+#'   Returns model diagnostics in a data frame.
 #'
 #' @examples
 #'
@@ -60,9 +60,9 @@
 #' @export
 
 get_diag <- function(models, # list of stm models
-                     outobj) # out object containing documents
+                     outobj)
+  # out object containing documents
 {
-
   model_dfs <-  purrr::map2(models, names(models), function(x, y) {
     exclusivity_mod <- exclusivity(x)
     coherence_mod <- semanticCoherence(x,  outobj$documents)
@@ -72,12 +72,14 @@ get_diag <- function(models, # list of stm models
       exclusivity = mean(exclusivity_mod),
       coherence = mean(coherence_mod),
       statistic = 'mean',
-      nr_topics = nr_topics_mod)
+      nr_topics = nr_topics_mod
+    )
     model_df_median <- tibble(
       exclusivity = stats::median(exclusivity_mod),
       coherence = stats::median(coherence_mod),
       statistic = 'median',
-      nr_topics = nr_topics_mod)
+      nr_topics = nr_topics_mod
+    )
 
     model_df <- bind_rows(model_df_mean, model_df_median) %>%
       mutate(name = y)
@@ -88,5 +90,3 @@ get_diag <- function(models, # list of stm models
   return(model_dfs)
 
 }
-
-

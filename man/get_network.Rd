@@ -18,7 +18,7 @@
 Returns tidygraph network of topic correlations.
 }
 \description{
-\code{ get_network()} is a helper function to extract stm topic correlation networks
+\code{ get_network()} is a helper function to extract topic correlation networks
 as tidygraph objects and add labels and topic proportions.
 }
 \examples{

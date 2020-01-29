@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stminsights</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -101,7 +101,7 @@
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
 <p>Stminsights can be installed from CRAN by running <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('stminsights')</a></code>.</p>
 <p>You can also download the latest development version of the app by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github('cschwem2er/stminsights')</a></code>.</p>
-<p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
+<p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.</p>
 </div>
 <div id="how-to-use" class="section level2">
 <h2 class="hasAnchor">
@@ -116,41 +116,41 @@
 <li>an object <code>out</code> which was used to fit your stm models and contains documents, vocabulary and metadata.</li>
 </ul>
 <p>As an example, the following code uses the <a href="https://quanteda.io/">quanteda</a> package to prepare the gadarian corpus for structural topic modeling. Afterwards, two models and estimates effects are computed and all objects required for stminsights are stored in <code>stm_gadarian.RData</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stm)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(quanteda)</a>
-<a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co"># prepare data</span></a>
-<a class="sourceLine" id="cb1-5" title="5">data &lt;-<span class="st"> </span><span class="kw">corpus</span>(gadarian, <span class="dt">text_field =</span> <span class="st">'open.ended.response'</span>)</a>
-<a class="sourceLine" id="cb1-6" title="6"><span class="kw">docvars</span>(data)<span class="op">$</span>text &lt;-<span class="st"> </span><span class="kw">texts</span>(data)</a>
-<a class="sourceLine" id="cb1-7" title="7">data &lt;-<span class="st"> </span><span class="kw">dfm</span>(data, <span class="dt">stem =</span> <span class="ot">TRUE</span>, <span class="dt">remove =</span> <span class="kw">stopwords</span>(<span class="st">'english'</span>),</a>
-<a class="sourceLine" id="cb1-8" title="8">           <span class="dt">remove_punct =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dfm_trim</span>(<span class="dt">min_count =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb1-9" title="9">out &lt;-<span class="st"> </span><span class="kw">convert</span>(data, <span class="dt">to =</span> <span class="st">'stm'</span>)</a>
-<a class="sourceLine" id="cb1-10" title="10"></a>
-<a class="sourceLine" id="cb1-11" title="11"><span class="co"># fit models and effect estimates</span></a>
-<a class="sourceLine" id="cb1-12" title="12">gadarian_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents,</a>
-<a class="sourceLine" id="cb1-13" title="13">                 <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
-<a class="sourceLine" id="cb1-14" title="14">                 <span class="dt">data =</span> out<span class="op">$</span>meta,</a>
-<a class="sourceLine" id="cb1-15" title="15">                 <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep),</a>
-<a class="sourceLine" id="cb1-16" title="16">                 <span class="dt">K =</span> <span class="dv">3</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb1-17" title="17">prep_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep), gadarian_<span class="dv">3</span>,</a>
-<a class="sourceLine" id="cb1-18" title="18">                        <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
-<a class="sourceLine" id="cb1-19" title="19">gadarian_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents,</a>
-<a class="sourceLine" id="cb1-20" title="20">                 <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
-<a class="sourceLine" id="cb1-21" title="21">                 <span class="dt">data =</span> out<span class="op">$</span>meta,</a>
-<a class="sourceLine" id="cb1-22" title="22">                 <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep),</a>
-<a class="sourceLine" id="cb1-23" title="23">                 <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb1-24" title="24">prep_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep), gadarian_<span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb1-25" title="25">                        <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
-<a class="sourceLine" id="cb1-26" title="26"></a>
-<a class="sourceLine" id="cb1-27" title="27"><span class="co"># save objects in .RData file</span></a>
-<a class="sourceLine" id="cb1-28" title="28"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/save">save.image</a></span>(<span class="st">'stm_gadarian.RData'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stm)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(quanteda)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># prepare data</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>data &lt;-<span class="st"> </span><span class="kw">corpus</span>(gadarian, <span class="dt">text_field =</span> <span class="st">'open.ended.response'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">docvars</span>(data)<span class="op">$</span>text &lt;-<span class="st"> </span><span class="kw">texts</span>(data)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>data &lt;-<span class="st"> </span><span class="kw">dfm</span>(data, <span class="dt">stem =</span> <span class="ot">TRUE</span>, <span class="dt">remove =</span> <span class="kw">stopwords</span>(<span class="st">'english'</span>),</span>
+<span id="cb1-8"><a href="#cb1-8"></a>           <span class="dt">remove_punct =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dfm_trim</span>(<span class="dt">min_count =</span> <span class="dv">2</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>out &lt;-<span class="st"> </span><span class="kw">convert</span>(data, <span class="dt">to =</span> <span class="st">'stm'</span>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># fit models and effect estimates</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>gadarian_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>                 <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>                 <span class="dt">data =</span> out<span class="op">$</span>meta,</span>
+<span id="cb1-15"><a href="#cb1-15"></a>                 <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep),</span>
+<span id="cb1-16"><a href="#cb1-16"></a>                 <span class="dt">K =</span> <span class="dv">3</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb1-17"><a href="#cb1-17"></a>prep_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep), gadarian_<span class="dv">3</span>,</span>
+<span id="cb1-18"><a href="#cb1-18"></a>                        <span class="dt">meta =</span> out<span class="op">$</span>meta)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>gadarian_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents,</span>
+<span id="cb1-20"><a href="#cb1-20"></a>                 <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</span>
+<span id="cb1-21"><a href="#cb1-21"></a>                 <span class="dt">data =</span> out<span class="op">$</span>meta,</span>
+<span id="cb1-22"><a href="#cb1-22"></a>                 <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep),</span>
+<span id="cb1-23"><a href="#cb1-23"></a>                 <span class="dt">K =</span> <span class="dv">5</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>prep_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span> <span class="op">~</span><span class="st"> </span>treatment <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(pid_rep), gadarian_<span class="dv">5</span>,</span>
+<span id="cb1-25"><a href="#cb1-25"></a>                        <span class="dt">meta =</span> out<span class="op">$</span>meta)</span>
+<span id="cb1-26"><a href="#cb1-26"></a></span>
+<span id="cb1-27"><a href="#cb1-27"></a><span class="co"># save objects in .RData file</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/save">save.image</a></span>(<span class="st">'stm_gadarian.RData'</span>)</span></code></pre></div>
 </div>
 <div id="interactive-application" class="section level3">
 <h3 class="hasAnchor">
 <a href="#interactive-application" class="anchor"></a>Interactive application</h3>
 <p>After preparing the <code>.RData</code> file, the shiny application can be launched with <code><a href="../reference/run_stminsights.html">run_stminsights()</a></code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stminsights)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw"><a href="../reference/run_stminsights.html">run_stminsights</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stminsights)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="../reference/run_stminsights.html">run_stminsights</a></span>()</span></code></pre></div>
 <p><img src="../man/figures/logo.png" width="800"></p>
 <p>Hovering over UI elements displays tooltips that assist users in navigating through the application. Stminsights is organized as a dashboard with multiple columns that serve different purposes:</p>
 <ul>

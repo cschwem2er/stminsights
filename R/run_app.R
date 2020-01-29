@@ -2,7 +2,7 @@
 #' @name run_stminsights
 #' @description
 #' \code{run_stminsights} launches the app to analyze Structural Topic models.
-#' It requires an .RData file with stm objects as illustrated in the example below.
+#' It requires a .RData file with stm objects as illustrated in the example below.
 #'
 #' @param use_browser Choose whether you want to launch the shiny app in your browser.
 #' Defaults to \code{TRUE}.
@@ -75,8 +75,9 @@ run_stminsights <- function(use_browser = TRUE) {
   }
 
   if (use_browser == TRUE)
-  runApp(appDir, display.mode = "normal",
-                launch.browser = TRUE)
-  else runApp(appDir, display.mode = "normal")
+    runApp(appDir, display.mode = "normal",
+           launch.browser = TRUE)
+  else
+    runApp(appDir, display.mode = "normal")
 
-  }
+}

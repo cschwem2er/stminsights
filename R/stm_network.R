@@ -1,7 +1,7 @@
 #' @title extract topic correlation network
 #' @name get_network
 #' @description
-#' \code{ get_network()} is a helper function to extract stm topic correlation networks
+#' \code{ get_network()} is a helper function to extract topic correlation networks
 #' as tidygraph objects and add labels and topic proportions.
 #' @param model The stm model for computing the correlation network.
 #'
@@ -69,52 +69,46 @@
 #'
 #'
 ## quiets concerns of R CMD check for non standard evaluation
-utils::globalVariables(c( "edges", "weight", "nodes", "degree", "." ))
+utils::globalVariables(c("edges", "weight", "nodes", "degree", "."))
 
 get_network <- function(model,
                         method = 'simple',
                         cutoff = 0.05,
                         labels = NULL,
                         cutiso = FALSE) {
-
-    # calculate topic correlation graph
-    if (method == "simple") {
-      cormat <-
-        topicCorr(model, method = 'simple', cutoff = cutoff)$poscor
-    }
-    else {
-      cormat <- topicCorr(model, method = 'huge')$poscor
-    }
-
-    g <- igraph::simplify(igraph::graph.adjacency(cormat,
-                                               mode = 'undirected',
-                                               weighted = TRUE))
-
-    if (length(igraph::E(g)) == 0) {
-      stop(
-        "There are no (sufficiently high) correlations between the topics of this STM model."
-      )
-    }
-
-    if (!is.null(labels)) {
-    igraph::V(g)$name <- labels
-    }
-
-    igraph::V(g)$props <- colMeans(model$theta)
-
-    graph_tidy <- as_tbl_graph(g) %>%
-      mutate(degree = centrality_degree(loops = FALSE)) %>%
-      activate(edges) %>%
-      filter(!edge_is_loop()) %>%
-      mutate(weight = round(weight, 2),
-             edge_label = as.character(weight))
-
-    if (cutiso == TRUE) {
-      graph_tidy <- graph_tidy %>% activate(nodes) %>%
-        filter(degree > 0)
-    }
-    return(graph_tidy)
+  # calculate topic correlation graph
+  if (method == "simple") {
+    cormat <-
+      topicCorr(model, method = 'simple', cutoff = cutoff)$poscor
+  }
+  else {
+    cormat <- topicCorr(model, method = 'huge')$poscor
   }
 
+  g <- igraph::simplify(igraph::graph.adjacency(cormat,
+                                                mode = 'undirected',
+                                                weighted = TRUE))
 
+  if (length(igraph::E(g)) == 0) {
+    stop("There are no (sufficiently high) correlations between the topics of this STM model.")
+  }
 
+  if (!is.null(labels)) {
+    igraph::V(g)$name <- labels
+  }
+
+  igraph::V(g)$props <- colMeans(model$theta)
+
+  graph_tidy <- as_tbl_graph(g) %>%
+    mutate(degree = centrality_degree(loops = FALSE)) %>%
+    activate(edges) %>%
+    filter(!edge_is_loop()) %>%
+    mutate(weight = round(weight, 2),
+           edge_label = as.character(weight))
+
+  if (cutiso == TRUE) {
+    graph_tidy <- graph_tidy %>% activate(nodes) %>%
+      filter(degree > 0)
+  }
+  return(graph_tidy)
+}

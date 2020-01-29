@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">stminsights</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -98,16 +98,17 @@
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-install" class="anchor"></a>How to Install</h2>
+<p><strong>Important note: The shiny app for the CRAN release of stminsights does currently not work properly due to bugs introduced by recent changes in the Shiny package (see <a href="https://github.com/cschwem2er/stminsights/issues/16">here</a> for more details). Please use the Github version of stminsights for now.</strong></p>
 <p>You can download and install the latest development version of the app by running <code><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">devtools::install_github('cschwem2er/stminsights')</a></code>.</p>
-<p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>, for which a tutorial is available <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a>.</p>
+<p>For Windows users installing from github requires proper setup of <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a>.</p>
 <p>stminsights can also be installed from CRAN by running <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('stminsights')</a></code>.</p>
 </div>
 <div id="how-to-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-use" class="anchor"></a>How to Use</h2>
 <p>After loading stminsights you can launch the shiny app in your browser:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stminsights)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="reference/run_stminsights.html">run_stminsights</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stminsights)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="reference/run_stminsights.html">run_stminsights</a></span>()</span></code></pre></div>
 <p>You can then upload a <code>.RData</code> file which should include:</p>
 <ul>
 <li>one or several <code>stm</code> objects.</li>
@@ -115,30 +116,30 @@
 <li>an object <code>out</code> which was used to fit your stm models.</li>
 </ul>
 <p>As an example, the following code fits two models and estimates effects for the <a href="http://www.sailing.cs.cmu.edu/main/?page_id=710">Political Blog Corpus</a>. Afterwards, all objects required for stminsights are stored in <code>stm_poliblog5k.RData</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stm)</a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3">out &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">documents =</span> poliblog5k.docs,</a>
-<a class="sourceLine" id="cb2-4" title="4">            <span class="dt">vocab =</span> poliblog5k.voc,</a>
-<a class="sourceLine" id="cb2-5" title="5">            <span class="dt">meta =</span> poliblog5k.meta)</a>
-<a class="sourceLine" id="cb2-6" title="6"></a>
-<a class="sourceLine" id="cb2-7" title="7">poli &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
-<a class="sourceLine" id="cb2-8" title="8">            <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
-<a class="sourceLine" id="cb2-9" title="9">            <span class="dt">data =</span> out<span class="op">$</span>meta, </a>
-<a class="sourceLine" id="cb2-10" title="10">            <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day),</a>
-<a class="sourceLine" id="cb2-11" title="11">            <span class="dt">K =</span> <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb2-12" title="12">prep_poli &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day), poli,</a>
-<a class="sourceLine" id="cb2-13" title="13">                            <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
-<a class="sourceLine" id="cb2-14" title="14"></a>
-<a class="sourceLine" id="cb2-15" title="15">poli_content &lt;-<span class="st">  </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </a>
-<a class="sourceLine" id="cb2-16" title="16">                     <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</a>
-<a class="sourceLine" id="cb2-17" title="17">                     <span class="dt">data =</span> out<span class="op">$</span>meta, </a>
-<a class="sourceLine" id="cb2-18" title="18">                     <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day),</a>
-<a class="sourceLine" id="cb2-19" title="19">                     <span class="dt">content =</span> <span class="op">~</span><span class="st"> </span>rating,</a>
-<a class="sourceLine" id="cb2-20" title="20">                     <span class="dt">K =</span> <span class="dv">15</span>)  </a>
-<a class="sourceLine" id="cb2-21" title="21">prep_poli_content &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day), poli_content,</a>
-<a class="sourceLine" id="cb2-22" title="22">                                    <span class="dt">meta =</span> out<span class="op">$</span>meta)</a>
-<a class="sourceLine" id="cb2-23" title="23"></a>
-<a class="sourceLine" id="cb2-24" title="24"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/save">save.image</a></span>(<span class="st">'stm_poliblog5k.RData'</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(stm)</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>out &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">documents =</span> poliblog5k.docs,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>            <span class="dt">vocab =</span> poliblog5k.voc,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>            <span class="dt">meta =</span> poliblog5k.meta)</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>poli &lt;-<span class="st"> </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>            <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</span>
+<span id="cb2-9"><a href="#cb2-9"></a>            <span class="dt">data =</span> out<span class="op">$</span>meta, </span>
+<span id="cb2-10"><a href="#cb2-10"></a>            <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day),</span>
+<span id="cb2-11"><a href="#cb2-11"></a>            <span class="dt">K =</span> <span class="dv">20</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>prep_poli &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">*</span><span class="st"> </span><span class="kw">s</span>(day), poli,</span>
+<span id="cb2-13"><a href="#cb2-13"></a>                            <span class="dt">meta =</span> out<span class="op">$</span>meta)</span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a>poli_content &lt;-<span class="st">  </span><span class="kw">stm</span>(<span class="dt">documents =</span> out<span class="op">$</span>documents, </span>
+<span id="cb2-16"><a href="#cb2-16"></a>                     <span class="dt">vocab =</span> out<span class="op">$</span>vocab,</span>
+<span id="cb2-17"><a href="#cb2-17"></a>                     <span class="dt">data =</span> out<span class="op">$</span>meta, </span>
+<span id="cb2-18"><a href="#cb2-18"></a>                     <span class="dt">prevalence =</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day),</span>
+<span id="cb2-19"><a href="#cb2-19"></a>                     <span class="dt">content =</span> <span class="op">~</span><span class="st"> </span>rating,</span>
+<span id="cb2-20"><a href="#cb2-20"></a>                     <span class="dt">K =</span> <span class="dv">15</span>)  </span>
+<span id="cb2-21"><a href="#cb2-21"></a>prep_poli_content &lt;-<span class="st"> </span><span class="kw">estimateEffect</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span> <span class="op">~</span><span class="st"> </span>rating <span class="op">+</span><span class="st"> </span><span class="kw">s</span>(day), poli_content,</span>
+<span id="cb2-22"><a href="#cb2-22"></a>                                    <span class="dt">meta =</span> out<span class="op">$</span>meta)</span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/save">save.image</a></span>(<span class="st">'stm_poliblog5k.RData'</span>)</span></code></pre></div>
 <p>After launching stminsights and uploading the file, all objects are automatically imported and you can select which models and effect estimates to analyze.</p>
 <p>In addition to the shiny app, several helper functions are available, e.g. <code><a href="reference/get_effects.html">get_effects()</a></code> for storing effect estimates in a tidy dataframe.</p>
 </div>
@@ -152,14 +153,14 @@
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please cite stminsights if you use it for your publications:</p>
 <pre><code>  Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.3.1.
+  Structural Topic Models. R package version 0.4.0.
   https://github.com/cschwem2er/stminsights</code></pre>
 <p>A BibTeX entry for LaTeX users is:</p>
 <pre><code>  @Manual{,
     title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
     author = {Carsten Schwemmer},
     year = {2018},
-    note = {R package version 0.3.1},
+    note = {R package version 0.4.0},
     url = {https://github.com/cschwem2er/stminsights},
   }</code></pre>
 </div>
