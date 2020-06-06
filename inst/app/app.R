@@ -1469,7 +1469,7 @@ server <- function(input, output, session) {
     })
 
     # slice and select meta data according to findThoughts indices
-    topicIndices <- thoughts()$index[[1]][1:input$number_articles]
+    topicIndices <- thoughts()$index[[1]]
     thoughtdf <- stm_data()$out$meta %>%
       slice(topicIndices) %>% select(input$doccol)
 
