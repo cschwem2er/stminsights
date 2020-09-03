@@ -8,21 +8,36 @@
 
 <title>extract topic correlation network — get_network • stminsights</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,13 +45,12 @@
 
 
 
-<meta property="og:title" content="extract topic correlation network — get_network" />
 
+<meta property="og:title" content="extract topic correlation network — get_network" />
 <meta property="og:description" content=" get_network() is a helper function to extract topic correlation networks
 as tidygraph objects and add labels and topic proportions." />
-
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -50,9 +64,10 @@ as tidygraph objects and add labels and topic proportions." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +81,7 @@ as tidygraph objects and add labels and topic proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stminsights</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -74,7 +89,7 @@ as tidygraph objects and add labels and topic proportions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,11 +112,10 @@ as tidygraph objects and add labels and topic proportions." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/cschwem2er/stminsights">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/cschwem2er/stminsights/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -112,6 +126,7 @@ as tidygraph objects and add labels and topic proportions." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -123,13 +138,11 @@ as tidygraph objects and add labels and topic proportions." />
     </div>
 
     <div class="ref-description">
-    
     <p><code> get_network()</code> is a helper function to extract topic correlation networks
 as tidygraph objects and add labels and topic proportions.</p>
-    
     </div>
 
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -154,16 +167,16 @@ as tidygraph objects and add labels and topic proportions.</p>
       <td><p>Remove isolated notes without any edges from the network. Defaults to <code>FALSE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns tidygraph network of topic correlations.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>stm</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggraph</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package 'ggraph' was built under R version 3.5.3</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>quanteda</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>stm</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggraph</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>quanteda</span>)
 
 <span class='co'># prepare data</span>
 <span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span>(<span class='no'>gadarian</span>, <span class='kw'>text_field</span> <span class='kw'>=</span> <span class='st'>'open.ended.response'</span>)
@@ -173,10 +186,10 @@ as tidygraph objects and add labels and topic proportions.</p>
 <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/convert.html'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)
 
 <span class='co'># fit model</span>
-<span class='no'>gadarian_10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stm/topics/stm'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
+<span class='no'>gadarian_10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/stm.html'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
                    <span class='kw'>vocab</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>vocab</span>,
                    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>meta</span>,
-                   <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='https://www.rdocumentation.org/packages/stm/topics/s'>s</a></span>(<span class='no'>pid_rep</span>),
+                   <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span>(<span class='no'>pid_rep</span>),
                    <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>10</span>,
                    <span class='kw'>max.em.its</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
                    <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -184,52 +197,51 @@ as tidygraph objects and add labels and topic proportions.</p>
 <span class='co'># extract network</span>
 <span class='no'>stm_corrs</span> <span class='kw'>&lt;-</span> <span class='fu'>get_network</span>(<span class='kw'>model</span> <span class='kw'>=</span> <span class='no'>gadarian_10</span>,
                          <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'simple'</span>,
-                         <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='st'>'Topic'</span>, <span class='fl'>1</span>:<span class='fl'>10</span>),
+                         <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>'Topic'</span>, <span class='fl'>1</span>:<span class='fl'>10</span>),
                          <span class='kw'>cutoff</span> <span class='kw'>=</span> <span class='fl'>0.001</span>,
-                         <span class='kw'>cutiso</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><span class='co'># NOT RUN {</span>
+                         <span class='kw'>cutiso</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># plot network</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/ggraph'>ggraph</a></span>(<span class='no'>stm_corrs</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>'fr'</span>) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/geom_edge_link'>geom_edge_link</a></span>(
+<span class='fu'><a href='https://ggraph.data-imaginist.com/reference/ggraph.html'>ggraph</a></span>(<span class='no'>stm_corrs</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>'fr'</span>) +
+  <span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_edge_link.html'>geom_edge_link</a></span>(
     <span class='fu'>aes</span>(<span class='kw'>edge_width</span> <span class='kw'>=</span> <span class='no'>weight</span>),
     <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>'#fc8d62'</span>,
     <span class='kw'>edge_colour</span> <span class='kw'>=</span> <span class='st'>'#377eb8'</span>) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/geom_node_point'>geom_node_point</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>)  +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/geom_node_text'>geom_node_label</a></span>(
+  <span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_node_point.html'>geom_node_point</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>)  +
+  <span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_node_text.html'>geom_node_label</a></span>(
     <span class='fu'>aes</span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>name</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>props</span>),
     <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>,  <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.85</span>) +
-  <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>10</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>) +
+  <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>10</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='no'><a href='https://scales.r-lib.org//reference/label_percent.html'>percent</a></span>) +
   <span class='fu'>labs</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='st'>'Topic Proportion'</span>,  <span class='kw'>edge_width</span> <span class='kw'>=</span> <span class='st'>'Topic Correlation'</span>) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/scale_edge_width'>scale_edge_width</a></span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)) +
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/ggraph/topics/theme_graph'>theme_graph</a></span>()
-<span class='co'># }</span><div class='input'>
-</div></pre>
+  <span class='fu'><a href='https://ggraph.data-imaginist.com/reference/scale_edge_width.html'>scale_edge_width</a></span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>)) +
+  <span class='fu'><a href='https://ggraph.data-imaginist.com/reference/theme_graph.html'>theme_graph</a></span>()
+}</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.carstenschwemmer.com'>Carsten Schwemmer</a>.</p>
+  <p>Developed by Carsten Schwemmer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

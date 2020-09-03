@@ -4,8 +4,16 @@
 \alias{get_effects}
 \title{extract stm effect estimates}
 \usage{
-get_effects(estimates, variable, type, ci = 0.95, moderator = NULL,
-  modval = NULL, cov_val1 = NULL, cov_val2 = NULL)
+get_effects(
+  estimates,
+  variable,
+  type,
+  ci = 0.95,
+  moderator = NULL,
+  modval = NULL,
+  cov_val1 = NULL,
+  cov_val2 = NULL
+)
 }
 \arguments{
 \item{estimates}{The object containing estimates calculated with

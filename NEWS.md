@@ -1,3 +1,9 @@
+# stminsights 0.4.1
+
+## minor improvements and bug fixes
+
+* update dependencies to fix other bugs related to Shiny
+
 # stminsights 0.4.0
 
 ## minor improvements and bug fixes

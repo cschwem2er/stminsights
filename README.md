@@ -26,14 +26,6 @@ is an excellent starting point.
 
 ## How to Install
 
-Important note: The shiny app for the CRAN release of stminsights does
-currently not work properly due to bugs introduced by recent changes in
-the [Shiny](https://github.com/rstudio/shiny) package (see
-[here](https://github.com/cschwem2er/stminsights/issues/16) for more
-details). Please use the Github version of stminsights for now. This
-will require the development version of Shiny which can be installed by
-running `devtools::install_github('rstudio/shiny')`.
-
 You can download and install the latest development version of
 stminsights by running
 `devtools::install_github('cschwem2er/stminsights')`.

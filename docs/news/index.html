@@ -8,21 +8,36 @@
 
 <title>Changelog • stminsights</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +45,10 @@
 
 
 
-<meta property="og:title" content="Changelog" />
 
+<meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stminsights</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
       </span>
     </div>
 
@@ -71,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +110,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/cschwem2er/stminsights">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/cschwem2er/stminsights/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,22 +124,35 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/cschwem2er/stminsights/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="stminsights-040" class="section level1">
-<h1 class="page-header">
-<a href="#stminsights-040" class="anchor"></a>stminsights 0.4.0<small> Unreleased </small>
+    <div id="stminsights-041" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.1">
+<a href="#stminsights-041" class="anchor"></a>stminsights 0.4.1<small> Unreleased </small>
 </h1>
 <div id="minor-improvements-and-bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#minor-improvements-and-bug-fixes" class="anchor"></a>minor improvements and bug fixes</h2>
+<ul>
+<li>update dependencies to fix other bugs related to Shiny</li>
+</ul>
+</div>
+</div>
+    <div id="stminsights-040" class="section level1">
+<h1 class="page-header" data-toc-text="0.4.0">
+<a href="#stminsights-040" class="anchor"></a>stminsights 0.4.0<small> Unreleased </small>
+</h1>
+<div id="minor-improvements-and-bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#minor-improvements-and-bug-fixes-1" class="anchor"></a>minor improvements and bug fixes</h2>
 <ul>
 <li>fixes several bugs introduced by changes in the Shiny package</li>
 <li>improved error messages for correlation graphs in the interactive app</li>
@@ -133,7 +161,7 @@
 </div>
 </div>
     <div id="stminsights-032" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.2">
 <a href="#stminsights-032" class="anchor"></a>stminsights 0.3.2<small> Unreleased </small>
 </h1>
 <div id="new-feature" class="section level2">
@@ -145,7 +173,7 @@
 </div>
 </div>
     <div id="stminsights-031" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.1">
 <a href="#stminsights-031" class="anchor"></a>stminsights 0.3.1<small> Unreleased </small>
 </h1>
 <div id="new-features-implemented-by-jonne-guyt" class="section level2">
@@ -165,7 +193,7 @@
 </div>
 </div>
     <div id="stminsights-030" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.0">
 <a href="#stminsights-030" class="anchor"></a>stminsights 0.3.0<small> 2018-11-24 </small>
 </h1>
 <div id="new-features-implemented-by-jonne-guyt-1" class="section level2">
@@ -189,7 +217,7 @@
 </div>
 </div>
     <div id="stminsights-023" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.3">
 <a href="#stminsights-023" class="anchor"></a>stminsights 0.2.3<small> Unreleased </small>
 </h1>
 <div id="minor-improvements-2" class="section level2">
@@ -201,7 +229,7 @@
 </div>
 </div>
     <div id="stminsights-022" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.2">
 <a href="#stminsights-022" class="anchor"></a>stminsights 0.2.2<small> 2018-08-30 </small>
 </h1>
 <div id="update-dependencies" class="section level2">
@@ -213,7 +241,7 @@
 </div>
 </div>
     <div id="stminsights-021" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.1">
 <a href="#stminsights-021" class="anchor"></a>stminsights 0.2.1<small> Unreleased </small>
 </h1>
 <div id="bug-fix" class="section level2">
@@ -226,7 +254,7 @@
 </div>
 </div>
     <div id="stminsights-020" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0">
 <a href="#stminsights-020" class="anchor"></a>stminsights 0.2.0<small> 2018-05-13 </small>
 </h1>
 <div id="minor-improvements-3" class="section level2">
@@ -240,7 +268,7 @@
 </div>
 </div>
     <div id="stminsights-012" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.2">
 <a href="#stminsights-012" class="anchor"></a>stminsights 0.1.2<small> 2018-02-27 </small>
 </h1>
 <div id="minor-improvements--bug-fix--cran-release" class="section level2">
@@ -255,7 +283,7 @@
 </div>
 </div>
     <div id="stminsights-011" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.1">
 <a href="#stminsights-011" class="anchor"></a>stminsights 0.1.1<small> Unreleased </small>
 </h1>
 <div id="minor-improvements-4" class="section level2">
@@ -268,7 +296,7 @@
 </div>
 </div>
     <div id="stminsights-010" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#stminsights-010" class="anchor"></a>stminsights 0.1.0<small> Unreleased </small>
 </h1>
 <div id="first-release" class="section level2">
@@ -281,40 +309,31 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#stminsights-040">0.4.0</a></li>
-        <li><a href="#stminsights-032">0.3.2</a></li>
-        <li><a href="#stminsights-031">0.3.1</a></li>
-        <li><a href="#stminsights-030">0.3.0</a></li>
-        <li><a href="#stminsights-023">0.2.3</a></li>
-        <li><a href="#stminsights-022">0.2.2</a></li>
-        <li><a href="#stminsights-021">0.2.1</a></li>
-        <li><a href="#stminsights-020">0.2.0</a></li>
-        <li><a href="#stminsights-012">0.1.2</a></li>
-        <li><a href="#stminsights-011">0.1.1</a></li>
-        <li><a href="#stminsights-010">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
 
+
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://www.carstenschwemmer.com'>Carsten Schwemmer</a>.</p>
+  <p>Developed by Carsten Schwemmer.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
