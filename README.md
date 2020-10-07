@@ -10,7 +10,7 @@ Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/stminsight
 [![CRAN
 status](https://www.r-pkg.org/badges/version/stminsights)](https://cran.r-project.org/package=stminsights)
 [![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://cran.rstudio.com/web/packages/stminsights/index.html)
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://cran.r-project.org/package=stminsights)
 
 <img src="man/figures/logo.png" width="800">
 
@@ -20,9 +20,9 @@ This app enables interactive validation, interpretation and
 visualisation of [Structural Topic
 Models](http://structuraltopicmodel.com) (STM). Stminsights is focused
 on making your life easier after fitting your STM models. In case you
-are not familiar with STM, the [package
-vignette](https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf)
-is an excellent starting point.
+are not familiar with the STM
+[package](https://CRAN.R-project.org/package=stm), the corresponding
+vignette is an excellent starting point.
 
 ## How to Install
 
@@ -52,10 +52,8 @@ You can then upload a `.RData` file which should include:
   - an object `out` which was used to fit your stm models.
 
 As an example, the following code fits two models and estimates effects
-for the [Political Blog
-Corpus](http://www.sailing.cs.cmu.edu/main/?page_id=710). Afterwards,
-all objects required for stminsights are stored in
-`stm_poliblog5k.RData`.
+for the Political Blog Corpus. Afterwards, all objects required for
+stminsights are stored in `stm_poliblog5k.RData`.
 
 ``` r
 library(stm)

@@ -216,7 +216,7 @@ The topic proportion of <code>'cov_val2'</code> will be subtracted from the
 
 
 <span class='co'># plot effects</span>
-<span class='no'>effects</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>topic</span> <span class='kw'>==</span> <span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>effects</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span>(<span class='no'>topic</span> <span class='kw'>==</span> <span class='fl'>3</span>) <span class='kw'>%&gt;%</span>
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>proportion</span>)) +
  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_linerange.html'>geom_errorbar</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>1</span>) +
  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span>() + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_light</a></span>() + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>'Treatment'</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>'Topic Proportion'</span>)</div><div class='img'><img src='get_effects-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -230,7 +230,7 @@ The topic proportion of <code>'cov_val2'</code> will be subtracted from the
                           <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'continuous'</span>,
                           <span class='kw'>moderator</span> <span class='kw'>=</span> <span class='st'>'treatment'</span>,
                           <span class='kw'>modval</span> <span class='kw'>=</span> <span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(
+ <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/bind.html'>bind_rows</a></span>(
    <span class='fu'>get_effects</span>(<span class='kw'>estimates</span> <span class='kw'>=</span> <span class='no'>prep_int</span>,
                <span class='kw'>variable</span> <span class='kw'>=</span> <span class='st'>'pid_rep'</span>,
                <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'continuous'</span>,
@@ -239,8 +239,8 @@ The topic proportion of <code>'cov_val2'</code> will be subtracted from the
  )
 
 <span class='co'># plot interaction effects</span>
-<span class='no'>effects_int</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>topic</span> <span class='kw'>==</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>moderator</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>moderator</span>)) <span class='kw'>%&gt;%</span>
+<span class='no'>effects_int</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span>(<span class='no'>topic</span> <span class='kw'>==</span> <span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span>(<span class='kw'>moderator</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span>(<span class='no'>moderator</span>)) <span class='kw'>%&gt;%</span>
  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>proportion</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>moderator</span>,
  <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>moderator</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>moderator</span>)) +
  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>() +
