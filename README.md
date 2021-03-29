@@ -17,10 +17,10 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://c
 ## A Shiny Application for Structural Topic Models
 
 This app enables interactive validation, interpretation and
-visualisation of [Structural Topic
-Models](http://structuraltopicmodel.com/) (STM). Stminsights is focused
-on making your life easier after fitting your STM models. In case you
-are not familiar with the STM
+visualization of [Structural Topic
+Models](https://www.structuraltopicmodel.com/) (STM). Stminsights is
+focused on making your life easier after fitting your STM models. In
+case you are not familiar with the STM
 [package](https://CRAN.R-project.org/package=stm), the corresponding
 vignette is an excellent starting point.
 
@@ -91,17 +91,17 @@ e.g. `get_effects()` for storing effect estimates in a tidy dataframe.
 
 ## How to Deploy on Shiny Server
 
-Deploying stminsights to your own shiny server is simple: Place the file
-`app.R`, which is located at `inst/app` of this package, to a folder in
-your server directory and you should be good to go.
+To deploy stminsights to your own shiny server, place the file `app.R`,
+which is located at `inst/app` of this package, to a folder in your
+server directory and you should be good to go.
 
 ## Citation
 
 Please cite stminsights if you use it for your publications:
 
 ``` 
-  Carsten Schwemmer (2018). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.4.0.
+  Carsten Schwemmer (2021). stminsights: A Shiny Application for Inspecting
+  Structural Topic Models. R package version 0.4.1.
   https://github.com/cschwem2er/stminsights
 ```
 
@@ -111,8 +111,8 @@ A BibTeX entry for LaTeX users is:
   @Manual{,
     title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
     author = {Carsten Schwemmer},
-    year = {2018},
-    note = {R package version 0.4.0},
+    year = {2021},
+    note = {R package version 0.4.1},
     url = {https://github.com/cschwem2er/stminsights},
   }
 ```
