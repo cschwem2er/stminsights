@@ -18,7 +18,7 @@ downloads](https://cranlogs.r-pkg.org/badges/grand-total/stminsights)](https://c
 
 This app enables interactive validation, interpretation and
 visualisation of [Structural Topic
-Models](http://structuraltopicmodel.com) (STM). Stminsights is focused
+Models](http://structuraltopicmodel.com/) (STM). Stminsights is focused
 on making your life easier after fitting your STM models. In case you
 are not familiar with the STM
 [package](https://CRAN.R-project.org/package=stm), the corresponding

@@ -25,7 +25,7 @@ library(quanteda)
 data <- corpus(gadarian, text_field = 'open.ended.response')
 docvars(data)$text <- texts(data)
 data <- dfm(data, stem = TRUE, remove = stopwords('english'),
-            remove_punct = TRUE) \%>\% dfm_trim(min_count = 2)
+            remove_punct = TRUE) \%>\% dfm_trim(min_termfreq = 2)
 out <- convert(data, to = 'stm')
 
 # fit models and effect estimates

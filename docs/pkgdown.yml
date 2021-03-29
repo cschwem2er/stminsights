@@ -1,7 +1,7 @@
 pandoc: 2.7.3
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   intro: intro.html
-last_built: 2020-10-07T11:08Z
+last_built: 2021-03-29T09:39Z
 

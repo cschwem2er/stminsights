@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 ## A Shiny Application for Structural Topic Models
 
-This app enables interactive validation, interpretation and visualisation of [Structural Topic Models](http://structuraltopicmodel.com) (STM).  Stminsights is focused on making your life easier after fitting your STM models. In case you are not familiar with the STM [package](https://CRAN.R-project.org/package=stm), the corresponding vignette is an excellent starting point.
+This app enables interactive validation, interpretation and visualisation of [Structural Topic Models](http://structuraltopicmodel.com/) (STM).  Stminsights is focused on making your life easier after fitting your STM models. In case you are not familiar with the STM [package](https://CRAN.R-project.org/package=stm), the corresponding vignette is an excellent starting point.
 
 ## How to Install
 

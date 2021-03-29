@@ -89,7 +89,7 @@ It requires a .RData file with stm objects as illustrated in the example below."
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +115,7 @@ It requires a .RData file with stm objects as illustrated in the example below."
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/cschwem2er/stminsights/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -142,7 +142,7 @@ It requires a .RData file with stm objects as illustrated in the example below."
 It requires a .RData file with stm objects as illustrated in the example below.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_stminsights</span>(<span class='kw'>use_browser</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>run_stminsights</span><span class='op'>(</span>use_browser <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,50 +157,52 @@ Defaults to <code>TRUE</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
- <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='co'># \dontrun{</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>stm</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>quanteda</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://www.structuraltopicmodel.com/'>stm</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://quanteda.io'>quanteda</a></span><span class='op'>)</span>
 
 <span class='co'># prepare data</span>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span>(<span class='no'>gadarian</span>, <span class='kw'>text_field</span> <span class='kw'>=</span> <span class='st'>'open.ended.response'</span>)
-<span class='fu'><a href='https://quanteda.io/reference/docvars.html'>docvars</a></span>(<span class='no'>data</span>)$<span class='no'>text</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/texts.html'>texts</a></span>(<span class='no'>data</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/dfm.html'>dfm</a></span>(<span class='no'>data</span>, <span class='kw'>stem</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='https://quanteda.io/reference/reexports.html'>stopwords</a></span>(<span class='st'>'english'</span>),
-            <span class='kw'>remove_punct</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://quanteda.io/reference/dfm_trim.html'>dfm_trim</a></span>(<span class='kw'>min_count</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/convert.html'>convert</a></span>(<span class='no'>data</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='st'>'stm'</span>)
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span><span class='op'>(</span><span class='va'>gadarian</span>, text_field <span class='op'>=</span> <span class='st'>'open.ended.response'</span><span class='op'>)</span>
+<span class='fu'><a href='https://quanteda.io/reference/docvars.html'>docvars</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>$</span><span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/texts.html'>texts</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/dfm.html'>dfm</a></span><span class='op'>(</span><span class='va'>data</span>, stem <span class='op'>=</span> <span class='cn'>TRUE</span>, remove <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/stopwords/man/stopwords.html'>stopwords</a></span><span class='op'>(</span><span class='st'>'english'</span><span class='op'>)</span>,
+            remove_punct <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://quanteda.io/reference/dfm_trim.html'>dfm_trim</a></span><span class='op'>(</span>min_termfreq <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/convert.html'>convert</a></span><span class='op'>(</span><span class='va'>data</span>, to <span class='op'>=</span> <span class='st'>'stm'</span><span class='op'>)</span>
 
 <span class='co'># fit models and effect estimates</span>
-<span class='no'>gadarian_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/stm.html'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
-                  <span class='kw'>vocab</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>vocab</span>,
-                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>meta</span>,
-                  <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span>(<span class='no'>pid_rep</span>),
-                  <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-                  <span class='kw'>max.em.its</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
-                  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='va'>gadarian_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/stm.html'>stm</a></span><span class='op'>(</span>documents <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>documents</span>,
+                  vocab <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>vocab</span>,
+                  data <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>meta</span>,
+                  prevalence <span class='op'>=</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>pid_rep</span><span class='op'>)</span>,
+                  K <span class='op'>=</span> <span class='fl'>3</span>,
+                  max.em.its <span class='op'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
+                  verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='no'>prep_3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/estimateEffect.html'>estimateEffect</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span>(<span class='no'>pid_rep</span>), <span class='no'>gadarian_3</span>,
-                         <span class='kw'>meta</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>meta</span>)
+<span class='va'>prep_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/estimateEffect.html'>estimateEffect</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>pid_rep</span><span class='op'>)</span>, <span class='va'>gadarian_3</span>,
+                         meta <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>)</span>
 
-<span class='no'>gadarian_5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/stm.html'>stm</a></span>(<span class='kw'>documents</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>documents</span>,
-                  <span class='kw'>vocab</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>vocab</span>,
-                  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>meta</span>,
-                  <span class='kw'>prevalence</span> <span class='kw'>=</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span>(<span class='no'>pid_rep</span>),
-                  <span class='kw'>K</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-                  <span class='kw'>max.em.its</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
-                  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='va'>gadarian_5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/stm.html'>stm</a></span><span class='op'>(</span>documents <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>documents</span>,
+                  vocab <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>vocab</span>,
+                  data <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>meta</span>,
+                  prevalence <span class='op'>=</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>pid_rep</span><span class='op'>)</span>,
+                  K <span class='op'>=</span> <span class='fl'>5</span>,
+                  max.em.its <span class='op'>=</span> <span class='fl'>1</span>, <span class='co'># reduce computation time for example</span>
+                  verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='no'>prep_5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/estimateEffect.html'>estimateEffect</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span> ~ <span class='no'>treatment</span> + <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span>(<span class='no'>pid_rep</span>), <span class='no'>gadarian_5</span>,
-                         <span class='kw'>meta</span> <span class='kw'>=</span> <span class='no'>out</span>$<span class='no'>meta</span>)
+<span class='va'>prep_5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/estimateEffect.html'>estimateEffect</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span> <span class='op'>~</span> <span class='va'>treatment</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/pkg/stm/man/s.html'>s</a></span><span class='op'>(</span><span class='va'>pid_rep</span><span class='op'>)</span>, <span class='va'>gadarian_5</span>,
+                         meta <span class='op'>=</span> <span class='va'>out</span><span class='op'>$</span><span class='va'>meta</span><span class='op'>)</span>
 
 <span class='co'># save objects in .RData file</span>
-<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save.image</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(), <span class='st'>'/stm_gadarian.RData'</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/save.html'>save.image</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>'/stm_gadarian.RData'</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># launch the app</span>
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
-  <span class='fu'>run_stminsights</span>()
-}
+<span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'>run_stminsights</span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>}</span>
 
-}</div></pre>
+<span class='co'># }</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -216,7 +218,7 @@ Defaults to <code>TRUE</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
