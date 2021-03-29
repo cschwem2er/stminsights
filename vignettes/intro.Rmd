@@ -10,13 +10,14 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 ```
 
 ## A Shiny Application for Inspecting Structural Topic Models 
 
-Topic models are widely used statistical models for reducing the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several [Structural Topic Models](http://structuraltopicmodel.com/) (stm). In case you are not familiar with structural topic models, the stm [package](https://cran.r-project.org/package=stm) vignette is an excellent starting point.
+Topic models are widely used statistical models for reducing the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several [Structural Topic Models](http://www.structuraltopicmodel.com/) (stm). In case you are not familiar with structural topic models, the stm [package](https://cran.r-project.org/package=stm) vignette is an excellent starting point.
 
 ## How to Install
 
@@ -46,7 +47,7 @@ library(quanteda)
 
 # prepare data
 data <- corpus(gadarian, text_field = 'open.ended.response')
-docvars(data)$text <- texts(data)
+docvars(data)$text <- as.character(data)
 data <- dfm(data, stem = TRUE, remove = stopwords('english'),
            remove_punct = TRUE) %>% dfm_trim(min_count = 2)
 out <- convert(data, to = 'stm')
@@ -76,8 +77,8 @@ save.image('stm_gadarian.RData')
 After preparing the `.RData` file, the shiny application can be launched with `run_stminsights()`:
 
 ```{r, eval = FALSE}
-library(stminsights)
-run_stminsights()
+#library(stminsights)
+#run_stminsights()
 ```
 
 <img src="../man/figures/logo.png" width="800">

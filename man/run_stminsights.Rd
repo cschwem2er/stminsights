@@ -23,7 +23,7 @@ library(quanteda)
 
 # prepare data
 data <- corpus(gadarian, text_field = 'open.ended.response')
-docvars(data)$text <- texts(data)
+docvars(data)$text <- as.character(data)
 data <- dfm(data, stem = TRUE, remove = stopwords('english'),
             remove_punct = TRUE) \%>\% dfm_trim(min_termfreq = 2)
 out <- convert(data, to = 'stm')

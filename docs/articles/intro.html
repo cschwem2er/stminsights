@@ -102,7 +102,7 @@
 <div id="a-shiny-application-for-inspecting-structural-topic-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-shiny-application-for-inspecting-structural-topic-models" class="anchor"></a>A Shiny Application for Inspecting Structural Topic Models</h2>
-<p>Topic models are widely used statistical models for reducing the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several <a href="http://structuraltopicmodel.com/">Structural Topic Models</a> (stm). In case you are not familiar with structural topic models, the stm <a href="https://cran.r-project.org/package=stm">package</a> vignette is an excellent starting point.</p>
+<p>Topic models are widely used statistical models for reducing the dimensionality of textual data. Although the approach is quantitative in nature, model selection and validation of topic model results can be quite labor intensive, as it requires qualitative inspection of many documents and terms. This is were stminsights comes in: the package enables interactive validation, interpretation and visualization of one or several <a href="http://www.structuraltopicmodel.com/">Structural Topic Models</a> (stm). In case you are not familiar with structural topic models, the stm <a href="https://cran.r-project.org/package=stm">package</a> vignette is an excellent starting point.</p>
 </div>
 <div id="how-to-install" class="section level2">
 <h2 class="hasAnchor">
@@ -130,7 +130,7 @@
 
 <span class="co"># prepare data</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://quanteda.io/reference/corpus.html">corpus</a></span><span class="op">(</span><span class="va">gadarian</span>, text_field <span class="op">=</span> <span class="st">'open.ended.response'</span><span class="op">)</span>
-<span class="fu"><a href="https://quanteda.io/reference/docvars.html">docvars</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://quanteda.io/reference/texts.html">texts</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+<span class="fu"><a href="https://quanteda.io/reference/docvars.html">docvars</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://quanteda.io/reference/dfm.html">dfm</a></span><span class="op">(</span><span class="va">data</span>, stem <span class="op">=</span> <span class="cn">TRUE</span>, remove <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/stopwords/man/stopwords.html">stopwords</a></span><span class="op">(</span><span class="st">'english'</span><span class="op">)</span>,
            remove_punct <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://quanteda.io/reference/dfm_trim.html">dfm_trim</a></span><span class="op">(</span>min_count <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://quanteda.io/reference/convert.html">convert</a></span><span class="op">(</span><span class="va">data</span>, to <span class="op">=</span> <span class="st">'stm'</span><span class="op">)</span>
@@ -159,8 +159,8 @@
 <a href="#interactive-application" class="anchor"></a>Interactive application</h3>
 <p>After preparing the <code>.RData</code> file, the shiny application can be launched with <code><a href="../reference/run_stminsights.html">run_stminsights()</a></code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cschwem2er/stminsights">stminsights</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/run_stminsights.html">run_stminsights</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co">#library(stminsights)</span>
+<span class="co">#run_stminsights()</span></code></pre></div>
 <p><img src="../man/figures/logo.png" width="800"></p>
 <p>Hovering over UI elements displays tooltips that assist users in navigating through the application. Stminsights is organized as a dashboard with multiple columns that serve different purposes:</p>
 <ul>
