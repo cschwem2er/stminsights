@@ -30,8 +30,12 @@ library(quanteda)
 # prepare data
 data <- corpus(gadarian, text_field = 'open.ended.response')
 docvars(data)$text <- as.character(data)
-data <- dfm(data, stem = TRUE, remove = stopwords('english'),
-            remove_punct = TRUE)
+
+data <- tokens(data, remove_punct = TRUE) |>
+  tokens_wordstem() |>
+  tokens_remove(stopwords('english')) |> dfm() |>
+  dfm_trim(min_termfreq = 2)
+
 out <- convert(data, to = 'stm')
 
 # fit models
@@ -58,7 +62,7 @@ diag <- get_diag(models = list(
                  outobj = out)
 \dontrun{
 # plot diagnostics
-diag \%>\%
+diag |>
 ggplot(aes(x = coherence, y = exclusivity, color = statistic))  +
   geom_text(aes(label = name), nudge_x = 5) + geom_point() +
   labs(x = 'Semantic Coherence', y = 'Exclusivity') + theme_light()

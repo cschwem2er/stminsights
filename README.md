@@ -3,8 +3,6 @@
 
 # stminsights
 
-[![Travis-CI Build
-Status](https://travis-ci.org/cschwem2er/stminsights.svg?branch=master)](https://travis-ci.org/cschwem2er/stminsights)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/cschwem2er/stminsights?branch=master&svg=true)](https://ci.appveyor.com/project/cschwem2er/stminsights)
 [![CRAN
@@ -47,9 +45,9 @@ run_stminsights()
 
 You can then upload a `.RData` file which should include:
 
-  - one or several `stm` objects.
-  - one or several `estimateEffect` objects.
-  - an object `out` which was used to fit your stm models.
+- one or several `stm` objects.
+- one or several `estimateEffect` objects.
+- an object `out` which was used to fit your stm models.
 
 As an example, the following code fits two models and estimates effects
 for the Political Blog Corpus. Afterwards, all objects required for
@@ -99,20 +97,16 @@ server directory and you should be good to go.
 
 Please cite stminsights if you use it for your publications:
 
-``` 
-  Carsten Schwemmer (2021). stminsights: A Shiny Application for Inspecting
-  Structural Topic Models. R package version 0.4.1.
-  https://github.com/cschwem2er/stminsights
-```
+      Carsten Schwemmer (2021). stminsights: A Shiny Application for Inspecting
+      Structural Topic Models. R package version 0.4.1.
+      https://github.com/cschwem2er/stminsights
 
 A BibTeX entry for LaTeX users is:
 
-``` 
-  @Manual{,
-    title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
-    author = {Carsten Schwemmer},
-    year = {2021},
-    note = {R package version 0.4.1},
-    url = {https://github.com/cschwem2er/stminsights},
-  }
-```
+      @Manual{,
+        title = {stminsights: A Shiny Application for Inspecting Structural Topic Models},
+        author = {Carsten Schwemmer},
+        year = {2021},
+        note = {R package version 0.4.1},
+        url = {https://github.com/cschwem2er/stminsights},
+      }

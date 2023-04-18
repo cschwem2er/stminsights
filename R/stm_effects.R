@@ -42,7 +42,7 @@
 #'
 #'
 #' # plot effects
-#' effects %>% filter(topic == 3) %>%
+#' effects |> filter(topic == 3) |>
 #' ggplot(aes(x = value, y = proportion)) +
 #'  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, size = 1) +
 #'  geom_point(size = 3) +
@@ -57,7 +57,7 @@
 #'                           variable = 'pid_rep',
 #'                           type = 'continuous',
 #'                           moderator = 'treatment',
-#'                           modval = 1) %>%
+#'                           modval = 1) |>
 #'  bind_rows(
 #'    get_effects(estimates = prep_int,
 #'                variable = 'pid_rep',
@@ -67,8 +67,8 @@
 #'  )
 #'
 #' # plot interaction effects
-#' effects_int %>% filter(topic == 2) %>%
-#'  mutate(moderator = as.factor(moderator)) %>%
+#' effects_int  |>  filter(topic == 2) |>
+#'  mutate(moderator = as.factor(moderator)) |>
 #'  ggplot(aes(x = value, y = proportion, color = moderator,
 #'  group = moderator, fill = moderator)) +
 #'  geom_line() +
@@ -120,7 +120,7 @@ get_effects <- function(estimates,
   names(data$cis) <- data$topics
   names(data$means) <- data$topics
 
-  tidy_stm <- data$topics %>% purrr::map(function(top) {
+  tidy_stm <- data$topics |> purrr::map(function(top) {
     top <- as.character(top)
 
     if (type == 'difference') {
@@ -133,7 +133,7 @@ get_effects <- function(estimates,
     }
 
     else {
-      cis <- t(data$cis[[top]]) %>% as_tibble() %>%
+      cis <- t(data$cis[[top]]) |> as_tibble() |>
         purrr::set_names(c('lower', 'upper'))
 
       props <-
@@ -141,12 +141,12 @@ get_effects <- function(estimates,
           value = data$uvals,
           proportion = data$means[[top]],
           topic = top
-        ) %>%
+        ) |>
         bind_cols(cis)
     }
   })
 
-  tidy_stm <- tidy_stm %>% bind_rows()
+  tidy_stm <- tidy_stm |> bind_rows()
   tidy_stm$topic <- as.factor(tidy_stm$topic)
   if (type == 'pointestimate') {
     tidy_stm$value <- as.factor(tidy_stm$value)

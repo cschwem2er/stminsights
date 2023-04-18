@@ -1,3 +1,7 @@
+# stminsights 0.4.2
+
+## package dependency updates
+
 # stminsights 0.4.1
 
 ## minor improvements and bug fixes

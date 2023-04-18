@@ -25,7 +25,7 @@ Stminsights can be installed from CRAN by running ``install.packages('stminsight
 
 You can also download the latest development version of the app by running ``devtools::install_github('cschwem2er/stminsights')``.    
 
-For Windows users installing from github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
+For Windows users installing from Github requires proper setup of [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
 
 
 ## How to Use
@@ -47,9 +47,13 @@ library(quanteda)
 
 # prepare data
 data <- corpus(gadarian, text_field = 'open.ended.response')
-docvars(data)$text <- as.character(data)
-data <- dfm(data, stem = TRUE, remove = stopwords('english'),
-           remove_punct = TRUE) %>% dfm_trim(min_count = 2)
+ docvars(data)$text <- as.character(data)
+
+data <- tokens(data, remove_punct = TRUE) |>
+   tokens_wordstem() |>
+   tokens_remove(stopwords('english')) |> dfm() |>
+   dfm_trim(min_termfreq = 2)
+
 out <- convert(data, to = 'stm')
 
 # fit models and effect estimates
@@ -77,8 +81,8 @@ save.image('stm_gadarian.RData')
 After preparing the `.RData` file, the shiny application can be launched with `run_stminsights()`:
 
 ```{r, eval = FALSE}
-#library(stminsights)
-#run_stminsights()
+library(stminsights)
+run_stminsights()
 ```
 
 <img src="../man/figures/logo.png" width="800">

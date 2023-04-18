@@ -61,7 +61,7 @@ effects <- get_effects(estimates = prep,
 
 
 # plot effects
-effects \%>\% filter(topic == 3) \%>\%
+effects |> filter(topic == 3) |>
 ggplot(aes(x = value, y = proportion)) +
  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.1, size = 1) +
  geom_point(size = 3) +
@@ -76,7 +76,7 @@ effects_int <- get_effects(estimates = prep_int,
                           variable = 'pid_rep',
                           type = 'continuous',
                           moderator = 'treatment',
-                          modval = 1) \%>\%
+                          modval = 1) |>
  bind_rows(
    get_effects(estimates = prep_int,
                variable = 'pid_rep',
@@ -86,8 +86,8 @@ effects_int <- get_effects(estimates = prep_int,
  )
 
 # plot interaction effects
-effects_int \%>\% filter(topic == 2) \%>\%
- mutate(moderator = as.factor(moderator)) \%>\%
+effects_int  |>  filter(topic == 2) |>
+ mutate(moderator = as.factor(moderator)) |>
  ggplot(aes(x = value, y = proportion, color = moderator,
  group = moderator, fill = moderator)) +
  geom_line() +

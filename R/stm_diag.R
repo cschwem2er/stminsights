@@ -21,8 +21,12 @@
 #' # prepare data
 #' data <- corpus(gadarian, text_field = 'open.ended.response')
 #' docvars(data)$text <- as.character(data)
-#' data <- dfm(data, stem = TRUE, remove = stopwords('english'),
-#'             remove_punct = TRUE)
+#'
+#' data <- tokens(data, remove_punct = TRUE) |>
+#'   tokens_wordstem() |>
+#'   tokens_remove(stopwords('english')) |> dfm() |>
+#'   dfm_trim(min_termfreq = 2)
+#'
 #' out <- convert(data, to = 'stm')
 #'
 #' # fit models
@@ -49,7 +53,7 @@
 #'                  outobj = out)
 #' \dontrun{
 #' # plot diagnostics
-#' diag %>%
+#' diag |>
 #' ggplot(aes(x = coherence, y = exclusivity, color = statistic))  +
 #'   geom_text(aes(label = name), nudge_x = 5) + geom_point() +
 #'   labs(x = 'Semantic Coherence', y = 'Exclusivity') + theme_light()
@@ -57,6 +61,10 @@
 #'
 #' @import stm
 #' @import dplyr
+#' @importFrom huge huge
+#' @importFrom readr read_tsv
+#' @importFrom scales scientific
+#' @importFrom shinyjs enable
 #' @export
 
 get_diag <- function(models, # list of stm models
@@ -81,7 +89,7 @@ get_diag <- function(models, # list of stm models
       nr_topics = nr_topics_mod
     )
 
-    model_df <- bind_rows(model_df_mean, model_df_median) %>%
+    model_df <- bind_rows(model_df_mean, model_df_median) |>
       mutate(name = y)
     model_df
   })
