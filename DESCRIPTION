@@ -7,7 +7,7 @@ Authors@R: c(
     person("Carsten", "Schwemmer", email = "c.schwem2er@gmail.com", comment = c(ORCID = "0000-0001-9084-946X"), role = c("aut", "cre")),
     person("Jonne", "Guyt", email = "j.y.guyt@uva.nl", role = "ctb")
           )
-URL: https://github.com/cschwem2er/stminsights
+URL: https://github.com/cschwem2er/stminsights, https://cschwem2er.github.io/stminsights/
 BugReports: https://github.com/cschwem2er/stminsights/issues
 Description: This app enables interactive validation, interpretation and visualization of structural topic models from the 'stm' package by Roberts and others (2014) <doi:10.1111/ajps.12103>. It also includes helper functions for model diagnostics and extracting data from effect estimates.
 Imports:
