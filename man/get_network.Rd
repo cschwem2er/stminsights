@@ -6,7 +6,11 @@
 \arguments{
 \item{model}{The stm model for computing the correlation network.}
 
-\item{method}{The method for determining edges. Can be either  \code{'simple'} or  \code{'huge'}.}
+\item{method}{The method for determining edges. Can be either \code{'simple'}
+(default, no additional dependencies) or \code{'huge'} (requires the
+'huge' package to be installed; the network is then computed inside
+\code{\link[stm]{topicCorr}}, which loads 'huge' from 'stm's own
+'Suggests').}
 
 \item{cutoff}{The correlation cutoff criterion for \code{method = 'cutoff'}. Defaults to \code{0.05}.}
 

@@ -5,7 +5,11 @@
 #' as tidygraph objects and add labels and topic proportions.
 #' @param model The stm model for computing the correlation network.
 #'
-#' @param method The method for determining edges. Can be either  \code{'simple'} or  \code{'huge'}.
+#' @param method The method for determining edges. Can be either \code{'simple'}
+#'   (default, no additional dependencies) or \code{'huge'} (requires the
+#'   'huge' package to be installed; the network is then computed inside
+#'   \code{\link[stm]{topicCorr}}, which loads 'huge' from 'stm's own
+#'   'Suggests').
 #'
 #' @param cutoff The correlation cutoff criterion for \code{method = 'cutoff'}. Defaults to \code{0.05}.
 #'

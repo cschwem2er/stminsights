@@ -61,7 +61,7 @@
 #'
 #' @import stm
 #' @import dplyr
-#' @importFrom huge huge
+#' @importFrom stats median
 #' @importFrom readr read_tsv
 #' @importFrom scales scientific
 #' @importFrom shinyjs enable

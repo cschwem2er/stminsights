@@ -1,3 +1,13 @@
+# stminsights 0.4.4
+
+## Fixes for CRAN re-submission
+
+* moved `huge` from Imports to Suggests – the package no longer requires
+  a live `huge`/`netgwas` on CRAN to install
+* added `Depends: R (>= 4.1.0)` to reflect the use of `|>` and `\(…)`
+  syntax
+* clarified documentation for `get_network(method = 'huge')`
+
 # stminsights 0.4.3
 
 ## minor fixes
@@ -47,7 +57,7 @@
 * representative documents are now searchable
 * representative document table now contains (optional) information on: row id, STM document ID and theta
 * proportions can now be plotted for each individual document using the STM document ID
-* documents can be plotted in a (clickable) 2d scatter plot that shows proportions on two topics simultaneously
+* documents can now be plotted in a (clickable) 2d scatter plot that shows proportions on two topics simultaneously
 * document information displayed upon clicking scatter plot
 
 ## Minor improvements
