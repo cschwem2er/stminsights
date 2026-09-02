@@ -3,6 +3,9 @@
 \name{get_network}
 \alias{get_network}
 \title{extract topic correlation network}
+\usage{
+get_network(model, method = "simple", cutoff = 0.05, labels = NULL, cutiso = FALSE)
+}
 \arguments{
 \item{model}{The stm model for computing the correlation network.}
 

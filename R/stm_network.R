@@ -3,6 +3,8 @@
 #' @description
 #' \code{ get_network()} is a helper function to extract topic correlation networks
 #' as tidygraph objects and add labels and topic proportions.
+#' @usage
+#' get_network(model, method = "simple", cutoff = 0.05, labels = NULL, cutiso = FALSE)
 #' @param model The stm model for computing the correlation network.
 #'
 #' @param method The method for determining edges. Can be either \code{'simple'}
